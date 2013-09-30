@@ -433,6 +433,24 @@
         </code></pre>
         </li>
         </ol>
+        <h3>Compoling under Windows</h3>
+        <p>There are some tricks under this platform. For Newton 3.10 particulally. The first trick is the large amount of similar directories
+        with sources and projects. And you could be scared when first taking a look over. Just follow these instructions and you shall not be lost!
+        </p>
+        <ol>
+            <li>Unpack the downloaded archive somewhere, let's say <i>NEWTON_HOME</i></li>
+            <li>Navigate to the <pre>NEWTON_HOME/packages/projects/visualStudio_2008</pre> <i>(replace 2008 with the VS version you have installed)</i></li>
+            <li>Run the <strong>build.sln</strong> file <i>(will be opened in the VS)</i></li>
+            <li>Sequently, choose <b>DebugDLL</b> and when done <b>ReleaseDLL</b> build mode and press <b>Build</b></li>
+            <li>Perform the same build steps for <pre>newton.sln</pre> file at <pre>NEWTON_HOME/coreLibrary_300/projects/windows/project_vs2008/</pre> directory</li>
+        </ol>
+        <p>By default, libraries and DLLs are built to... not very handy places. So we shall add few extra steps to make a life easier:</p>
+        <ol>
+            <li>Create a directory <pre>NEWTON_HOME/lib</pre></li>
+            <li>Copy all the <pre>*.lib</pre> and <pre>*.dll</pre> files from <pre>NEWTON_HOME/packages/projects/visualStudio_2008/Win32/</pre> dir to <pre>NEWTON_HOME/lib</pre></li>
+            <li>Perform the same copying pattern for files within the <pre>NEWTON_HOME/coreLibrary_300/projects/windows/project_vs2008/Win32/</pre> directory</li>
+            <li>Set your IDE to take the library files from <pre>NEWTON_HOME/lib</pre> firectory <i>(for my VS2008 Express and lower that is <b>Tools [Top Menu] -> Options... -> Projects and solutions [left folder] -> VC++ Directories [sub-folder] -> Library files [right top dropdown]</b>)</i></li>
+        </ol>
         <p>And you are ready to proceed with our first Newton- and Irrlicht-powered application!</p>
         <h3 id="the-first-attempt">The first attempt</h3>
         <p>Let's start modifying our Irrlicht sample application. First of all, we shall add some Newton headers:</p>
@@ -555,6 +573,7 @@
         // We'll also define this to stop MSVC complaining about sprintf().
         #define _CRT_SECURE_NO_WARNINGS
         #pragma comment(lib, "Irrlicht.lib")
+        #pragma comment(lib, "Newton.lib")
         #endif
 
         #include &lt;irrlicht.h&gt;
@@ -809,8 +828,10 @@
         **/
         </pre></code>
         <p>Let's compile it and run!</p>
+        <i>Linux build command:</i>
         <pre><code> g++ main.cpp -I/home/user/newton-3.0.8/packages/posix64/ -L/home/user/newton-3.0.8/packages/posix64/ -I/home/user/newton-3.0.8/packages/dMath/ -I/home/user/irrlicht-1.8/include/ -L /home/user/irrlicht-1.8/lib/Linux/ -lNewton -lIrrlicht -lGL -o tuorial01
         </code></pre>
+        <p><strong>Hint:</strong> to make simulation slower and so watch ball falling in detail, make the <i>NewtonUpdate</i> FPS argument even smaller. A thousand times, say.</p>
         <p><strong>Note:</strong> I used the home directory for user named <em>user</em> to store Newton SDK and Irrlicht SDK. You may want to change this!</p>
         <p>If you did everything right, you shall see the metal ball falling right through the camera and down... down... down...</p>
         <h2 id="advanced-application">Advanced application</h2>
