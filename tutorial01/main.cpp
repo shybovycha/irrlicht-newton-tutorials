@@ -1,20 +1,7 @@
-/** Example 004 Movement
-
-This Tutorial shows how to move and animate SceneNodes. The
-basic concept of SceneNodeAnimators is shown as well as manual
-movement of nodes using the keyboard.  We'll demonstrate framerate
-independent movement, which means moving by an amount dependent
-on the duration of the last run of the Irrlicht loop.
-
-Example 19.MouseAndJoystick shows how to handle those kinds of input.
-
-As always, I include the header files, use the irr namespace,
-and tell the linker to link with the .lib file.
-*/
 #ifdef _MSC_VER
-// We'll also define this to stop MSVC complaining about sprintf().
-#define _CRT_SECURE_NO_WARNINGS
-#pragma comment(lib, "Irrlicht.lib")
+    #define _CRT_SECURE_NO_WARNINGS
+    #pragma comment(lib, "Irrlicht.lib")
+    #pragma comment(lib, "Newton.lib")
 #endif
 
 #include <irrlicht.h>
@@ -27,28 +14,17 @@ and tell the linker to link with the .lib file.
 
 using namespace irr;
 
-/*
-To receive events like mouse and keyboard input, or GUI events like "the OK
-button has been clicked", we need an object which is derived from the
-irr::IEventReceiver object. There is only one method to override:
-irr::IEventReceiver::OnEvent(). This method will be called by the engine once
-when an event happens. What we really want to know is whether a key is being
-held down, and so we will remember the current state of each key.
-*/
 class MyEventReceiver : public IEventReceiver
 {
 public:
-    // This is the one method that we have to implement
     virtual bool OnEvent(const SEvent& event)
     {
-        // Remember whether each key is down or up
         if (event.EventType == irr::EET_KEY_INPUT_EVENT)
             KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
 
         return false;
     }
 
-    // This is used to check whether a key is being held down
     virtual bool IsKeyDown(EKEY_CODE keyCode) const
     {
         return KeyIsDown[keyCode];
@@ -56,7 +32,7 @@ public:
 
     MyEventReceiver()
     {
-        for (u32 i=0; i<KEY_KEY_CODES_COUNT; ++i)
+        for (u32 i = 0; i < KEY_KEY_CODES_COUNT; ++i)
             KeyIsDown[i] = false;
     }
 
@@ -66,19 +42,19 @@ private:
 };
 
 // this is the call back for allocation newton memory
-void* AllocMemory (int sizeInBytes)
+void* AllocMemory(int sizeInBytes)
 {
-    return malloc (sizeInBytes);
+    return malloc(sizeInBytes);
 }
 
 // this is the callback for freeing Newton Memory
-void FreeMemory (void *ptr, int sizeInBytes)
+void FreeMemory(void *ptr, int sizeInBytes)
 {
-    free (ptr);
+    free(ptr);
 }
 
 // Transform callback to set the matrix of a the visual entity
-void SetTransformCallback (const NewtonBody* body, const dFloat* matrix, int threadIndex)
+void SetTransformCallback(const NewtonBody* body, const dFloat* matrix, int threadIndex)
 {
     scene::ISceneNode* node;
 
@@ -113,13 +89,6 @@ void ApplyGravity(const NewtonBody* body, dFloat timestep, int threadIndex)
     NewtonBodySetForce(body, &force.m_x);
 }
 
-/*
-The event receiver for keeping the pressed keys is ready, the actual responses
-will be made inside the render loop, right before drawing the scene. So lets
-just create an irr::IrrlichtDevice and the scene node we want to move. We also
-create some other additional scene nodes, to show that there are also some
-different possibilities to move and animate scene nodes.
-*/
 int main()
 {
     // create device
@@ -134,30 +103,23 @@ int main()
     video::IVideoDriver* driver = device->getVideoDriver();
     scene::ISceneManager* smgr = device->getSceneManager();
 
-    /*
-    Create the node which will be moved with the WSAD keys. We create a
-    sphere node, which is a built-in geometry primitive. We place the node
-    at (0,0,30) and assign a texture to it to let it look a little bit more
-    interesting. Because we have no dynamic lights in this scene we disable
-    lighting for each model (otherwise the models would be black).
-    */
     scene::ISceneNode * node = smgr->addSphereSceneNode();
     if (node)
     {
-        node->setPosition(core::vector3df(0,0,30));
+        node->setPosition(core::vector3df(0, 0, 30));
         node->setMaterialTexture(0, driver->getTexture("../media/wall.bmp"));
         node->setMaterialFlag(video::EMF_LIGHTING, false);
     }
 
-    NewtonSetMemorySystem (AllocMemory, FreeMemory);
+    NewtonSetMemorySystem(AllocMemory, FreeMemory);
 
     // create the Newton World
-    NewtonWorld* g_world = NewtonCreate ();
+    NewtonWorld* g_world = NewtonCreate();
 
     // use the standard x87 floating point model
-    // NewtonSetPlatformArchitecture (g_world, 0);
+    // NewtonSetPlatformArchitecture(g_world, 0);
 
-    NewtonSetSolverModel (g_world, 1);
+    NewtonSetSolverModel(g_world, 1);
 
     dMatrix offset(GetIdentityMatrix());
     NewtonCollision* shape = NewtonCreateSphere(g_world, 10.f, 0, &offset[0][0]);
@@ -198,18 +160,22 @@ int main()
     Add a colorful irrlicht logo
     */
     device->getGUIEnvironment()->addImage(
-        driver->getTexture("../media/irrlichtlogoalpha2.tga"),
-        core::position2d<s32>(10,20));
+        driver->getTexture("../media/irrlichtlogoalpha2.tga"), 
+        core::position2d<s32>(10, 20)
+    );
 
     /*
     And one for Newton GD
     */
     device->getGUIEnvironment()->addImage(
         driver->getTexture("../media/newton_logo.png"),
-        core::position2d<s32>(10, 130));
+        core::position2d<s32>(10, 130)
+    );
 
     gui::IGUIStaticText* diagnostics = device->getGUIEnvironment()->addStaticText(
-        L"", core::rect<s32>(10, 10, 400, 20));
+        L"", core::rect<s32>(10, 10, 400, 20)
+    );
+
     diagnostics->setOverrideColor(video::SColor(255, 255, 255, 0));
 
     /*
@@ -230,19 +196,26 @@ int main()
     {
         // Work out a frame delta time.
         const u32 now = device->getTimer()->getTime();
-        const f32 frameDeltaTime = (f32)(now - then) / 1000.f; // Time in seconds
+        const f32 frameDeltaTime = (f32) (now - then) / 1000.f; // Time in seconds
         then = now;
 
-        driver->beginScene(true, true, video::SColor(255,113,113,133));
+        // Rendering goes here
+        driver->beginScene(true, true, video::SColor(255, 113, 113, 133));
 
-        smgr->drawAll(); // draw the 3d scene
-        device->getGUIEnvironment()->drawAll(); // draw the gui environment (the logo)
+            smgr->drawAll(); // draw the 3d scene
+            device->getGUIEnvironment()->drawAll(); // draw the gui environment (the logo)
 
         driver->endScene();
 
         int fps = driver->getFPS();
 
-        NewtonUpdate (g_world, (1.0f / fps));
+        // Physics simulation goes here
+
+        // Slower simulation:
+        // NewtonUpdate (g_world, (1.0f / (fps * 10000.f)));
+
+        // Usual simulation:
+        NewtonUpdate(g_world, (1.0f / fps));
 
         if (lastFPS != fps)
         {
@@ -263,8 +236,3 @@ int main()
 
     return 0;
 }
-
-/*
-That's it. Compile and play around with the program.
-**/
-
