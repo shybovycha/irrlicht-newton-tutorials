@@ -1,5 +1,6 @@
 ---
 layout: post
+date: '2015-08-28T18:05:00+01:00'
 ---
 
 <h2 id="advanced-application">Advanced application</h2>
@@ -14,8 +15,10 @@ layout: post
 <h3 id="first-lua-scripted-c-application">First Lua-scripted C++ application</h3>
 <p>Let's write one small application which will call some Lua script function and react to the Lua script function call. It will be the most simple scripted application you could imagine!</p>
 <p>Here's the <strong>C++</strong> part:</p>
-<code><pre class="brush: cpp">#include &lt;lua.hpp&gt;
-#include &lt;iostream&gt;
+
+{% highlight cpp %}
+#include <lua.hpp>
+#include <iostream>
 
 using namespace std;
 
@@ -23,9 +26,9 @@ int someServerHandler(lua_State  *l)
 {
     int argc = lua_gettop(l);
 
-    for (int i = 0; i &lt; argc; i++)
+    for (int i = 0; i < argc; i++)
     {
-        cout &lt;&lt; "ARG[" &lt;&lt; i + 1 &lt;&lt; "] = " &lt;&lt; lua_tostring(l, i + 1) &lt;&lt; endl;
+        cout << "ARG[" << i + 1 << "] = " << lua_tostring(l, i + 1) << endl;
     }
 
     lua_pushstring(l, "m_pi");
@@ -49,7 +52,7 @@ int main()
     if (!lua_isfunction(l, -1))
     {
             lua_pop(l, 1);
-            cout &lt;&lt; "Could not find function someScriptHandler" &lt;&lt; endl;
+            cout << "Could not find function someScriptHandler" << endl;
     } else
     {
             lua_pushstring(l, "event_argument");
@@ -62,9 +65,12 @@ int main()
 
     return 0;
 }
-</pre></code>
+{% endhighlight %}
+
 <p>And here is our little script:</p>
-<pre><code>function someScriptHandler(x)
+
+{% highlight lua %}
+function someScriptHandler(x)
     print("someScriptHandler("..x..")");
 end
 
@@ -75,6 +81,7 @@ print(someScriptEvent());
 for k, v in res do
     print(k.." = "..v);
 end
-</code></pre>
+{% endhighlight %}
+
 <p>That's it! Here what we've done: we created a C++ application which runs <code>script.lua</code> file and calls its function <code>someScriptHandler()</code>. And whenever script calls the <code>someScriptEvent()</code> function, our C++ application reacts calling its <code>someServerHandler()</code> function.</p>
 <p>Hey! We have just written our first scripted server! Although, it does nothing useful, it's a real scripted application! Now we are cool guys and could proceed creating an AAA-games' compete!</p>

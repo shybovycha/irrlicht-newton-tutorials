@@ -1,5 +1,6 @@
 ---
 layout: post
+date: '2015-08-28T18:04:00+01:00'
 ---
 
 <h2 id="adding-some-newtonianity">Adding some Newtonianity</h2>
@@ -10,7 +11,7 @@ layout: post
 <li>Download Newton 3.0.8+ SDK and unpack it somewhere on your PC</li>
 <li>
 <p>Open your terminal, navigate to the directory where you've unpacked Newton SDK and run this:</p>
-<pre><code>cd coreLibrary_300/projects/posix64 &amp;&amp; make
+<pre><code>cd coreLibrary_300/projects/posix64 && make
 </code></pre>
 </li>
 <li>
@@ -40,19 +41,21 @@ with sources and projects. And you could be scared when first taking a look over
 <p>And you are ready to proceed with our first Newton- and Irrlicht-powered application!</p>
 <h3 id="the-first-attempt">The first attempt</h3>
 <p>Let's start modifying our Irrlicht sample application. First of all, we shall add some Newton headers:</p>
-<pre><code>#include &lt;dMathDefines.h&gt;
-#include &lt;dVector.h&gt;
-#include &lt;dQuaternion.h&gt;
-#include &lt;dMatrix.h&gt;
-#include &lt;Newton.h&gt;
-</code></pre>
+{% highlight cpp %}
+#include<dMathDefines.h>
+#include<dVector.h>
+#include<dQuaternion.h>
+#include<dMatrix.h>
+#include<Newton.h>
+{% endhighlight %}
 <p>These will include all the data structures and functions we shall use.</p>
 <p>And here goes the first Newton call function:</p>
 <pre><code>NewtonSetMemorySystem(AllocMemory, FreeMemory);
 </code></pre>
 <p>Add this right after Irrlicht initialization. And all the code below (except the <em>Newton world stepping</em> and <em>function definitions</em>) shall be added after this line.</p>
 <p>One sets the way Newton shall manage objects in memory. If you want to define your cool way to serve memory allocation and freement - just define that logic within those two methods. But for now we shall use the <code>stdlib</code> methods:</p>
-<pre><code>void* AllocMemory(int sizeInBytes)
+{% highlight cpp %}
+void* AllocMemory(int sizeInBytes)
 {
     return malloc(sizeInBytes);
 }
@@ -61,40 +64,43 @@ void FreeMemory(void *ptr, int sizeInBytes)
 {
     free(ptr);
 }
-</code></pre>
+{% endhighlight %}
 <p>Then, we create a Newton world. This is a virtual space where all the magic is done. It shall contain all our mesh' (<em>visual part of The Entity</em>) bodies (<em>invisible physical part of The Entity</em>).</p>
-<pre><code>NewtonWorld* g_world = NewtonCreate();
+{% highlight cpp %}
+NewtonWorld* g_world = NewtonCreate();
 NewtonSetSolverModel(g_world, 1);
-</code></pre>
+{% endhighlight %}
 <p>Solver is the way Newton performs calculations. That is just a configuration option. Yet, important one.</p>
 <p>Now, let's create our first Entity! Remember the Sphere node, we created with Irrlicht? We shall now add some magic to make it act like a metal ball!</p>
 <p>First of all, let's remember how we created our Sphere mesh:</p>
-<pre><code>scene::ISceneNode * node = smgr-&gt;addSphereSceneNode();
+{% highlight cpp %}
+scene::ISceneNode * node = smgr->addSphereSceneNode();
 
 if (node)
 {
-    node-&gt;setPosition(core::vector3df(0,0,30));
-    node-&gt;setMaterialTexture(0, driver-&gt;getTexture("../media/wall.bmp"));
-    node-&gt;setMaterialFlag(video::EMF_LIGHTING, false);
+    node->setPosition(core::vector3df(0,0,30));
+    node->setMaterialTexture(0, driver->getTexture("../media/wall.bmp"));
+    node->setMaterialFlag(video::EMF_LIGHTING, false);
 }
-</code></pre>
+{% endhighlight %}
 <p><strong>Note:</strong> do not forget to copy Irrlicht <code>/media</code> directory to the parent directory for the tutorial sample!</p>
 <p>Now just add these lines right after the Sphere' mesh creation code:</p>
-<pre><code>dMatrix offset(GetIdentityMatrix());
-NewtonCollision* shape = NewtonCreateSphere(g_world, 10.f, 0, &amp;offset[0][0]);
+{% highlight cpp %}
+dMatrix offset(GetIdentityMatrix());
+NewtonCollision* shape = NewtonCreateSphere(g_world, 10.f, 0, &offset[0][0]);
 
-NewtonBody* body = NewtonCreateDynamicBody(g_world, shape, &amp;offset[0][0]);
+NewtonBody* body = NewtonCreateDynamicBody(g_world, shape, &offset[0][0]);
 
 NewtonBodySetUserData(body, node);
 
 dVector origin;
 dVector inertia;
-NewtonConvexCollisionCalculateInertialMatrix(shape, &amp;inertia[0], &amp;origin[0]);
+NewtonConvexCollisionCalculateInertialMatrix(shape, &inertia[0], &origin[0]);
 
 float mass = 16.f;
 NewtonBodySetMassMatrix(body, mass, mass * inertia.m_x, mass * inertia.m_y, mass * inertia.m_z);
 
-NewtonBodySetCentreOfMass(body, &amp;origin[0]);*/
+NewtonBodySetCentreOfMass(body, &origin[0]);
 
 float mass = 16.f;
 NewtonBodySetMassProperties(body, mass, shape);
@@ -104,7 +110,7 @@ NewtonBodySetMaterialGroupID(body, 0);
 NewtonBodySetForceAndTorqueCallback(body, ApplyGravity);
 
 NewtonBodySetTransformCallback(body, SetTransformCallback);
-</code></pre>
+{% endhighlight %}
 <p>And define two functions, <code>SetTransformCallback</code> and <code>ApplyGravity</code>:</p>
 <pre><code>void SetTransformCallback (const NewtonBody* body, const dFloat* matrix, int threadIndex)
 {
@@ -114,7 +120,7 @@ NewtonBodySetTransformCallback(body, SetTransformCallback);
     dVector position(matrix[12], matrix[13], matrix[14], 1.0f);
     dQuaternion rotation;
 
-    NewtonBodyGetRotation(body, &amp;rotation.m_q0);
+    NewtonBodyGetRotation(body, &rotation.m_q0);
 
     // get the entity associated with this rigid body
     node = (scene::ISceneNode*) NewtonBodyGetUserData(body);
@@ -127,22 +133,23 @@ NewtonBodySetTransformCallback(body, SetTransformCallback);
     tmp_quaternion.toEuler(tmp_rotation);
     core::vector3df node_rotation(core::radToDeg(tmp_rotation.X), core::radToDeg(tmp_rotation.Y), core::radToDeg(tmp_rotation.Z));
 
-    node-&gt;setPosition(node_position);
-    node-&gt;setRotation(node_rotation);
+    node->setPosition(node_position);
+    node->setRotation(node_rotation);
 }
 
 void ApplyGravity(const NewtonBody* body, dFloat timestep, int threadIndex)
 {
     dFloat Ixx, Iyy, Izz, mass;
-    NewtonBodyGetMassMatrix(body, &amp;mass, &amp;Ixx, &amp;Iyy, &amp;Izz);
+    NewtonBodyGetMassMatrix(body, &mass, &Ixx, &Iyy, &Izz);
     dVector force(0.f, -9.8 * mass, 0.f);
-    NewtonBodySetForce(body, &amp;force.m_x);
+    NewtonBodySetForce(body, &force.m_x);
 }
 </code></pre>
 <p>First of them synchronizes Irrlicht meshes with their Newtonian bodies. The second one Applies some default forces and torques to bodies.</p>
 <p>And the last step is Newton stepping. It shall tell Newton: <em>Hey! You! Just update my physics! Now!</em> And all the magic shall be performed.</p>
 <p>You should end up with the code like this:</p>
-<code><pre class="brush: cpp">/** Example 004 Movement
+{% highlight cpp %}
+/** Example 004 Movement
 
 This Tutorial shows how to move and animate SceneNodes. The
 basic concept of SceneNodeAnimators is shown as well as manual
@@ -162,13 +169,13 @@ and tell the linker to link with the .lib file.
 #pragma comment(lib, "Newton.lib")
 #endif
 
-#include &lt;irrlicht.h&gt;
+#include <irrlicht.h>
 
-#include &lt;dMathDefines.h&gt;
-#include &lt;dVector.h&gt;
-#include &lt;dQuaternion.h&gt;
-#include &lt;dMatrix.h&gt;
-#include &lt;Newton.h&gt;
+#include <dMathDefines.h>
+#include <dVector.h>
+#include <dQuaternion.h>
+#include <dMatrix.h>
+#include <Newton.h>
 
 using namespace irr;
 
@@ -184,7 +191,7 @@ class MyEventReceiver : public IEventReceiver
 {
 public:
     // This is the one method that we have to implement
-    virtual bool OnEvent(const SEvent&amp; event)
+    virtual bool OnEvent(const SEvent& event)
     {
         // Remember whether each key is down or up
         if (event.EventType == irr::EET_KEY_INPUT_EVENT)
@@ -201,7 +208,7 @@ public:
 
     MyEventReceiver()
     {
-        for (u32 i=0; i&lt;KEY_KEY_CODES_COUNT; ++i)
+        for (u32 i=0; i<KEY_KEY_CODES_COUNT; ++i)
             KeyIsDown[i] = false;
     }
 
@@ -232,7 +239,7 @@ void SetTransformCallback (const NewtonBody* body, const dFloat* matrix, int thr
     dQuaternion rotation;
 
     // we will ignore the Rotation part of matrix and use the quaternion rotation stored in the body
-    NewtonBodyGetRotation(body, &amp;rotation.m_q0);
+    NewtonBodyGetRotation(body, &rotation.m_q0);
 
     // get the entity associated with this rigid body
     node = (scene::ISceneNode*) NewtonBodyGetUserData(body);
@@ -246,16 +253,16 @@ void SetTransformCallback (const NewtonBody* body, const dFloat* matrix, int thr
 
     // since this tutorial run the physics and a different fps than the Graphics
     // we need to save the entity current transformation state before updating the new state.
-    node-&gt;setPosition(node_position);
-    node-&gt;setRotation(node_rotation);
+    node->setPosition(node_position);
+    node->setRotation(node_rotation);
 }
 
 void ApplyGravity(const NewtonBody* body, dFloat timestep, int threadIndex)
 {
     dFloat Ixx, Iyy, Izz, mass;
-    NewtonBodyGetMassMatrix(body, &amp;mass, &amp;Ixx, &amp;Iyy, &amp;Izz);
+    NewtonBodyGetMassMatrix(body, &mass, &Ixx, &Iyy, &Izz);
     dVector force(0.f, -9.8 * mass, 0.f);
-    NewtonBodySetForce(body, &amp;force.m_x);
+    NewtonBodySetForce(body, &force.m_x);
 }
 
 /*
@@ -271,13 +278,13 @@ int main()
     MyEventReceiver receiver;
 
     IrrlichtDevice* device = createDevice(irr::video::EDT_OPENGL,
-            core::dimension2d&lt;u32&gt;(640, 480), 16, false, false, false, &amp;receiver);
+            core::dimension2d<u32>(640, 480), 16, false, false, false, &receiver);
 
     if (device == 0)
         return 1; // could not create selected driver.
 
-    video::IVideoDriver* driver = device-&gt;getVideoDriver();
-    scene::ISceneManager* smgr = device-&gt;getSceneManager();
+    video::IVideoDriver* driver = device->getVideoDriver();
+    scene::ISceneManager* smgr = device->getSceneManager();
 
     /*
     Create the node which will be moved with the WSAD keys. We create a
@@ -286,12 +293,12 @@ int main()
     interesting. Because we have no dynamic lights in this scene we disable
     lighting for each model (otherwise the models would be black).
     */
-    scene::ISceneNode * node = smgr-&gt;addSphereSceneNode();
+    scene::ISceneNode * node = smgr->addSphereSceneNode();
     if (node)
     {
-        node-&gt;setPosition(core::vector3df(0,0,30));
-        node-&gt;setMaterialTexture(0, driver-&gt;getTexture("../media/wall.bmp"));
-        node-&gt;setMaterialFlag(video::EMF_LIGHTING, false);
+        node->setPosition(core::vector3df(0,0,30));
+        node->setMaterialTexture(0, driver->getTexture("../media/wall.bmp"));
+        node->setMaterialFlag(video::EMF_LIGHTING, false);
     }
 
     NewtonSetMemorySystem (AllocMemory, FreeMemory);
@@ -305,23 +312,23 @@ int main()
     NewtonSetSolverModel (g_world, 1);
 
     dMatrix offset(GetIdentityMatrix());
-    NewtonCollision* shape = NewtonCreateSphere(g_world, 10.f, 0, &amp;offset[0][0]);
+    NewtonCollision* shape = NewtonCreateSphere(g_world, 10.f, 0, &offset[0][0]);
 
-    NewtonBody* body = NewtonCreateDynamicBody(g_world, shape, &amp;offset[0][0]);
+    NewtonBody* body = NewtonCreateDynamicBody(g_world, shape, &offset[0][0]);
 
     NewtonBodySetUserData(body, node);
 
-    /*//dMatrix matrix(node-&gt;getRotation(), ent-&gt;m_curPosition);
-    //NewtonBodySetMatrix (body, &amp;matrix[0][0]);
+    /*//dMatrix matrix(node->getRotation(), ent->m_curPosition);
+    //NewtonBodySetMatrix (body, &matrix[0][0]);
 
     dVector origin;
     dVector inertia;
-    NewtonConvexCollisionCalculateInertialMatrix(shape, &amp;inertia[0], &amp;origin[0]);
+    NewtonConvexCollisionCalculateInertialMatrix(shape, &inertia[0], &origin[0]);
 
     float mass = 16.f;
     NewtonBodySetMassMatrix(body, mass, mass * inertia.m_x, mass * inertia.m_y, mass * inertia.m_z);
 
-    NewtonBodySetCentreOfMass(body, &amp;origin[0]);*/
+    NewtonBodySetCentreOfMass(body, &origin[0]);*/
 
     float mass = 16.f;
     NewtonBodySetMassProperties(body, mass, shape);
@@ -336,26 +343,26 @@ int main()
     To be able to look at and move around in this scene, we create a first
     person shooter style camera and make the mouse cursor invisible.
     */
-    smgr-&gt;addCameraSceneNodeFPS();
-    device-&gt;getCursorControl()-&gt;setVisible(false);
+    smgr->addCameraSceneNodeFPS();
+    device->getCursorControl()->setVisible(false);
 
     /*
     Add a colorful irrlicht logo
     */
-    device-&gt;getGUIEnvironment()-&gt;addImage(
-        driver-&gt;getTexture("../media/irrlichtlogoalpha2.tga"),
-        core::position2d&lt;s32&gt;(10,20));
+    device->getGUIEnvironment()->addImage(
+        driver->getTexture("../media/irrlichtlogoalpha2.tga"),
+        core::position2d<s32>(10,20));
 
     /*
     And one for Newton GD
     */
-    device-&gt;getGUIEnvironment()-&gt;addImage(
-        driver-&gt;getTexture("../media/newton_logo.png"),
-        core::position2d&lt;s32&gt;(10, 130));
+    device->getGUIEnvironment()->addImage(
+        driver->getTexture("../media/newton_logo.png"),
+        core::position2d<s32>(10, 130));
 
-    gui::IGUIStaticText* diagnostics = device-&gt;getGUIEnvironment()-&gt;addStaticText(
-        L"", core::rect&lt;s32&gt;(10, 10, 400, 20));
-    diagnostics-&gt;setOverrideColor(video::SColor(255, 255, 255, 0));
+    gui::IGUIStaticText* diagnostics = device->getGUIEnvironment()->addStaticText(
+        L"", core::rect<s32>(10, 10, 400, 20));
+    diagnostics->setOverrideColor(video::SColor(255, 255, 255, 0));
 
     /*
     We have done everything, so lets draw it. We also write the current
@@ -366,37 +373,37 @@ int main()
 
     // In order to do framerate independent movement, we have to know
     // how long it was since the last frame
-    u32 then = device-&gt;getTimer()-&gt;getTime();
+    u32 then = device->getTimer()->getTime();
 
     // This is the movemen speed in units per second.
     const f32 MOVEMENT_SPEED = 5.f;
 
-    while(device-&gt;run())
+    while(device->run())
     {
         // Work out a frame delta time.
-        const u32 now = device-&gt;getTimer()-&gt;getTime();
+        const u32 now = device->getTimer()->getTime();
         const f32 frameDeltaTime = (f32)(now - then) / 1000.f; // Time in seconds
         then = now;
 
-        driver-&gt;beginScene(true, true, video::SColor(255,113,113,133));
+        driver->beginScene(true, true, video::SColor(255,113,113,133));
 
-        smgr-&gt;drawAll(); // draw the 3d scene
-        device-&gt;getGUIEnvironment()-&gt;drawAll(); // draw the gui environment (the logo)
+        smgr->drawAll(); // draw the 3d scene
+        device->getGUIEnvironment()->drawAll(); // draw the gui environment (the logo)
 
-        driver-&gt;endScene();
+        driver->endScene();
 
-        int fps = driver-&gt;getFPS();
+        int fps = driver->getFPS();
 
         NewtonUpdate (g_world, (1.0f / fps));
 
         if (lastFPS != fps)
         {
             core::stringw tmp(L"Newton + Irrlicht Tutorial 01 [");
-            tmp += driver-&gt;getName();
+            tmp += driver->getName();
             tmp += L"] fps: ";
             tmp += fps;
 
-            device-&gt;setWindowCaption(tmp.c_str());
+            device->setWindowCaption(tmp.c_str());
             lastFPS = fps;
         }
     }
@@ -404,7 +411,7 @@ int main()
     /*
     In the end, delete the Irrlicht device.
     */
-    device-&gt;drop();
+    device->drop();
 
     return 0;
 }
@@ -412,11 +419,12 @@ int main()
 /*
 That's it. Compile and play around with the program.
 **/
-</pre></code>
+{% endhighlight %}
 <p>Let's compile it and run!</p>
 <i>Linux build command:</i>
-<pre><code> g++ main.cpp -I/home/user/newton-3.0.8/packages/posix64/ -L/home/user/newton-3.0.8/packages/posix64/ -I/home/user/newton-3.0.8/packages/dMath/ -I/home/user/irrlicht-1.8/include/ -L /home/user/irrlicht-1.8/lib/Linux/ -lNewton -lIrrlicht -lGL -o tuorial01
-</code></pre>
+{% highlight bash %}
+g++ main.cpp -I/home/user/newton-3.0.8/packages/posix64/ -L/home/user/newton-3.0.8/packages/posix64/ -I/home/user/newton-3.0.8/packages/dMath/ -I/home/user/irrlicht-1.8/include/ -L /home/user/irrlicht-1.8/lib/Linux/ -lNewton -lIrrlicht -lGL -o tuorial01
+{% endhighlight %}
 <p><strong>Hint:</strong> to make simulation slower and so watch ball falling in detail, make the <i>NewtonUpdate</i> FPS argument even smaller. A thousand times, say.</p>
 <p><strong>Note:</strong> I used the home directory for user named <em>user</em> to store Newton SDK and Irrlicht SDK. You may want to change this!</p>
 <p>If you did everything right, you shall see the metal ball falling right through the camera and down... down... down...</p>

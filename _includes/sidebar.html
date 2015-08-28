@@ -1,12 +1,15 @@
 <a class="logo" href="/">G</a>
+
+{% assign pages = site.posts | sort:"date" %}
+
 <ul class="nav">
-    <li class="active"><a href="{% post_url 2015-08-28-introduction %}">Introduction</a></li>
-    <li class="active"><a href="{% post_url 2015-08-28-irrlicht-basics %}">Irrlicht basics</a></li>
-    <li class="active"><a href="{% post_url 2015-08-28-first-application %}">First application</a></li>
-    <li class="active"><a href="{% post_url 2015-08-28-adding-some-newtonality %}">Adding some newtonality</a></li>
-    <li class="active"><a href="{% post_url 2015-08-28-advanced-application %}">Advanced application</a></li>
+  {% for p in pages %}
+    <li {% if p.url == page.url %}class="active"{% endif %}>
+      <a href="{{ p.url }}">{{ p.title }}</a>
+    </li>
+  {% endfor %}
 </ul>
 
-<div class="nav hidden-xs" id="sidebar-footer">
+<div class="hidden-xs" id="sidebar-footer">
   {% include footer.html %}
 </div>

@@ -9,12 +9,12 @@
   <title>First Application</title>
   <meta name="description" content="First applicationOur first application will show you Irrlicht basic features we will use later. They are: mesh handling - loading, rendering, animating, etc....">
 
-  <link rel="stylesheet" href="http://shybovycha.github.io/irrlicht-newton-tutorials//css/main.css">
-  <link rel="canonical" href="http://shybovycha.github.io/irrlicht-newton-tutorials/http://shybovycha.github.io/irrlicht-newton-tutorials//2015/08/28/first-application.html">
-  <link rel="alternate" type="application/rss+xml" title="Irrlicht Newton Tutorials" href="http://shybovycha.github.io/irrlicht-newton-tutorials/http://shybovycha.github.io/irrlicht-newton-tutorials//feed.xml" />
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://shybovycha.github.io/irrlicht-newton-tutorials//2015/08/28/first-application.html">
+  <link rel="alternate" type="application/rss+xml" title="Irrlicht Newton Tutorials" href="http://shybovycha.github.io/irrlicht-newton-tutorials//feed.xml" />
 
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-  <script type="text/javascript" src="http://shybovycha.github.io/irrlicht-newton-tutorials//js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 </head>
 
 
@@ -24,37 +24,56 @@
         <div class="row">
           <div class="column col-sm-3" id="sidebar">
             <a class="logo" href="/">G</a>
+
+
+
 <ul class="nav">
-    <li class="active"><a href="/2015/08/28/introduction.html">Introduction</a></li>
-    <li class="active"><a href="/2015/08/28/irrlicht-basics.html">Irrlicht basics</a></li>
-    <li class="active"><a href="/2015/08/28/first-application.html">First application</a></li>
-    <li class="active"><a href="/2015/08/28/adding-some-newtonality.html">Adding some newtonality</a></li>
-    <li class="active"><a href="/2015/08/28/advanced-application.html">Advanced application</a></li>
+  
+    <li >
+      <a href="/2015/08/28/introduction.html">Introduction</a>
+    </li>
+  
+    <li >
+      <a href="/2015/08/28/irrlicht-basics.html">Irrlicht Basics</a>
+    </li>
+  
+    <li class="active">
+      <a href="/2015/08/28/first-application.html">First Application</a>
+    </li>
+  
+    <li >
+      <a href="/2015/08/28/adding-some-newtonality.html">Adding Some Newtonality</a>
+    </li>
+  
+    <li >
+      <a href="/2015/08/28/advanced-application.html">Advanced Application</a>
+    </li>
+  
 </ul>
 
-<div class="nav hidden-xs" id="sidebar-footer">
+<div class="hidden-xs" id="sidebar-footer">
   <footer class="site-footer">
   <div class="row">
     <div class="col-sm-6 text-center">
       
-      <a class="btn btn-default" href="https://github.com/shybovycha">
+      <a class="btn btn-info" href="https://github.com/shybovycha">
           <span class="icon  icon--github">
             <svg viewBox="0 0 16 16" style="width: 16px; height: 16px;">
-              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              <path fill="#818181" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
             </svg>
           </span>
 
-          <span class="username">shybovycha</span>
+          shybovycha
       </a>
       
     </div>
 
     <div class="col-sm-6 text-center">
       
-      <a class="btn btn-default" href="https://twitter.com/shybovycha">
+      <a class="btn btn-info" href="https://twitter.com/shybovycha">
           <span class="icon  icon--twitter">
             <svg viewBox="0 0 16 16" style="width: 16px; height: 16px;">
-              <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+              <path fill="#818181" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
               c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
             </svg>
           </span>
@@ -75,338 +94,357 @@
   <h3 id="first-application">First application</h3>
 <p>Our first application will show you Irrlicht basic features we will use later. They are: <strong>mesh handling</strong> - loading, rendering, animating, etc.; <strong>user input handling</strong> - reacting to keyboard and mouse events; <strong>user interface (UI)</strong> - displaying some information within the application window.</p>
 <p>The good start for that is standard example from Irrlicht pack, the <strong>04 - Movement</strong> one. Let's take a look over its code:</p>
-<code><pre class="brush: cpp">/** Example 004 Movement
 
-This Tutorial shows how to move and animate SceneNodes. The
-basic concept of SceneNodeAnimators is shown as well as manual
-movement of nodes using the keyboard.  We'll demonstrate framerate
-independent movement, which means moving by an amount dependent
-on the duration of the last run of the Irrlicht loop.
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cm">/** Example 004 Movement</span>
 
-Example 19.MouseAndJoystick shows how to handle those kinds of input.
+<span class="cm">This Tutorial shows how to move and animate SceneNodes. The</span>
+<span class="cm">basic concept of SceneNodeAnimators is shown as well as manual</span>
+<span class="cm">movement of nodes using the keyboard.  We&#39;ll demonstrate framerate</span>
+<span class="cm">independent movement, which means moving by an amount dependent</span>
+<span class="cm">on the duration of the last run of the Irrlicht loop.</span>
 
-As always, I include the header files, use the irr namespace,
-and tell the linker to link with the .lib file.
-*/
-#ifdef _MSC_VER
-// We'll also define this to stop MSVC complaining about sprintf().
-#define _CRT_SECURE_NO_WARNINGS
-#pragma comment(lib, "Irrlicht.lib")
-#endif
+<span class="cm">Example 19.MouseAndJoystick shows how to handle those kinds of input.</span>
 
-#include &lt;irrlicht.h&gt;
+<span class="cm">As always, I include the header files, use the irr namespace,</span>
+<span class="cm">and tell the linker to link with the .lib file.</span>
+<span class="cm">*/</span>
+<span class="cp">#ifdef _MSC_VER</span>
+<span class="c1">// We&#39;ll also define this to stop MSVC complaining about sprintf().</span>
+<span class="cp">#define _CRT_SECURE_NO_WARNINGS</span>
+<span class="cp">#pragma comment(lib, &quot;Irrlicht.lib&quot;)</span>
+<span class="cp">#endif</span>
 
-using namespace irr;
+<span class="cp">#include &lt;irrlicht.h&gt;</span>
 
-/*
-To receive events like mouse and keyboard input, or GUI events like "the OK
-button has been clicked", we need an object which is derived from the
-irr::IEventReceiver object. There is only one method to override:
-irr::IEventReceiver::OnEvent(). This method will be called by the engine once
-when an event happens. What we really want to know is whether a key is being
-held down, and so we will remember the current state of each key.
-*/
-class MyEventReceiver : public IEventReceiver
-{
-public:
-    // This is the one method that we have to implement
-    virtual bool OnEvent(const SEvent&amp; event)
-    {
-        // Remember whether each key is down or up
-        if (event.EventType == irr::EET_KEY_INPUT_EVENT)
-            KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">irr</span><span class="p">;</span>
 
-        return false;
-    }
+<span class="cm">/*</span>
+<span class="cm">To receive events like mouse and keyboard input, or GUI events like &quot;the OK</span>
+<span class="cm">button has been clicked&quot;, we need an object which is derived from the</span>
+<span class="cm">irr::IEventReceiver object. There is only one method to override:</span>
+<span class="cm">irr::IEventReceiver::OnEvent(). This method will be called by the engine once</span>
+<span class="cm">when an event happens. What we really want to know is whether a key is being</span>
+<span class="cm">held down, and so we will remember the current state of each key.</span>
+<span class="cm">*/</span>
+<span class="k">class</span> <span class="nc">MyEventReceiver</span> <span class="o">:</span> <span class="k">public</span> <span class="n">IEventReceiver</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="c1">// This is the one method that we have to implement</span>
+    <span class="k">virtual</span> <span class="kt">bool</span> <span class="n">OnEvent</span><span class="p">(</span><span class="k">const</span> <span class="n">SEvent</span><span class="o">&amp;</span> <span class="n">event</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Remember whether each key is down or up</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="n">EventType</span> <span class="o">==</span> <span class="n">irr</span><span class="o">::</span><span class="n">EET_KEY_INPUT_EVENT</span><span class="p">)</span>
+            <span class="n">KeyIsDown</span><span class="p">[</span><span class="n">event</span><span class="p">.</span><span class="n">KeyInput</span><span class="p">.</span><span class="n">Key</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="p">.</span><span class="n">KeyInput</span><span class="p">.</span><span class="n">PressedDown</span><span class="p">;</span>
 
-    // This is used to check whether a key is being held down
-    virtual bool IsKeyDown(EKEY_CODE keyCode) const
-    {
-        return KeyIsDown[keyCode];
-    }
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    MyEventReceiver()
-    {
-        for (u32 i=0; i&lt;KEY_KEY_CODES_COUNT; ++i)
-            KeyIsDown[i] = false;
-    }
+    <span class="c1">// This is used to check whether a key is being held down</span>
+    <span class="k">virtual</span> <span class="kt">bool</span> <span class="n">IsKeyDown</span><span class="p">(</span><span class="n">EKEY_CODE</span> <span class="n">keyCode</span><span class="p">)</span> <span class="k">const</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">KeyIsDown</span><span class="p">[</span><span class="n">keyCode</span><span class="p">];</span>
+    <span class="p">}</span>
 
-private:
-    // We use this array to store the current state of each key
-    bool KeyIsDown[KEY_KEY_CODES_COUNT];
-};
+    <span class="n">MyEventReceiver</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">u32</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">KEY_KEY_CODES_COUNT</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">KeyIsDown</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
 
-/*
-The event receiver for keeping the pressed keys is ready, the actual responses
-will be made inside the render loop, right before drawing the scene. So lets
-just create an irr::IrrlichtDevice and the scene node we want to move. We also
-create some other additional scene nodes, to show that there are also some
-different possibilities to move and animate scene nodes.
-*/
-int main()
-{
-    // create device
-    MyEventReceiver receiver;
+<span class="k">private</span><span class="o">:</span>
+    <span class="c1">// We use this array to store the current state of each key</span>
+    <span class="kt">bool</span> <span class="n">KeyIsDown</span><span class="p">[</span><span class="n">KEY_KEY_CODES_COUNT</span><span class="p">];</span>
+<span class="p">};</span>
 
-    IrrlichtDevice* device = createDevice(video::EDT_OPENGL,
-            core::dimension2d&lt;u32&gt;(640, 480), 16, false, false, false, &amp;receiver);
+<span class="cm">/*</span>
+<span class="cm">The event receiver for keeping the pressed keys is ready, the actual responses</span>
+<span class="cm">will be made inside the render loop, right before drawing the scene. So lets</span>
+<span class="cm">just create an irr::IrrlichtDevice and the scene node we want to move. We also</span>
+<span class="cm">create some other additional scene nodes, to show that there are also some</span>
+<span class="cm">different possibilities to move and animate scene nodes.</span>
+<span class="cm">*/</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// create device</span>
+    <span class="n">MyEventReceiver</span> <span class="n">receiver</span><span class="p">;</span>
 
-    if (device == 0)
-        return 1; // could not create selected driver.
+    <span class="n">IrrlichtDevice</span><span class="o">*</span> <span class="n">device</span> <span class="o">=</span> <span class="n">createDevice</span><span class="p">(</span><span class="n">video</span><span class="o">::</span><span class="n">EDT_OPENGL</span><span class="p">,</span>
+            <span class="n">core</span><span class="o">::</span><span class="n">dimension2d</span><span class="o">&lt;</span><span class="n">u32</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">),</span> <span class="mi">16</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">receiver</span><span class="p">);</span>
 
-    video::IVideoDriver* driver = device-&gt;getVideoDriver();
-    scene::ISceneManager* smgr = device-&gt;getSceneManager();
+    <span class="k">if</span> <span class="p">(</span><span class="n">device</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// could not create selected driver.</span>
 
-    /*
-    Create the node which will be moved with the WSAD keys. We create a
-    sphere node, which is a built-in geometry primitive. We place the node
-    at (0,0,30) and assign a texture to it to let it look a little bit more
-    interesting. Because we have no dynamic lights in this scene we disable
-    lighting for each model (otherwise the models would be black).
-    */
-    scene::ISceneNode * node = smgr-&gt;addSphereSceneNode();
-    if (node)
-    {
-        node-&gt;setPosition(core::vector3df(0,0,30));
-        node-&gt;setMaterialTexture(0, driver-&gt;getTexture("../../media/wall.bmp"));
-        node-&gt;setMaterialFlag(video::EMF_LIGHTING, false);
-    }
+    <span class="n">video</span><span class="o">::</span><span class="n">IVideoDriver</span><span class="o">*</span> <span class="n">driver</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getVideoDriver</span><span class="p">();</span>
+    <span class="n">scene</span><span class="o">::</span><span class="n">ISceneManager</span><span class="o">*</span> <span class="n">smgr</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getSceneManager</span><span class="p">();</span>
 
-    /*
-    Now we create another node, movable using a scene node animator. Scene
-    node animators modify scene nodes and can be attached to any scene node
-    like mesh scene nodes, billboards, lights and even camera scene nodes.
-    Scene node animators are not only able to modify the position of a
-    scene node, they can also animate the textures of an object for
-    example. We create a cube scene node and attach a 'fly circle' scene
-    node animator to it, letting this node fly around our sphere scene node.
-    */
-    scene::ISceneNode* n = smgr-&gt;addCubeSceneNode();
+    <span class="cm">/*</span>
+<span class="cm">    Create the node which will be moved with the WSAD keys. We create a</span>
+<span class="cm">    sphere node, which is a built-in geometry primitive. We place the node</span>
+<span class="cm">    at (0,0,30) and assign a texture to it to let it look a little bit more</span>
+<span class="cm">    interesting. Because we have no dynamic lights in this scene we disable</span>
+<span class="cm">    lighting for each model (otherwise the models would be black).</span>
+<span class="cm">    */</span>
+    <span class="n">scene</span><span class="o">::</span><span class="n">ISceneNode</span> <span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addSphereSceneNode</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">node</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">));</span>
+        <span class="n">node</span><span class="o">-&gt;</span><span class="n">setMaterialTexture</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">driver</span><span class="o">-&gt;</span><span class="n">getTexture</span><span class="p">(</span><span class="s">&quot;../../media/wall.bmp&quot;</span><span class="p">));</span>
+        <span class="n">node</span><span class="o">-&gt;</span><span class="n">setMaterialFlag</span><span class="p">(</span><span class="n">video</span><span class="o">::</span><span class="n">EMF_LIGHTING</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+    <span class="p">}</span>
 
-    if (n)
-    {
-        n-&gt;setMaterialTexture(0, driver-&gt;getTexture("../../media/t351sml.jpg"));
-        n-&gt;setMaterialFlag(video::EMF_LIGHTING, false);
-        scene::ISceneNodeAnimator* anim =
-            smgr-&gt;createFlyCircleAnimator(core::vector3df(0,0,30), 20.0f);
-        if (anim)
-        {
-            n-&gt;addAnimator(anim);
-            anim-&gt;drop();
-        }
-    }
+    <span class="cm">/*</span>
+<span class="cm">    Now we create another node, movable using a scene node animator. Scene</span>
+<span class="cm">    node animators modify scene nodes and can be attached to any scene node</span>
+<span class="cm">    like mesh scene nodes, billboards, lights and even camera scene nodes.</span>
+<span class="cm">    Scene node animators are not only able to modify the position of a</span>
+<span class="cm">    scene node, they can also animate the textures of an object for</span>
+<span class="cm">    example. We create a cube scene node and attach a &#39;fly circle&#39; scene</span>
+<span class="cm">    node animator to it, letting this node fly around our sphere scene node.</span>
+<span class="cm">    */</span>
+    <span class="n">scene</span><span class="o">::</span><span class="n">ISceneNode</span><span class="o">*</span> <span class="n">n</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addCubeSceneNode</span><span class="p">();</span>
 
-    /*
-    The last scene node we add to show possibilities of scene node animators is
-    a b3d model, which uses a 'fly straight' animator to run between to points.
-    */
-    scene::IAnimatedMeshSceneNode* anms =
-        smgr-&gt;addAnimatedMeshSceneNode(smgr-&gt;getMesh("../../media/ninja.b3d"));
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">n</span><span class="o">-&gt;</span><span class="n">setMaterialTexture</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">driver</span><span class="o">-&gt;</span><span class="n">getTexture</span><span class="p">(</span><span class="s">&quot;../../media/t351sml.jpg&quot;</span><span class="p">));</span>
+        <span class="n">n</span><span class="o">-&gt;</span><span class="n">setMaterialFlag</span><span class="p">(</span><span class="n">video</span><span class="o">::</span><span class="n">EMF_LIGHTING</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+        <span class="n">scene</span><span class="o">::</span><span class="n">ISceneNodeAnimator</span><span class="o">*</span> <span class="n">anim</span> <span class="o">=</span>
+            <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">createFlyCircleAnimator</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">),</span> <span class="mf">20.0f</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">anim</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">n</span><span class="o">-&gt;</span><span class="n">addAnimator</span><span class="p">(</span><span class="n">anim</span><span class="p">);</span>
+            <span class="n">anim</span><span class="o">-&gt;</span><span class="n">drop</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
-    if (anms)
-    {
-        scene::ISceneNodeAnimator* anim =
-            smgr-&gt;createFlyStraightAnimator(core::vector3df(100,0,60),
-            core::vector3df(-100,0,60), 3500, true);
-        if (anim)
-        {
-            anms-&gt;addAnimator(anim);
-            anim-&gt;drop();
-        }
+    <span class="cm">/*</span>
+<span class="cm">    The last scene node we add to show possibilities of scene node animators is</span>
+<span class="cm">    a b3d model, which uses a &#39;fly straight&#39; animator to run between to points.</span>
+<span class="cm">    */</span>
+    <span class="n">scene</span><span class="o">::</span><span class="n">IAnimatedMeshSceneNode</span><span class="o">*</span> <span class="n">anms</span> <span class="o">=</span>
+        <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addAnimatedMeshSceneNode</span><span class="p">(</span><span class="n">smgr</span><span class="o">-&gt;</span><span class="n">getMesh</span><span class="p">(</span><span class="s">&quot;../../media/ninja.b3d&quot;</span><span class="p">));</span>
 
-        /*
-        To make the model look right we disable lighting, set the
-        frames between which the animation should loop, rotate the
-        model around 180 degrees, and adjust the animation speed and
-        the texture. To set the right animation (frames and speed), we
-        would also be able to just call
-        "anms-&gt;setMD2Animation(scene::EMAT_RUN)" for the 'run'
-        animation instead of "setFrameLoop" and "setAnimationSpeed",
-        but this only works with MD2 animations, and so you know how to
-        start other animations. But a good advice is to not use
-        hardcoded frame-numbers...
-        */
-        anms-&gt;setMaterialFlag(video::EMF_LIGHTING, false);
+    <span class="k">if</span> <span class="p">(</span><span class="n">anms</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">scene</span><span class="o">::</span><span class="n">ISceneNodeAnimator</span><span class="o">*</span> <span class="n">anim</span> <span class="o">=</span>
+            <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">createFlyStraightAnimator</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">60</span><span class="p">),</span>
+            <span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">60</span><span class="p">),</span> <span class="mi">3500</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">anim</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">anms</span><span class="o">-&gt;</span><span class="n">addAnimator</span><span class="p">(</span><span class="n">anim</span><span class="p">);</span>
+            <span class="n">anim</span><span class="o">-&gt;</span><span class="n">drop</span><span class="p">();</span>
+        <span class="p">}</span>
 
-        anms-&gt;setFrameLoop(0, 13);
-        anms-&gt;setAnimationSpeed(15);
-//      anms-&gt;setMD2Animation(scene::EMAT_RUN);
+        <span class="cm">/*</span>
+<span class="cm">        To make the model look right we disable lighting, set the</span>
+<span class="cm">        frames between which the animation should loop, rotate the</span>
+<span class="cm">        model around 180 degrees, and adjust the animation speed and</span>
+<span class="cm">        the texture. To set the right animation (frames and speed), we</span>
+<span class="cm">        would also be able to just call</span>
+<span class="cm">        &quot;anms-&gt;setMD2Animation(scene::EMAT_RUN)&quot; for the &#39;run&#39;</span>
+<span class="cm">        animation instead of &quot;setFrameLoop&quot; and &quot;setAnimationSpeed&quot;,</span>
+<span class="cm">        but this only works with MD2 animations, and so you know how to</span>
+<span class="cm">        start other animations. But a good advice is to not use</span>
+<span class="cm">        hardcoded frame-numbers...</span>
+<span class="cm">        */</span>
+        <span class="n">anms</span><span class="o">-&gt;</span><span class="n">setMaterialFlag</span><span class="p">(</span><span class="n">video</span><span class="o">::</span><span class="n">EMF_LIGHTING</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
 
-        anms-&gt;setScale(core::vector3df(2.f,2.f,2.f));
-        anms-&gt;setRotation(core::vector3df(0,-90,0));
-//      anms-&gt;setMaterialTexture(0, driver-&gt;getTexture("../../media/sydney.bmp"));
+        <span class="n">anms</span><span class="o">-&gt;</span><span class="n">setFrameLoop</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">13</span><span class="p">);</span>
+        <span class="n">anms</span><span class="o">-&gt;</span><span class="n">setAnimationSpeed</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+<span class="c1">//      anms-&gt;setMD2Animation(scene::EMAT_RUN);</span>
 
-    }
+        <span class="n">anms</span><span class="o">-&gt;</span><span class="n">setScale</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="mf">2.f</span><span class="p">,</span><span class="mf">2.f</span><span class="p">,</span><span class="mf">2.f</span><span class="p">));</span>
+        <span class="n">anms</span><span class="o">-&gt;</span><span class="n">setRotation</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+<span class="c1">//      anms-&gt;setMaterialTexture(0, driver-&gt;getTexture(&quot;../../media/sydney.bmp&quot;));</span>
 
-    /*
-    To be able to look at and move around in this scene, we create a first
-    person shooter style camera and make the mouse cursor invisible.
-    */
-    smgr-&gt;addCameraSceneNodeFPS();
-    device-&gt;getCursorControl()-&gt;setVisible(false);
+    <span class="p">}</span>
 
-    /*
-    Add a colorful irrlicht logo
-    */
-    device-&gt;getGUIEnvironment()-&gt;addImage(
-        driver-&gt;getTexture("../../media/irrlichtlogoalpha2.tga"),
-        core::position2d&lt;s32&gt;(10,20));
+    <span class="cm">/*</span>
+<span class="cm">    To be able to look at and move around in this scene, we create a first</span>
+<span class="cm">    person shooter style camera and make the mouse cursor invisible.</span>
+<span class="cm">    */</span>
+    <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addCameraSceneNodeFPS</span><span class="p">();</span>
+    <span class="n">device</span><span class="o">-&gt;</span><span class="n">getCursorControl</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">setVisible</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
 
-    gui::IGUIStaticText* diagnostics = device-&gt;getGUIEnvironment()-&gt;addStaticText(
-        L"", core::rect&lt;s32&gt;(10, 10, 400, 20));
-    diagnostics-&gt;setOverrideColor(video::SColor(255, 255, 255, 0));
+    <span class="cm">/*</span>
+<span class="cm">    Add a colorful irrlicht logo</span>
+<span class="cm">    */</span>
+    <span class="n">device</span><span class="o">-&gt;</span><span class="n">getGUIEnvironment</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">addImage</span><span class="p">(</span>
+        <span class="n">driver</span><span class="o">-&gt;</span><span class="n">getTexture</span><span class="p">(</span><span class="s">&quot;../../media/irrlichtlogoalpha2.tga&quot;</span><span class="p">),</span>
+        <span class="n">core</span><span class="o">::</span><span class="n">position2d</span><span class="o">&lt;</span><span class="n">s32</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">));</span>
 
-    /*
-    We have done everything, so lets draw it. We also write the current
-    frames per second and the name of the driver to the caption of the
-    window.
-    */
-    int lastFPS = -1;
+    <span class="n">gui</span><span class="o">::</span><span class="n">IGUIStaticText</span><span class="o">*</span> <span class="n">diagnostics</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getGUIEnvironment</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">addStaticText</span><span class="p">(</span>
+        <span class="s">L&quot;&quot;</span><span class="p">,</span> <span class="n">core</span><span class="o">::</span><span class="n">rect</span><span class="o">&lt;</span><span class="n">s32</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">20</span><span class="p">));</span>
+    <span class="n">diagnostics</span><span class="o">-&gt;</span><span class="n">setOverrideColor</span><span class="p">(</span><span class="n">video</span><span class="o">::</span><span class="n">SColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
 
-    // In order to do framerate independent movement, we have to know
-    // how long it was since the last frame
-    u32 then = device-&gt;getTimer()-&gt;getTime();
+    <span class="cm">/*</span>
+<span class="cm">    We have done everything, so lets draw it. We also write the current</span>
+<span class="cm">    frames per second and the name of the driver to the caption of the</span>
+<span class="cm">    window.</span>
+<span class="cm">    */</span>
+    <span class="kt">int</span> <span class="n">lastFPS</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 
-    // This is the movemen speed in units per second.
-    const f32 MOVEMENT_SPEED = 5.f;
+    <span class="c1">// In order to do framerate independent movement, we have to know</span>
+    <span class="c1">// how long it was since the last frame</span>
+    <span class="n">u32</span> <span class="n">then</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getTimer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getTime</span><span class="p">();</span>
 
-    while(device-&gt;run())
-    {
-        // Work out a frame delta time.
-        const u32 now = device-&gt;getTimer()-&gt;getTime();
-        const f32 frameDeltaTime = (f32)(now - then) / 1000.f; // Time in seconds
-        then = now;
+    <span class="c1">// This is the movemen speed in units per second.</span>
+    <span class="k">const</span> <span class="n">f32</span> <span class="n">MOVEMENT_SPEED</span> <span class="o">=</span> <span class="mf">5.f</span><span class="p">;</span>
 
-        /* Check if keys W, S, A or D are being held down, and move the
-        sphere node around respectively. */
-        core::vector3df nodePosition = node-&gt;getPosition();
+    <span class="k">while</span><span class="p">(</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">run</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="c1">// Work out a frame delta time.</span>
+        <span class="k">const</span> <span class="n">u32</span> <span class="n">now</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getTimer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getTime</span><span class="p">();</span>
+        <span class="k">const</span> <span class="n">f32</span> <span class="n">frameDeltaTime</span> <span class="o">=</span> <span class="p">(</span><span class="n">f32</span><span class="p">)(</span><span class="n">now</span> <span class="o">-</span> <span class="n">then</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000.f</span><span class="p">;</span> <span class="c1">// Time in seconds</span>
+        <span class="n">then</span> <span class="o">=</span> <span class="n">now</span><span class="p">;</span>
 
-        if(receiver.IsKeyDown(irr::KEY_KEY_W))
-            nodePosition.Y += MOVEMENT_SPEED * frameDeltaTime;
-        else if(receiver.IsKeyDown(irr::KEY_KEY_S))
-            nodePosition.Y -= MOVEMENT_SPEED * frameDeltaTime;
+        <span class="cm">/* Check if keys W, S, A or D are being held down, and move the</span>
+<span class="cm">        sphere node around respectively. */</span>
+        <span class="n">core</span><span class="o">::</span><span class="n">vector3df</span> <span class="n">nodePosition</span> <span class="o">=</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">getPosition</span><span class="p">();</span>
 
-        if(receiver.IsKeyDown(irr::KEY_KEY_A))
-            nodePosition.X -= MOVEMENT_SPEED * frameDeltaTime;
-        else if(receiver.IsKeyDown(irr::KEY_KEY_D))
-            nodePosition.X += MOVEMENT_SPEED * frameDeltaTime;
+        <span class="k">if</span><span class="p">(</span><span class="n">receiver</span><span class="p">.</span><span class="n">IsKeyDown</span><span class="p">(</span><span class="n">irr</span><span class="o">::</span><span class="n">KEY_KEY_W</span><span class="p">))</span>
+            <span class="n">nodePosition</span><span class="p">.</span><span class="n">Y</span> <span class="o">+=</span> <span class="n">MOVEMENT_SPEED</span> <span class="o">*</span> <span class="n">frameDeltaTime</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">receiver</span><span class="p">.</span><span class="n">IsKeyDown</span><span class="p">(</span><span class="n">irr</span><span class="o">::</span><span class="n">KEY_KEY_S</span><span class="p">))</span>
+            <span class="n">nodePosition</span><span class="p">.</span><span class="n">Y</span> <span class="o">-=</span> <span class="n">MOVEMENT_SPEED</span> <span class="o">*</span> <span class="n">frameDeltaTime</span><span class="p">;</span>
 
-        node-&gt;setPosition(nodePosition);
+        <span class="k">if</span><span class="p">(</span><span class="n">receiver</span><span class="p">.</span><span class="n">IsKeyDown</span><span class="p">(</span><span class="n">irr</span><span class="o">::</span><span class="n">KEY_KEY_A</span><span class="p">))</span>
+            <span class="n">nodePosition</span><span class="p">.</span><span class="n">X</span> <span class="o">-=</span> <span class="n">MOVEMENT_SPEED</span> <span class="o">*</span> <span class="n">frameDeltaTime</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">receiver</span><span class="p">.</span><span class="n">IsKeyDown</span><span class="p">(</span><span class="n">irr</span><span class="o">::</span><span class="n">KEY_KEY_D</span><span class="p">))</span>
+            <span class="n">nodePosition</span><span class="p">.</span><span class="n">X</span> <span class="o">+=</span> <span class="n">MOVEMENT_SPEED</span> <span class="o">*</span> <span class="n">frameDeltaTime</span><span class="p">;</span>
 
-        driver-&gt;beginScene(true, true, video::SColor(255,113,113,133));
+        <span class="n">node</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">nodePosition</span><span class="p">);</span>
 
-        smgr-&gt;drawAll(); // draw the 3d scene
-        device-&gt;getGUIEnvironment()-&gt;drawAll(); // draw the gui environment (the logo)
+        <span class="n">driver</span><span class="o">-&gt;</span><span class="n">beginScene</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="n">video</span><span class="o">::</span><span class="n">SColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">113</span><span class="p">,</span><span class="mi">113</span><span class="p">,</span><span class="mi">133</span><span class="p">));</span>
 
-        driver-&gt;endScene();
+        <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">drawAll</span><span class="p">();</span> <span class="c1">// draw the 3d scene</span>
+        <span class="n">device</span><span class="o">-&gt;</span><span class="n">getGUIEnvironment</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">drawAll</span><span class="p">();</span> <span class="c1">// draw the gui environment (the logo)</span>
 
-        int fps = driver-&gt;getFPS();
+        <span class="n">driver</span><span class="o">-&gt;</span><span class="n">endScene</span><span class="p">();</span>
 
-        if (lastFPS != fps)
-        {
-            core::stringw tmp(L"Movement Example - Irrlicht Engine [");
-            tmp += driver-&gt;getName();
-            tmp += L"] fps: ";
-            tmp += fps;
+        <span class="kt">int</span> <span class="n">fps</span> <span class="o">=</span> <span class="n">driver</span><span class="o">-&gt;</span><span class="n">getFPS</span><span class="p">();</span>
 
-            device-&gt;setWindowCaption(tmp.c_str());
-            lastFPS = fps;
-        }
-    }
+        <span class="k">if</span> <span class="p">(</span><span class="n">lastFPS</span> <span class="o">!=</span> <span class="n">fps</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">core</span><span class="o">::</span><span class="n">stringw</span> <span class="n">tmp</span><span class="p">(</span><span class="s">L&quot;Movement Example - Irrlicht Engine [&quot;</span><span class="p">);</span>
+            <span class="n">tmp</span> <span class="o">+=</span> <span class="n">driver</span><span class="o">-&gt;</span><span class="n">getName</span><span class="p">();</span>
+            <span class="n">tmp</span> <span class="o">+=</span> <span class="s">L&quot;] fps: &quot;</span><span class="p">;</span>
+            <span class="n">tmp</span> <span class="o">+=</span> <span class="n">fps</span><span class="p">;</span>
 
-    /*
-    In the end, delete the Irrlicht device.
-    */
-    device-&gt;drop();
+            <span class="n">device</span><span class="o">-&gt;</span><span class="n">setWindowCaption</span><span class="p">(</span><span class="n">tmp</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+            <span class="n">lastFPS</span> <span class="o">=</span> <span class="n">fps</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
-    return 0;
-}
+    <span class="cm">/*</span>
+<span class="cm">    In the end, delete the Irrlicht device.</span>
+<span class="cm">    */</span>
+    <span class="n">device</span><span class="o">-&gt;</span><span class="n">drop</span><span class="p">();</span>
 
-/*
-That's it. Compile and play around with the program.
-**/
-</pre></code>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm">That&#39;s it. Compile and play around with the program.</span>
+<span class="cm">**/</span></code></pre></div>
+
 <p>Here are some basics we could extract from this code:</p>
 <ol>
 <li>Each 3D model is a <em>scene node</em>.</li>
 <li>
 <p>Primitive scene nodes (such as <em>cube</em> or <em>sphere</em>) could be easily created with built-in functions:</p>
-<p><code>scene::ISceneNode* node = smgr-&gt;addSphereSceneNode();
-scene::ISceneNode* node = smgr-&gt;addCubeSceneNode();</code></p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">scene</span><span class="o">::</span><span class="n">ISceneNode</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addSphereSceneNode</span><span class="p">();</span>
+<span class="n">scene</span><span class="o">::</span><span class="n">ISceneNode</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addCubeSceneNode</span><span class="p">();</span></code></pre></div>
+
 </li>
 <li>
 <p>Animated 3D models (such as <em>character models</em>) could be loaded from file:</p>
-<p><code>scene::IAnimatedMeshSceneNode* node = smgr-&gt;addAnimatedMeshSceneNode(smgr-&gt;getMesh("../../media/ninja.b3d"));</code></p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">scene</span><span class="o">::</span><span class="n">IAnimatedMeshSceneNode</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addAnimatedMeshSceneNode</span><span class="p">(</span><span class="n">smgr</span><span class="o">-&gt;</span><span class="n">getMesh</span><span class="p">(</span><span class="s">&quot;../../media/ninja.b3d&quot;</span><span class="p">));</span></code></pre></div>
+
 <p><em>Hint:</em> if mesh is animated, animation could be started with:</p>
-<pre><code>node-&gt;setFrameLoop(0, 13);
-node-&gt;setAnimationSpeed(15);
-</code></pre>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">node</span><span class="o">-&gt;</span><span class="n">setFrameLoop</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">13</span><span class="p">);</span>
+<span class="n">node</span><span class="o">-&gt;</span><span class="n">setAnimationSpeed</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span></code></pre></div>
+
 <p><em>Hint:</em> animation could be stopped with setting its speed to zero:</p>
-<pre><code>node-&gt;setAnimationSpeed(0);
-</code></pre>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">node</span><span class="o">-&gt;</span><span class="n">setAnimationSpeed</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span></code></pre></div>
+
 </li>
 <li>
 <p>Node could be described not only by its vertices and indices (<em>forming a set of triangles which are drawn in 3D forming a 3D model called <strong>mesh</strong></em>) but by its <strong>position</strong>, <strong>rotation</strong> and <strong>scale</strong>.</p>
 <p>Those could be set with:</p>
-<pre><code>node-&gt;setPosition(core::vector3df(x, y, z));
-node-&gt;setRotation(core::vector3df(x_angle, y_angle, z_angle));
-node-&gt;setScale(core::vector3df(width_factor, height_factor, depth_factor));
-</code></pre>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">node</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">));</span>
+<span class="n">node</span><span class="o">-&gt;</span><span class="n">setRotation</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="n">x_angle</span><span class="p">,</span> <span class="n">y_angle</span><span class="p">,</span> <span class="n">z_angle</span><span class="p">));</span>
+<span class="n">node</span><span class="o">-&gt;</span><span class="n">setScale</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="n">width_factor</span><span class="p">,</span> <span class="n">height_factor</span><span class="p">,</span> <span class="n">depth_factor</span><span class="p">));</span></code></pre></div>
+
 <p><em>Hint:</em> rotation is a set of angles relatively to the corresponding axes, the node will be rotated around. E. g., <code>vector3df(45, 90, 0)</code> sets the rotation by <code>45 deg</code> around <em>X axis</em>, <code>90 deg</code> around <em>Y axis</em> and no rotation aroung <em>Z axis</em>.</p>
 <p><em>Add image describing rotations here</em></p>
 </li>
 <li>
 <p>Graphics User Interface' (GUI) widgets for information output are labels; they are created with <strong>GUI Manager</strong>:</p>
-<p><code>gui::IGUIStaticText* label = device-&gt;getGUIEnvironment()-&gt;addStaticText(L"", core::rect&lt;s32&gt;(10, 10, 400, 20));</code></p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">gui</span><span class="o">::</span><span class="n">IGUIStaticText</span><span class="o">*</span> <span class="n">label</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getGUIEnvironment</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">addStaticText</span><span class="p">(</span><span class="s">L&quot;&quot;</span><span class="p">,</span> <span class="n">core</span><span class="o">::</span><span class="n">rect</span><span class="o">&lt;</span><span class="n">s32</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">20</span><span class="p">));</span></code></pre></div>
+
 <p><em>Hint:</em> its text could be set with:</p>
-<pre><code>label-&gt;setText((const wchar_t*) "some text");
-</code></pre>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">label</span><span class="o">-&gt;</span><span class="n">setText</span><span class="p">((</span><span class="k">const</span> <span class="kt">wchar_t</span><span class="o">*</span><span class="p">)</span> <span class="s">&quot;some text&quot;</span><span class="p">);</span></code></pre></div>
+
 </li>
 <li>
 <p>User input is handled by an external <code>IEventReceiver</code> class object.</p>
-<p>Its method, <code>virtual bool OnEvent(const SEvent&amp; event)</code> defines the logic of handling events like <em>mouse events</em>, <em>keyboard events</em>, <em>joystick events</em>, <em>GUI events</em>, etc.</p>
+<p>Its method,
+  
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">virtual</span> <span class="kt">bool</span> <span class="n">OnEvent</span><span class="p">(</span><span class="k">const</span> <span class="n">SEvent</span><span class="o">&amp;</span> <span class="n">event</span><span class="p">)</span></code></pre></div>
+
+  defines the logic of handling events like <em>mouse events</em>, <em>keyboard events</em>, <em>joystick events</em>, <em>GUI events</em>, etc.</p>
 <p>The type of event is passed with the <code>event.EventType</code> field. The corresponding field is filled with the event parameters.</p>
 <p>For example:</p>
-<pre><code>if (event.type == EET_MOUSE_INPUT_EVENT)
-{
-    if (event.MouseInput.isLeftPressed())
-    {
-        printf("%d, %d is cursor position\n", event.MouseInput.X, event.mouseInput.Y);
-    }
-}
-</code></pre>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">EET_MOUSE_INPUT_EVENT</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="n">MouseInput</span><span class="p">.</span><span class="n">isLeftPressed</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d, %d is cursor position</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">event</span><span class="p">.</span><span class="n">MouseInput</span><span class="p">.</span><span class="n">X</span><span class="p">,</span> <span class="n">event</span><span class="p">.</span><span class="n">mouseInput</span><span class="p">.</span><span class="n">Y</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+
 <p><em>Hint:</em> <code>EventReceiver</code> object has nothing in common with our main game loop. So we should create some interface, some architecture trick to link those two. Because they are strongly related!</p>
 </li>
 <li>
 <p>Main game loop should contain <strong>rendering call</strong>, <strong>GUI rendering call</strong> and other game logic processing calls.</p>
 <p>The simplest main loop could look like this:</p>
-<pre><code>while(device-&gt;run())
-{
-    driver-&gt;beginScene(true, true, video::SColor(255,113,113,133));
 
-    smgr-&gt;drawAll(); // draw the 3d scene
-    device-&gt;getGUIEnvironment()-&gt;drawAll(); // draw the gui
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">while</span><span class="p">(</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">run</span><span class="p">())</span>
+<span class="p">{</span>
+    <span class="n">driver</span><span class="o">-&gt;</span><span class="n">beginScene</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="n">video</span><span class="o">::</span><span class="n">SColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">113</span><span class="p">,</span><span class="mi">113</span><span class="p">,</span><span class="mi">133</span><span class="p">));</span>
 
-    driver-&gt;endScene();
-}
-</code></pre>
+    <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">drawAll</span><span class="p">();</span> <span class="c1">// draw the 3d scene</span>
+    <span class="n">device</span><span class="o">-&gt;</span><span class="n">getGUIEnvironment</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">drawAll</span><span class="p">();</span> <span class="c1">// draw the gui</span>
+
+    <span class="n">driver</span><span class="o">-&gt;</span><span class="n">endScene</span><span class="p">();</span>
+<span class="p">}</span></code></pre></div>
+
 </li>
 <li>
 <p>There is no simple (built-in) way to get the delta time between two rendered frames. <strong>This is an important variable!</strong> We'll need that later, when we inject physics engine. And Newton GD is not the only engine requiring this variable!</p>
 <p>But that could be easily done with this workaround:</p>
-<pre><code>// before main loop
-u32 then = device-&gt;getTimer()-&gt;getTime();
 
-// ...
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">// before main loop</span>
+<span class="n">u32</span> <span class="n">then</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getTimer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getTime</span><span class="p">();</span>
 
-// within the main game loop
-const u32 now = device-&gt;getTimer()-&gt;getTime();
-const f32 frameDeltaTime = (f32)(now - then) / 1000.f; // delta time in seconds
-then = now;
-</code></pre>
+<span class="c1">// ...</span>
+
+<span class="c1">// within the main game loop</span>
+<span class="k">const</span> <span class="n">u32</span> <span class="n">now</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getTimer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getTime</span><span class="p">();</span>
+<span class="k">const</span> <span class="n">f32</span> <span class="n">frameDeltaTime</span> <span class="o">=</span> <span class="p">(</span><span class="n">f32</span><span class="p">)(</span><span class="n">now</span> <span class="o">-</span> <span class="n">then</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000.f</span><span class="p">;</span> <span class="c1">// delta time in seconds</span>
+<span class="n">then</span> <span class="o">=</span> <span class="n">now</span><span class="p">;</span></code></pre></div>
+
 </li>
 </ol>
 <hr />
+
 <p>That's all you need to know about rendering engine for now.</p>
 
 
