@@ -3,10 +3,10 @@
   <channel>
     <title>Irrlicht Newton Tutorials</title>
     <description></description>
-    <link>http://shybovycha.github.io/irrlicht-newton-tutorials//</link>
-    <atom:link href="http://shybovycha.github.io/irrlicht-newton-tutorials//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 28 Aug 2015 21:29:24 +0200</pubDate>
-    <lastBuildDate>Fri, 28 Aug 2015 21:29:24 +0200</lastBuildDate>
+    <link>http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials//</link>
+    <atom:link href="http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials//feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 28 Aug 2015 21:36:26 +0200</pubDate>
+    <lastBuildDate>Fri, 28 Aug 2015 21:36:26 +0200</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -91,8 +91,8 @@
 &lt;p&gt;Hey! We have just written our first scripted server! Although, it does nothing useful, it&#39;s a real scripted application! Now we are cool guys and could proceed creating an AAA-games&#39; compete!&lt;/p&gt;
 </description>
         <pubDate>Fri, 28 Aug 2015 18:05:00 +0100</pubDate>
-        <link>http://shybovycha.github.io/irrlicht-newton-tutorials//2015/08/28/advanced-application.html</link>
-        <guid isPermaLink="true">http://shybovycha.github.io/irrlicht-newton-tutorials//2015/08/28/advanced-application.html</guid>
+        <link>http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials//2015/08/28/advanced-application.html</link>
+        <guid isPermaLink="true">http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials//2015/08/28/advanced-application.html</guid>
         
         
       </item>
@@ -526,8 +526,8 @@ void ApplyGravity(const NewtonBody* body, dFloat timestep, int threadIndex)
 &lt;p&gt;If you did everything right, you shall see the metal ball falling right through the camera and down... down... down...&lt;/p&gt;
 </description>
         <pubDate>Fri, 28 Aug 2015 18:04:00 +0100</pubDate>
-        <link>http://shybovycha.github.io/irrlicht-newton-tutorials//2015/08/28/adding-some-newtonality.html</link>
-        <guid isPermaLink="true">http://shybovycha.github.io/irrlicht-newton-tutorials//2015/08/28/adding-some-newtonality.html</guid>
+        <link>http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials//2015/08/28/adding-some-newtonality.html</link>
+        <guid isPermaLink="true">http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials//2015/08/28/adding-some-newtonality.html</guid>
         
         
       </item>
@@ -891,8 +891,8 @@ void ApplyGravity(const NewtonBody* body, dFloat timestep, int threadIndex)
 &lt;p&gt;That&#39;s all you need to know about rendering engine for now.&lt;/p&gt;
 </description>
         <pubDate>Fri, 28 Aug 2015 18:03:00 +0100</pubDate>
-        <link>http://shybovycha.github.io/irrlicht-newton-tutorials//2015/08/28/first-application.html</link>
-        <guid isPermaLink="true">http://shybovycha.github.io/irrlicht-newton-tutorials//2015/08/28/first-application.html</guid>
+        <link>http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials//2015/08/28/first-application.html</link>
+        <guid isPermaLink="true">http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials//2015/08/28/first-application.html</guid>
         
         
       </item>
@@ -948,8 +948,8 @@ void ApplyGravity(const NewtonBody* body, dFloat timestep, int threadIndex)
 &lt;p&gt;&lt;em&gt;Work In Progress&lt;/em&gt;&lt;/p&gt;
 </description>
         <pubDate>Fri, 28 Aug 2015 18:02:00 +0100</pubDate>
-        <link>http://shybovycha.github.io/irrlicht-newton-tutorials//2015/08/28/irrlicht-basics.html</link>
-        <guid isPermaLink="true">http://shybovycha.github.io/irrlicht-newton-tutorials//2015/08/28/irrlicht-basics.html</guid>
+        <link>http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials//2015/08/28/irrlicht-basics.html</link>
+        <guid isPermaLink="true">http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials//2015/08/28/irrlicht-basics.html</guid>
         
         
       </item>
@@ -981,8 +981,8 @@ void ApplyGravity(const NewtonBody* body, dFloat timestep, int threadIndex)
 &lt;p&gt;But have no fear: we shall do everything step-by-step and break our tutorial into two parts - &lt;strong&gt;the basics&lt;/strong&gt; and &lt;strong&gt;the intermediate part&lt;/strong&gt;.&lt;/p&gt;
 </description>
         <pubDate>Fri, 28 Aug 2015 18:01:00 +0100</pubDate>
-        <link>http://shybovycha.github.io/irrlicht-newton-tutorials//2015/08/28/introduction.html</link>
-        <guid isPermaLink="true">http://shybovycha.github.io/irrlicht-newton-tutorials//2015/08/28/introduction.html</guid>
+        <link>http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials//2015/08/28/introduction.html</link>
+        <guid isPermaLink="true">http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials//2015/08/28/introduction.html</guid>
         
         
       </item>
