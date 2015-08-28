@@ -1,0 +1,31 @@
+---
+layout: post
+---
+
+<h2 id="irrlicht-basics">Irrlicht basics</h2>
+<p>Before we start doing some game design or gamedev magick, we'd better know something about our rendering engine. Just very basics - how to create an application, which will react to <strong>user input</strong> and is able to load and draw some <strong>content</strong>.</p>
+<p>If you think you already know everything you want about Irrlicht (or any other rendering engine you shall use - it's simple, though!) - just skip this section.</p>
+<h3 id="install-irrlicht">Install Irrlicht</h3>
+<p>This section depends on the operating system you are using. But no matter which one you use, first of all - <a href="http://irrlicht.sourceforge.net/downloads/"><strong>go and get the latest version of Irrlicht!</strong></a>.</p>
+<h4 id="linux">Linux</h4>
+<p><em>Currently I'm writing from Ubuntu. So this section will be my favorite one</em></p>
+<p>To get started under Linux, you should compile Irrlicht. Unfortunately, it is bundled with already compiled libraries for Windows, but not for Linux.</p>
+<p>But don't be scared! It's simple! Yet, there is one caveat: <strong>do not run <code>make install</code> on Linux! Ever!</strong>. If you do, it will be hard for you to get rid of an old version of the software you installed in such a way. For example, when you'll make an update of that software.</p>
+<p>To bypass this, you'd better use <code>checkinstall</code> utilitie. It creates Debian package from sources and installs it natively instead of just copying files to their places, keeping no trace of that.</p>
+<p>So, unzip the <code>irrlicht-*.*.*.zip</code>, go to the <code>irrlicht-*.*.*/sources/Irrlicht</code> and run <code>make</code>. And, after many output, if you do not see any error messages - congratulations! You've compiled Irrlicht!</p>
+<p>Now, and that's important, here's how you shall compile your Irrlicht applications:</p>
+<pre><code>g++ &lt;source file&gt; -o &lt;output executable file&gt; -L&lt;absolute path to Irrlicht lib/Linux dir&gt; -I&lt;absolute path to Irrlicht include dir&gt; -lIrrlicht -lGL
+</code></pre>
+<p>For example, if your program is stored at <code>main.cpp</code> file and you've compiled Irrlicht at <code>/home/moo_user/irrlicht-1.8/</code> directory, your compiler command-line will look like this:</p>
+<pre><code>g++ main.cpp -o application -L/home/moo_user/irrlicht-1.8/lib/Linux -I/home/moo_user/irrlicht-1.8/include/ -lIrrlicht -lGL
+</code></pre>
+<p><strong>Note:</strong> there is no space between <code>-L</code> or <code>-I</code> and the path! As well, as between <code>-l</code> and the library name! That is <strong>GNU C++</strong> compiler command-line options format.</p>
+<p><em>Add some screenshots and QtCreator configuration example</em></p>
+<h4 id="windows">Windows</h4>
+<p>If you are using Windows, it's better for you to use <strong>Visual Studio</strong>. Personally I prefer <strong>MS VS 2008 Express</strong> because of its user interface peculiarities.</p>
+<p>So, the main idea here is to set the project you are using to write the code within to use the Irrlicht <strong>include</strong> and <strong>library</strong> directories. </p>
+<p>And here is why I prefer <strong>MS VS 2008</strong> - that was the last Visual Studio version where all the libraries could be specified for all the projects, in one place. So you do not need to configure each solution and each project separately, from scratch.</p>
+<p>So, you just set the <strong>include directories</strong> to include the <code>&lt;Irrlicht dir&gt;/include</code> directory and <strong>library directories</strong> to include the <code>&lt;Irrlicht dir&gt;/lib/Win**-visualStudio</code> directory (depending on your OS architecture version it may vary between <code>Win32-...</code> and <code>Win64-...</code>).</p>
+<p><em>Add some screenshots</em></p>
+<h4 id="macos-x">MacOS X</h4>
+<p><em>I do not have MacMini yet (and I hope I'll never do) so I'll just skip this sub-section</em></p>

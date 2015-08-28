@@ -1,0 +1,11 @@
+# Site settings
+title: Irrlicht Newton Tutorials
+email: shybovycha@gmail.com
+description: >
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://shybovycha.github.io/irrlicht-newton-tutorials/" # the base hostname & protocol for your site
+twitter_username: shybovycha
+github_username:  shybovycha
+
+# Build settings
+markdown: kramdown
