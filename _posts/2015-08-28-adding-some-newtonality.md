@@ -1,6 +1,6 @@
 ---
 layout: post
-date: '2015-08-28T18:04:00+01:00'
+date: '2015-08-28T18:06:00+01:00'
 ---
 
 <h2 id="adding-some-newtonianity">Adding some Newtonianity</h2>

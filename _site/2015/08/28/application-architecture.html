@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Irrlicht Basics</title>
-  <meta name="description" content="Irrlicht basicsBefore we start doing some game design or gamedev magick, we’d better know something about our rendering engine. Just very basics - how to cre...">
+  <title>Application Architecture</title>
+  <meta name="description" content="Perfect application architectureNo, really! You’d better believe your game is perfectly designed at content as well as inside! That is the first step to succ...">
 
   <link rel="stylesheet" href="/irrlicht-newton-tutorials/css/main.css">
-  <link rel="canonical" href="http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials/2015/08/28/irrlicht-basics.html">
+  <link rel="canonical" href="http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials/2015/08/28/application-architecture.html">
   <link rel="alternate" type="application/rss+xml" title="Irrlicht Newton Tutorials" href="http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials/feed.xml" />
 
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
@@ -35,12 +35,12 @@
     </li>
   
     
-    <li >
+    <li class="active">
       <a href="/irrlicht-newton-tutorials/2015/08/28/application-architecture.html">Application Architecture</a>
     </li>
   
     
-    <li class="active">
+    <li >
       <a href="/irrlicht-newton-tutorials/2015/08/28/irrlicht-basics.html">Irrlicht Basics</a>
     </li>
   
@@ -99,53 +99,21 @@
 
           <div class="column col-sm-9" id="main">
             <div class="row">
-  <h1 id="irrlicht-basics">Irrlicht basics</h1>
+  <h1 id="perfect-application-architecture">Perfect application architecture</h1>
 
-<p>Before we start doing some game design or gamedev magick, we’d better know something about our rendering engine. Just very basics - how to create an application, which will react to <strong>user input</strong> and is able to load and draw some <strong>content</strong>.</p>
+<p>No, really! You’d better believe your game is perfectly designed at content as well as inside! That is the first step to succed, believe me.</p>
 
-<p>If you think you already know everything you want about Irrlicht (or any other rendering engine you shall use - it’s simple, though!) - just skip this section.</p>
+<p>We shall use <strong>Irrlicht</strong> because of its simpleness. But the main criteria - it satisfied all our needs - it does not need much content preparation; it contains UI features inside; extending it with <strong>IrrKlang</strong> will provide us with very simply interface to sound and music.</p>
 
-<h2 id="install-irrlicht">Install Irrlicht</h2>
+<p>As the title promotes, we shall also use <strong>Newton GD</strong> physics engine. It is easy to use and so powerful - you would be impressed!</p>
 
-<p>This section depends on the operating system you are using. But no matter which one you use, first of all - <a href="http://irrlicht.sourceforge.net/downloads/"><strong>go and get the latest version of Irrlicht!</strong></a>.</p>
+<p>But since we want <strong>perfect</strong> architecture - we shall use <strong>Lua</strong> as well. It is a very <em>light</em> programming language. It will be used for scripting. And here’s why: as our game shall grow, it will be more and more hard to modify something.</p>
 
-<h3 id="linux">Linux</h3>
+<p>For example, if we shall start with complete game, being run at production and success and we will decide to modify some core feature. Let’s say, we want to modify our <em>NPCs</em>. We want them fly. If we have everything set at the code side, we shall end up with messy architecture, almost unreadable and totally immutable code. Which should be compiled, although. And each update for our game shall take much megabytes for users to download.</p>
 
-<p>To get started under Linux, you should compile Irrlicht. Unfortunately, it is bundled with already compiled libraries for Windows, but not for Linux.</p>
+<p>On the other hand, if we have our game running with scripts, we shall only modify a few scripts, which describe how characters behave. Perhaps, we will add some. But this update shall use a few kilobytes and users will not even notice the upgrade process. Yet, the updated feature will be noted during gameplay!</p>
 
-<p>But don’t be scared! It’s simple! Yet, there is one caveat: <strong>do not run <code>make install</code> on Linux! Ever!</strong>. If you do, it will be hard for you to get rid of an old version of the software you installed in such a way. For example, when you’ll make an update of that software.</p>
-
-<p>To bypass this, you’d better use <code>checkinstall</code> utilitie. It creates Debian package from sources and installs it natively instead of just copying files to their places, keeping no trace of that.</p>
-
-<p>So, unzip the <code>irrlicht-*.*.*.zip</code>, go to the <code>irrlicht-*.*.*/sources/Irrlicht</code> and run <code>make</code>. And, after many output, if you do not see any error messages - congratulations! You’ve compiled Irrlicht!</p>
-
-<p>Now, and that’s important, here’s how you shall compile your Irrlicht applications:</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">g++ &lt;<span class="nb">source </span>file&gt; -o &lt;output executable file&gt; -L&lt;absolute path to Irrlicht lib/Linux dir&gt; -I&lt;absolute path to Irrlicht include dir&gt; -lIrrlicht -lGL</code></pre></div>
-
-<p>For example, if your program is stored at <code>main.cpp</code> file and you’ve compiled Irrlicht at <code>/home/moo_user/irrlicht-1.8/</code> directory, your compiler command-line will look like this:</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">g++ main.cpp -o application -L/home/moo_user/irrlicht-1.8/lib/Linux -I/home/moo_user/irrlicht-1.8/include/ -lIrrlicht -lGL</code></pre></div>
-
-<p><strong>Note:</strong> there is no space between <code>-L</code> or <code>-I</code> and the path! As well, as between <code>-l</code> and the library name! That is <strong>GNU C++</strong> compiler command-line options format.</p>
-
-<p><em>Add some screenshots and QtCreator configuration example</em></p>
-
-<h3 id="windows">Windows</h3>
-
-<p>If you are using Windows, it’s better for you to use <strong>Visual Studio</strong>. Personally I prefer <strong>MS VS 2008 Express</strong> because of its user interface peculiarities.</p>
-
-<p>So, the main idea here is to set the project you are using to write the code within to use the Irrlicht <strong>include</strong> and <strong>library</strong> directories.</p>
-
-<p>And here is why I prefer <strong>MS VS 2008</strong> - that was the last Visual Studio version where all the libraries could be specified for all the projects, in one place. So you do not need to configure each solution and each project separately, from scratch.</p>
-
-<p>So, you just set the <strong>include directories</strong> to include the <code>&lt;Irrlicht dir&gt;/include</code> directory and <strong>library directories</strong> to include the <code>&lt;Irrlicht dir&gt;/lib/Win**-visualStudio</code> directory (depending on your OS architecture version it may vary between <code>Win32-...</code> and <code>Win64-...</code>).</p>
-
-<p><em>Add some screenshots</em></p>
-
-<h3 id="macos-x">MacOS X</h3>
-
-<p><em>Work In Progress</em></p>
+<p>But have no fear: we shall do everything step-by-step and break our tutorial into two parts - <strong>the basics</strong> and <strong>the intermediate part</strong>.</p>
 
 
   <div class="row">

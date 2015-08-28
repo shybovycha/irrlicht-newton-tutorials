@@ -8,7 +8,7 @@ html, body {
 }
 
 a {
-  color: #222222;
+  color: rgb(53, 85, 208);
 }
 
 .wrapper, .row {
@@ -67,6 +67,21 @@ a {
   text-shadow: 1px 0 1px #888888;
 }
 
+#sidebar .nav li:hover a {
+  text-shadow: 3px 3px 1px #000;
+}
+
+#sidebar .nav li.active {
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(left, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 50%, rgb(255, 255, 255) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0.3)), color-stop(50%, rgba(255, 255, 255, 0.3)), color-stop(100%, rgb(255, 255, 255))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 50%, rgb(255, 255, 255) 100%); /* Chrome10+,Safari5.1+ */
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 50%, rgb(255, 255, 255) 100%); /* W3C */
+  margin-right: -15px;
+  border-top-left-radius: 5em;
+  border-bottom-left-radius: 5em;
+}
+
 #sidebar a.logo {
   display: block;
   padding: 3px;
@@ -86,6 +101,10 @@ a {
   position: absolute;
   bottom: 5px;
   left: 10px;
+}
+
+#sidebar-footer .row {
+  margin-left: -15px;
 }
 
 #footer {
