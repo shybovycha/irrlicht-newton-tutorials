@@ -4,8 +4,9 @@
 
 <ul class="nav">
   {% for p in pages %}
+    {% assign p_url = p.url | prepend:site.baseurl %}
     <li {% if p.url == page.url %}class="active"{% endif %}>
-      <a href="{{ p.url }}">{{ p.title }}</a>
+      <a href="{{ p.url | prepend:site.baseurl }}">{{ p.title }}</a>
     </li>
   {% endfor %}
 </ul>
