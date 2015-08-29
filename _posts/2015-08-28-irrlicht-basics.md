@@ -5,7 +5,7 @@ date: '2015-08-28T18:04:00+01:00'
 
 # Irrlicht basics
 
-Before we start doing some game design or gamedev magick, we'd better know something about our rendering engine. Just very basics - how to create an application, which will react to **user input** and is able to load and draw some **content**.
+Before we start doing some game design or gamedev magic, we'd better know something about our rendering engine. Just very basics - how to create an application, which will react to **user input** and is able to load and draw some **content**.
 
 If you think you already know everything you want about Irrlicht (or any other rendering engine you shall use - it's simple, though!) - just skip this section.
 
@@ -19,11 +19,11 @@ To get started under Linux, you should compile Irrlicht. Unfortunately, it is bu
 
 But don't be scared! It's simple! Yet, there is one caveat: **do not run `make install` on Linux! Ever!**. If you do, it will be hard for you to get rid of an old version of the software you installed in such a way. For example, when you'll make an update of that software.
 
-To bypass this, you'd better use `checkinstall` utilitie. It creates Debian package from sources and installs it natively instead of just copying files to their places, keeping no trace of that.
+To bypass this, you'd better use `checkinstall` utility. It creates Debian package from sources and installs it natively instead of just copying files to their places, keeping no trace of that.
 
 So, unzip the `irrlicht-*.*.*.zip`, go to the `irrlicht-*.*.*/sources/Irrlicht` and run `make`. And, after many output, if you do not see any error messages - congratulations! You've compiled Irrlicht!
 
-Now, and that's important, here's how you shall compile your Irrlicht applications:
+Now, and that's important, here's how you should compile your Irrlicht applications:
 
 {% highlight bash %}
     g++ <source file> -o <output executable file> -L<absolute path to Irrlicht lib/Linux dir> -I<absolute path to Irrlicht include dir> -lIrrlicht -lGL
@@ -53,4 +53,18 @@ _Add some screenshots_
 
 ### MacOS X
 
-_Work In Progress_
+Install Irrlicht with Homebrew - that is the simplest way. The install process is just a single commang:
+
+{% highlight bash %}
+  brew install irrlicht
+{% endhighlight %}
+
+Irrlicht programs for OSX are a bit different. First, the compile command is:
+
+{% highlight bash %}
+  g++ main.cpp -o application -lIrrlicht -L/usr/local/Cellar/irrlicht/1.8.1/lib -I/usr/local/Cellar/irrlicht/1.8.1/include/irrlicht -framework OpenGL -framework Cocoa -framework Carbon -framework IOKit
+{% endhighlight %}
+
+Now, the code needs to be changed: all the paths to the files you are trying to load (like `media/wall.bmp`) need to be changed to absolute paths. Do not treat this as a bad practice - it is true if you leave this code for the final version of application, but we will handle all of those with scripts.
+
+_Screenshots?_

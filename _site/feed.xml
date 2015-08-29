@@ -5,8 +5,8 @@
     <description></description>
     <link>http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials/</link>
     <atom:link href="http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 28 Aug 2015 22:49:58 +0200</pubDate>
-    <lastBuildDate>Fri, 28 Aug 2015 22:49:58 +0200</lastBuildDate>
+    <pubDate>Sat, 29 Aug 2015 21:09:45 +0200</pubDate>
+    <lastBuildDate>Sat, 29 Aug 2015 21:09:45 +0200</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -901,7 +901,7 @@ void ApplyGravity(const NewtonBody* body, dFloat timestep, int threadIndex)
         <title>Irrlicht Basics</title>
         <description>&lt;h1 id=&quot;irrlicht-basics&quot;&gt;Irrlicht basics&lt;/h1&gt;
 
-&lt;p&gt;Before we start doing some game design or gamedev magick, we’d better know something about our rendering engine. Just very basics - how to create an application, which will react to &lt;strong&gt;user input&lt;/strong&gt; and is able to load and draw some &lt;strong&gt;content&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Before we start doing some game design or gamedev magic, we’d better know something about our rendering engine. Just very basics - how to create an application, which will react to &lt;strong&gt;user input&lt;/strong&gt; and is able to load and draw some &lt;strong&gt;content&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;If you think you already know everything you want about Irrlicht (or any other rendering engine you shall use - it’s simple, though!) - just skip this section.&lt;/p&gt;
 
@@ -915,11 +915,11 @@ void ApplyGravity(const NewtonBody* body, dFloat timestep, int threadIndex)
 
 &lt;p&gt;But don’t be scared! It’s simple! Yet, there is one caveat: &lt;strong&gt;do not run &lt;code&gt;make install&lt;/code&gt; on Linux! Ever!&lt;/strong&gt;. If you do, it will be hard for you to get rid of an old version of the software you installed in such a way. For example, when you’ll make an update of that software.&lt;/p&gt;
 
-&lt;p&gt;To bypass this, you’d better use &lt;code&gt;checkinstall&lt;/code&gt; utilitie. It creates Debian package from sources and installs it natively instead of just copying files to their places, keeping no trace of that.&lt;/p&gt;
+&lt;p&gt;To bypass this, you’d better use &lt;code&gt;checkinstall&lt;/code&gt; utility. It creates Debian package from sources and installs it natively instead of just copying files to their places, keeping no trace of that.&lt;/p&gt;
 
 &lt;p&gt;So, unzip the &lt;code&gt;irrlicht-*.*.*.zip&lt;/code&gt;, go to the &lt;code&gt;irrlicht-*.*.*/sources/Irrlicht&lt;/code&gt; and run &lt;code&gt;make&lt;/code&gt;. And, after many output, if you do not see any error messages - congratulations! You’ve compiled Irrlicht!&lt;/p&gt;
 
-&lt;p&gt;Now, and that’s important, here’s how you shall compile your Irrlicht applications:&lt;/p&gt;
+&lt;p&gt;Now, and that’s important, here’s how you should compile your Irrlicht applications:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;g++ &amp;lt;&lt;span class=&quot;nb&quot;&gt;source &lt;/span&gt;file&amp;gt; -o &amp;lt;output executable file&amp;gt; -L&amp;lt;absolute path to Irrlicht lib/Linux dir&amp;gt; -I&amp;lt;absolute path to Irrlicht include dir&amp;gt; -lIrrlicht -lGL&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
@@ -945,7 +945,17 @@ void ApplyGravity(const NewtonBody* body, dFloat timestep, int threadIndex)
 
 &lt;h3 id=&quot;macos-x&quot;&gt;MacOS X&lt;/h3&gt;
 
-&lt;p&gt;&lt;em&gt;Work In Progress&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Install Irrlicht with Homebrew - that is the simplest way. The install process is just a single commang:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;brew install irrlicht&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Irrlicht programs for OSX are a bit different. First, the compile command is:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;g++ main.cpp -o application -lIrrlicht -L/usr/local/Cellar/irrlicht/1.8.1/lib -I/usr/local/Cellar/irrlicht/1.8.1/include/irrlicht -framework OpenGL -framework Cocoa -framework Carbon -framework IOKit&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, the code needs to be changed: all the paths to the files you are trying to load (like &lt;code&gt;media/wall.bmp&lt;/code&gt;) need to be changed to absolute paths. Do not treat this as a bad practice - it is true if you leave this code for the final version of application, but we will handle all of those with scripts.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Screenshots?&lt;/em&gt;&lt;/p&gt;
 </description>
         <pubDate>Fri, 28 Aug 2015 18:04:00 +0100</pubDate>
         <link>http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials/2015/08/28/irrlicht-basics.html</link>
@@ -958,19 +968,19 @@ void ApplyGravity(const NewtonBody* body, dFloat timestep, int threadIndex)
         <title>Application Architecture</title>
         <description>&lt;h1 id=&quot;perfect-application-architecture&quot;&gt;Perfect application architecture&lt;/h1&gt;
 
-&lt;p&gt;No, really! You’d better believe your game is perfectly designed at content as well as inside! That is the first step to succed, believe me.&lt;/p&gt;
+&lt;p&gt;No, really! You’d better believe your game is perfectly designed at content as well as inside! That is the first step to succeed, believe me.&lt;/p&gt;
 
-&lt;p&gt;We shall use &lt;strong&gt;Irrlicht&lt;/strong&gt; because of its simpleness. But the main criteria - it satisfied all our needs - it does not need much content preparation; it contains UI features inside; extending it with &lt;strong&gt;IrrKlang&lt;/strong&gt; will provide us with very simply interface to sound and music.&lt;/p&gt;
+&lt;p&gt;We shall use &lt;strong&gt;Irrlicht&lt;/strong&gt; because of its simpleness. But the main criteria - it satisfies all our needs - it does not need much content preparation; it contains UI features; extending it with &lt;strong&gt;IrrKlang&lt;/strong&gt; will provide us with very simple interface to sound and music.&lt;/p&gt;
 
-&lt;p&gt;As the title promotes, we shall also use &lt;strong&gt;Newton GD&lt;/strong&gt; physics engine. It is easy to use and so powerful - you would be impressed!&lt;/p&gt;
+&lt;p&gt;As the title of all this site says, we will use &lt;strong&gt;Newton Dynamics&lt;/strong&gt; engine to simulate physics. It is easy to use and sooo powerful - you would be impressed!&lt;/p&gt;
 
-&lt;p&gt;But since we want &lt;strong&gt;perfect&lt;/strong&gt; architecture - we shall use &lt;strong&gt;Lua&lt;/strong&gt; as well. It is a very &lt;em&gt;light&lt;/em&gt; programming language. It will be used for scripting. And here’s why: as our game shall grow, it will be more and more hard to modify something.&lt;/p&gt;
+&lt;p&gt;But since we want our architecture to be &lt;strong&gt;perfect&lt;/strong&gt;, we need to pull out some logic. We will use &lt;strong&gt;Lua&lt;/strong&gt; scripting language to program some parts of our game. Lua is a lightweight programming language and perfectly suits our goal.&lt;/p&gt;
 
-&lt;p&gt;For example, if we shall start with complete game, being run at production and success and we will decide to modify some core feature. Let’s say, we want to modify our &lt;em&gt;NPCs&lt;/em&gt;. We want them fly. If we have everything set at the code side, we shall end up with messy architecture, almost unreadable and totally immutable code. Which should be compiled, although. And each update for our game shall take much megabytes for users to download.&lt;/p&gt;
+&lt;p&gt;Assume you have a complete game, being successfully played by thousands of gamers. And you decide to modify some core feature. Let’s say, you want to make your &lt;em&gt;NPCs&lt;/em&gt; fly. If you have everything programmed in one monolithic application, you will end up re-building the whole game for hours, when making any small change. And each update for your game will take many megabytes for users to download.&lt;/p&gt;
 
-&lt;p&gt;On the other hand, if we have our game running with scripts, we shall only modify a few scripts, which describe how characters behave. Perhaps, we will add some. But this update shall use a few kilobytes and users will not even notice the upgrade process. Yet, the updated feature will be noted during gameplay!&lt;/p&gt;
+&lt;p&gt;On the other hand, if you have your game running scripts, you will only modify a few scripts, which describe how characters behave. Perhaps, add some. But this update will take only a few kilobytes so users will not even notice the upgrade process. Yet, the updated feature will be noted during gameplay!&lt;/p&gt;
 
-&lt;p&gt;But have no fear: we shall do everything step-by-step and break our tutorial into two parts - &lt;strong&gt;the basics&lt;/strong&gt; and &lt;strong&gt;the intermediate part&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;But have no fear: we shall do everything of those step-by-step and break our tutorial into two parts - &lt;strong&gt;the basics&lt;/strong&gt; and &lt;strong&gt;the intermediate part&lt;/strong&gt;.&lt;/p&gt;
 </description>
         <pubDate>Fri, 28 Aug 2015 18:03:00 +0100</pubDate>
         <link>http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials/2015/08/28/application-architecture.html</link>

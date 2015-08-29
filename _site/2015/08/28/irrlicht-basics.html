@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Irrlicht Basics</title>
-  <meta name="description" content="Irrlicht basicsBefore we start doing some game design or gamedev magick, we’d better know something about our rendering engine. Just very basics - how to cre...">
+  <meta name="description" content="Irrlicht basicsBefore we start doing some game design or gamedev magic, we’d better know something about our rendering engine. Just very basics - how to crea...">
 
   <link rel="stylesheet" href="/irrlicht-newton-tutorials/css/main.css">
   <link rel="canonical" href="http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials/2015/08/28/irrlicht-basics.html">
@@ -101,7 +101,7 @@
             <div class="row">
   <h1 id="irrlicht-basics">Irrlicht basics</h1>
 
-<p>Before we start doing some game design or gamedev magick, we’d better know something about our rendering engine. Just very basics - how to create an application, which will react to <strong>user input</strong> and is able to load and draw some <strong>content</strong>.</p>
+<p>Before we start doing some game design or gamedev magic, we’d better know something about our rendering engine. Just very basics - how to create an application, which will react to <strong>user input</strong> and is able to load and draw some <strong>content</strong>.</p>
 
 <p>If you think you already know everything you want about Irrlicht (or any other rendering engine you shall use - it’s simple, though!) - just skip this section.</p>
 
@@ -115,11 +115,11 @@
 
 <p>But don’t be scared! It’s simple! Yet, there is one caveat: <strong>do not run <code>make install</code> on Linux! Ever!</strong>. If you do, it will be hard for you to get rid of an old version of the software you installed in such a way. For example, when you’ll make an update of that software.</p>
 
-<p>To bypass this, you’d better use <code>checkinstall</code> utilitie. It creates Debian package from sources and installs it natively instead of just copying files to their places, keeping no trace of that.</p>
+<p>To bypass this, you’d better use <code>checkinstall</code> utility. It creates Debian package from sources and installs it natively instead of just copying files to their places, keeping no trace of that.</p>
 
 <p>So, unzip the <code>irrlicht-*.*.*.zip</code>, go to the <code>irrlicht-*.*.*/sources/Irrlicht</code> and run <code>make</code>. And, after many output, if you do not see any error messages - congratulations! You’ve compiled Irrlicht!</p>
 
-<p>Now, and that’s important, here’s how you shall compile your Irrlicht applications:</p>
+<p>Now, and that’s important, here’s how you should compile your Irrlicht applications:</p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">g++ &lt;<span class="nb">source </span>file&gt; -o &lt;output executable file&gt; -L&lt;absolute path to Irrlicht lib/Linux dir&gt; -I&lt;absolute path to Irrlicht include dir&gt; -lIrrlicht -lGL</code></pre></div>
 
@@ -145,7 +145,17 @@
 
 <h3 id="macos-x">MacOS X</h3>
 
-<p><em>Work In Progress</em></p>
+<p>Install Irrlicht with Homebrew - that is the simplest way. The install process is just a single commang:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">brew install irrlicht</code></pre></div>
+
+<p>Irrlicht programs for OSX are a bit different. First, the compile command is:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">g++ main.cpp -o application -lIrrlicht -L/usr/local/Cellar/irrlicht/1.8.1/lib -I/usr/local/Cellar/irrlicht/1.8.1/include/irrlicht -framework OpenGL -framework Cocoa -framework Carbon -framework IOKit</code></pre></div>
+
+<p>Now, the code needs to be changed: all the paths to the files you are trying to load (like <code>media/wall.bmp</code>) need to be changed to absolute paths. Do not treat this as a bad practice - it is true if you leave this code for the final version of application, but we will handle all of those with scripts.</p>
+
+<p><em>Screenshots?</em></p>
 
 
   <div class="row">
