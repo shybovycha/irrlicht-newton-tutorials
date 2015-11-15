@@ -8,7 +8,7 @@
   <meta name="yandex-verification" content="665c9a724ffb44f6" />
   
   <title>Application Architecture</title>
-  <meta name="description" content="Perfect application architectureNo, really! You’d better believe your game is perfectly designed at content as well as inside! That is the first step to succ...">
+  <meta name="description" content="Perfect application architecturePositive thinking is a good-to-have when starting something =)Basic rulesLet’s talk a bit about our application before we cre...">
 
   <link rel="stylesheet" href="/irrlicht-newton-tutorials/css/main.css">
   <link rel="canonical" href="http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials/2015/08/28/application-architecture.html">
@@ -42,22 +42,17 @@
   
     
     <li >
-      <a href="/irrlicht-newton-tutorials/2015/08/28/irrlicht-basics.html">Irrlicht Basics</a>
-    </li>
-  
-    
-    <li >
       <a href="/irrlicht-newton-tutorials/2015/08/28/first-application.html">First Application</a>
     </li>
   
     
     <li >
-      <a href="/irrlicht-newton-tutorials/2015/08/28/adding-some-newtonality.html">Adding Some Newtonality</a>
+      <a href="/irrlicht-newton-tutorials/2015/08/28/the-first-script.html">The First Script</a>
     </li>
   
     
     <li >
-      <a href="/irrlicht-newton-tutorials/2015/08/28/advanced-application.html">Advanced Application</a>
+      <a href="/irrlicht-newton-tutorials/2015/08/28/adding-some-newtonality.html">Adding Some Newtonality</a>
     </li>
   
 </ul>
@@ -102,24 +97,66 @@
             <div class="row">
   <h1 id="perfect-application-architecture">Perfect application architecture</h1>
 
-<p>No, really! You’d better believe your game is perfectly designed at content as well as inside! That is the first step to succeed, believe me.</p>
+<p>Positive thinking is a good-to-have when starting something =)</p>
 
-<p>We shall use <strong>Irrlicht</strong> because of its simpleness. But the main criteria - it satisfies all our needs - it does not need much content preparation; it contains UI features; extending it with <strong>IrrKlang</strong> will provide us with very simple interface to sound and music.</p>
+<h2 id="basic-rules">Basic rules</h2>
 
-<p>As the title of all this site says, we will use <strong>Newton Dynamics</strong> engine to simulate physics. It is easy to use and sooo powerful - you would be impressed!</p>
+<p>Let’s talk a bit about our application before we create it - let’s make some <em>planning</em>! We will think of our
+application at least as of well-designed one. So what is the <strong>application architecture</strong>? Not just a game, but
+any application? It’s the way developer split its parts, divided classes, modules, variables, entities and other
+pieces of application, packing them into separate units and defining how they will interact. So that any new
+improvement or change to the application does not make one feel sick at the task definition stage.</p>
 
-<p>But since we want our architecture to be <strong>perfect</strong>, we need to pull out some logic. We will use <strong>Lua</strong> scripting language to program some parts of our game. Lua is a lightweight programming language and perfectly suits our goal.</p>
+<p>But how about a game? What the good architecture of a game looks like? Do we need to separate one 3D models from
+others? Or does that means writing each quest in a separate <code>*.cpp</code> file? No-no-no. That means we should create
+such an application, so that any new quest, model or even a text change will not require us to re-compile the
+damn bunch of code for hours or look for a places, where that particular model or text is used and changing
+it everywhere in the source code.</p>
 
-<p>Assume you have a complete game, being successfully played by thousands of gamers. And you decide to modify some core feature. Let’s say, you want to make your <em>NPCs</em> fly. If you have everything programmed in one monolithic application, you will end up re-building the whole game for hours, when making any small change. And each update for your game will take many megabytes for users to download.</p>
+<p>I assume our game to have a stable, rarely changed <strong>core</strong>, a set of <strong>assets</strong> <em>(models, textures, sounds - any
+content, made by artists and used to be presented to the player)</em> and a bunch of <strong>scripts</strong>, defining all the
+logic of a game - how character looks like, how the menus are shown and how they react to player’s actions, how
+objects in the game world behave and how that world looks like and all the stuff. The main criteria here are:</p>
 
-<p>On the other hand, if you have your game running scripts, you will only modify a few scripts, which describe how characters behave. Perhaps, add some. But this update will take only a few kilobytes so users will not even notice the upgrade process. Yet, the updated feature will be noted during gameplay!</p>
+<ol>
+  <li>scripts and assets may be changed at any time</li>
+  <li>scripts and assets define the whole game</li>
+  <li>none of the changes to scripts or assets force us to re-compile game core</li>
+</ol>
 
-<p>But have no fear: we shall do everything of those step-by-step and break our tutorial into two parts - <strong>the basics</strong> and <strong>the intermediate part</strong>.</p>
+<p>Basically, we can make the core so flexible, we may use it in any game. Or we may want to create a GUI editor
+to create scripts in more handy way. But that requires much more work. And there is never a limit to make
+something better. So currently we will not advance that much.</p>
+
+<h2 id="the-tools">The tools</h2>
+
+<p>We will use <strong>Irrlicht</strong> engine because of its simplicity. And it satisfies all our needs - it
+does not need much content preparation; it provides GUI; extending it with <strong>IrrKlang</strong> will give
+us very simple interface to sound and music playback.</p>
+
+<p><strong>Newton Game Dynamics</strong> engine we will use to physics simulate. It is easy to use and sooo powerful -
+you would be impressed!</p>
+
+<p>The last, not the least, we will use <strong>Lua</strong> scripting language to write scripts. Lua is a lightweight
+programming language and perfectly suits that goal.</p>
+
+<p>One of the most beautiful parts of this tutorial, will be the part on making of <strong>assets</strong>. We will use
+<strong>Blender 3D</strong> to create a couple of 3D models.</p>
+
+<p>I also found <strong>CMake</strong> kind of user-friendly. It is not that handy as any of dependency managers for all
+those languages, supporting them <em>(<code>npm</code> for JavaScript, <code>go get</code> for Go, <code>RubyGems</code> for Ruby, <code>leiningen</code>
+for Clojure and many others)</em>. Yet it makes your project to be a little more portable, helps to handle your
+dependencies, totally eliminates the need of all those <em>How to configure VisualStudio for OGRE</em> tutorials.
+Just try it!</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Remember all the three rules for our architecture. And keeping them in mind, let’s get to some coding already!</p>
 
 
   <div class="row">
     <div class="col-sm-12">
-      <span class="label label-primary">Aug 28, 2015</span>
+      <span class="label label-primary">Nov 15, 2015</span>
       
       
     </div>

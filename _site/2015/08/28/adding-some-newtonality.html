@@ -8,7 +8,7 @@
   <meta name="yandex-verification" content="665c9a724ffb44f6" />
   
   <title>Adding Some Newtonality</title>
-  <meta name="description" content="Adding some NewtonianityCompiling Newton SDK under LinuxWriting this part took me a long time. Well, this story is very short, but I faced an unbreakable wal...">
+  <meta name="description" content="Adding some NewtonianityAt this point we have an application with  1x Ninja, walking around  1x sphere, hanging in the center of the screen  1x cube, flying ...">
 
   <link rel="stylesheet" href="/irrlicht-newton-tutorials/css/main.css">
   <link rel="canonical" href="http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials/2015/08/28/adding-some-newtonality.html">
@@ -42,22 +42,17 @@
   
     
     <li >
-      <a href="/irrlicht-newton-tutorials/2015/08/28/irrlicht-basics.html">Irrlicht Basics</a>
+      <a href="/irrlicht-newton-tutorials/2015/08/28/first-application.html">First Application</a>
     </li>
   
     
     <li >
-      <a href="/irrlicht-newton-tutorials/2015/08/28/first-application.html">First Application</a>
+      <a href="/irrlicht-newton-tutorials/2015/08/28/the-first-script.html">The First Script</a>
     </li>
   
     
     <li class="active">
       <a href="/irrlicht-newton-tutorials/2015/08/28/adding-some-newtonality.html">Adding Some Newtonality</a>
-    </li>
-  
-    
-    <li >
-      <a href="/irrlicht-newton-tutorials/2015/08/28/advanced-application.html">Advanced Application</a>
     </li>
   
 </ul>
@@ -100,427 +95,126 @@
 
           <div class="column col-sm-9" id="main">
             <div class="row">
-  <h2 id="adding-some-newtonianity">Adding some Newtonianity</h2>
-<h3 id="compiling-newton-sdk-under-linux">Compiling Newton SDK under Linux</h3>
-<p>Writing this part took me a long time. Well, this story is very short, but I faced an unbreakable wall - misunderstanting...</p>
-<p>So, the essence of the whole paragraph is just three steps:</p>
-<ol>
-<li>Download Newton 3.0.8+ SDK and unpack it somewhere on your PC</li>
-<li>
-<p>Open your terminal, navigate to the directory where you've unpacked Newton SDK and run this:</p>
-<pre><code>cd coreLibrary_300/projects/posix64 &amp;&amp; make
+  <h1 id="adding-some-newtonianity">Adding some Newtonianity</h1>
+
+<p>At this point we have an application with</p>
+
+<ul>
+  <li><strong>1x Ninja</strong>, walking around</li>
+  <li><strong>1x sphere</strong>, hanging in the center of the screen</li>
+  <li><strong>1x cube</strong>, flying around the sphere</li>
+</ul>
+
+<p>That’s our “game”? Doubtely… So let’s make things move like in real world! Or just like that…</p>
+
+<h2 id="requirements">Requirements</h2>
+
+<p>First of all, <a href="https://github.com/MADEAPPS/newton-dynamics/archive/master.zip"><strong>go and get</strong></a> the
+Newton GD files. And unpack it… right to the <code>source</code> directory of our project! That’s right!
+I’m not insane and I’m aware you are going to put <strong>a lot</strong> of files in your project. But have no
+fear - you may always add them to <code>.gitignore</code> and skip them from being tracked in your Git repo:</p>
+
+<pre><code>source/newton-dynamics-master/applications
+source/newton-dynamics-master/packages/projects
+source/newton-dynamics-master/packages/thirdParty
+source/newton-dynamics-master/coreLibrary_300/projects
 </code></pre>
-</li>
-<li>
-<p>Now just copy the library to your <code>/usr/lib</code> directory:</p>
-<pre><code>sudo cp *.so /usr/lib/
-</code></pre>
-</li>
-</ol>
-<h3>Compoling under Windows</h3>
-<p>There are some tricks under this platform. For Newton 3.10 particulally. The first trick is the large amount of similar directories
-with sources and projects. And you could be scared when first taking a look over. Just follow these instructions and you shall not be lost!
-</p>
-<ol>
-    <li>Unpack the downloaded archive somewhere, let's say <i>NEWTON_HOME</i></li>
-    <li>Navigate to the <pre>NEWTON_HOME/packages/projects/visualStudio_2008</pre> <i>(replace 2008 with the VS version you have installed)</i></li>
-    <li>Run the <strong>build.sln</strong> file <i>(will be opened in the VS)</i></li>
-    <li>Sequently, choose <b>DebugDLL</b> and when done <b>ReleaseDLL</b> build mode and press <b>Build</b></li>
-    <li>Perform the same build steps for <pre>newton.sln</pre> file at <pre>NEWTON_HOME/coreLibrary_300/projects/windows/project_vs2008/</pre> directory</li>
-</ol>
-<p>By default, libraries and DLLs are built to... not very handy places. So we shall add few extra steps to make a life easier:</p>
-<ol>
-    <li>Create a directory <pre>NEWTON_HOME/lib</pre></li>
-    <li>Copy all the <pre>*.lib</pre> and <pre>*.dll</pre> files from <pre>NEWTON_HOME/packages/projects/visualStudio_2008/Win32/</pre> dir to <pre>NEWTON_HOME/lib</pre></li>
-    <li>Perform the same copying pattern for files within the <pre>NEWTON_HOME/coreLibrary_300/projects/windows/project_vs2008/Win32/</pre> directory</li>
-    <li>Set your IDE to take the library files from <pre>NEWTON_HOME/lib</pre> firectory <i>(for my VS2008 Express and lower that is <b>Tools [Top Menu] -&gt; Options... -&gt; Projects and solutions [left folder] -&gt; VC++ Directories [sub-folder] -&gt; Library files [right top dropdown]</b>)</i></li>
-</ol>
-<p>And you are ready to proceed with our first Newton- and Irrlicht-powered application!</p>
-<h3 id="the-first-attempt">The first attempt</h3>
-<p>Let's start modifying our Irrlicht sample application. First of all, we shall add some Newton headers:</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include&lt;dMathDefines.h&gt;</span>
-<span class="cp">#include&lt;dVector.h&gt;</span>
-<span class="cp">#include&lt;dQuaternion.h&gt;</span>
-<span class="cp">#include&lt;dMatrix.h&gt;</span>
-<span class="cp">#include&lt;Newton.h&gt;</span></code></pre></figure>
+<p>You are using Git, right?.. Now, you place the Newton GD sources in your project directory and change
+your <code>CMakeLists.txt</code> file to look like this:</p>
 
-<p>These will include all the data structures and functions we shall use.</p>
-<p>And here goes the first Newton call function:</p>
-<pre><code>NewtonSetMemorySystem(AllocMemory, FreeMemory);
-</code></pre>
-<p>Add this right after Irrlicht initialization. And all the code below (except the <em>Newton world stepping</em> and <em>function definitions</em>) shall be added after this line.</p>
-<p>One sets the way Newton shall manage objects in memory. If you want to define your cool way to serve memory allocation and freement - just define that logic within those two methods. But for now we shall use the <code>stdlib</code> methods:</p>
+<figure class="highlight"><pre><code class="language-cmake" data-lang="cmake"><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.1</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">irrlicht_newton_game1</span><span class="p">)</span>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="nf">AllocMemory</span><span class="p">(</span><span class="kt">int</span> <span class="n">sizeInBytes</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_FLAGS</span> <span class="s2">&quot;${CMAKE_CXX_FLAGS} -std=c++11&quot;</span><span class="p">)</span>
+
+<span class="nb">option</span><span class="p">(</span><span class="s2">&quot;NEWTON_DEMOS_SANDBOX&quot;</span> <span class="s2">&quot;Build demos sandbox&quot;</span> <span class="s">OFF</span><span class="p">)</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">NEWTONGD_PATH</span> <span class="s">source/newton-dynamics-master</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">NEWTONGD_INCLUDE_DIRS</span>
+        <span class="o">${</span><span class="nv">NEWTONGD_PATH</span><span class="o">}</span><span class="s">/packages/dCustomJoints</span>
+        <span class="o">${</span><span class="nv">NEWTONGD_PATH</span><span class="o">}</span><span class="s">/packages/dContainers</span>
+        <span class="o">${</span><span class="nv">NEWTONGD_PATH</span><span class="o">}</span><span class="s">/packages/dMath</span>
+        <span class="p">)</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">NEWTON_LIBRARIES</span> <span class="s">Newton</span> <span class="s">dMath</span><span class="p">)</span>
+
+<span class="nb">add_subdirectory</span><span class="p">(</span><span class="o">${</span><span class="nv">NEWTONGD_PATH</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">find_package</span><span class="p">(</span><span class="s">X11</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">OpenGL</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">ZLIB</span><span class="p">)</span>
+
+<span class="nb">if</span> <span class="p">(</span><span class="s">NOT</span> <span class="s">IRRLICHT_LIBRARY_PATH</span><span class="p">)</span>
+    <span class="nb">find_library</span><span class="p">(</span><span class="s">IRRLICHT_LIBRARY_PATH</span>
+            <span class="s">NAMES</span> <span class="s">Irrlicht</span>
+            <span class="s">PATHS</span> <span class="o">${</span><span class="nv">IRRLICHT_PATH</span><span class="o">}</span><span class="s">/lib/</span>
+            <span class="s">PATH_SUFFIXES</span> <span class="s">Linux</span> <span class="s">MacOSX</span> <span class="s">Win32-gcc</span> <span class="s">Win32-visualstudio</span> <span class="s">Win64-visualstudio</span><span class="p">)</span>
+
+    <span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Found Irrlicht: ${IRRLICHT_LIBRARY_PATH}&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="nb">include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">IRRLICHT_PATH</span><span class="o">}</span><span class="s">/include</span> <span class="o">${</span><span class="nv">NEWTONGD_INCLUDE_DIRS</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">SOURCE_FILES</span> <span class="s">source/main.cpp</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">EXECUTABLE_NAME</span> <span class="s">irrlicht_newton_game1</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">EXECUTABLE_NAME</span><span class="o">}</span> <span class="o">${</span><span class="nv">SOURCE_FILES</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">EXECUTABLE_NAME</span><span class="o">}</span>
+        <span class="o">${</span><span class="nv">NEWTON_LIBRARIES</span><span class="o">}</span>
+        <span class="o">${</span><span class="nv">IRRLICHT_LIBRARY_PATH</span><span class="o">}</span>
+        <span class="o">${</span><span class="nv">X11_LIBRARIES</span><span class="o">}</span>
+        <span class="o">${</span><span class="nv">OPENGL_LIBRARIES</span><span class="o">}</span>
+        <span class="o">${</span><span class="nv">ZLIB_LIBRARIES</span><span class="o">}</span>
+        <span class="o">${</span><span class="nv">X11_Xxf86vm_LIB</span><span class="o">}</span><span class="p">)</span></code></pre></figure>
+
+<p>Try to compile your project - it should be just fine. And observe the power of CMake!</p>
+
+<h2 id="gravity">Gravity</h2>
+
+<p>Let’s start modifying our Irrlicht sample application. First of all, we will add some Newton headers:</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &quot;newton-dynamics-master/coreLibrary_300/source/newton/Newton.h&quot;</span>
+<span class="cp">#include &quot;newton-dynamics-master/packages/dMath/dVector.h&quot;</span>
+<span class="cp">#include &quot;newton-dynamics-master/packages/dMath/dMatrix.h&quot;</span>
+<span class="cp">#include &quot;newton-dynamics-master/packages/dMath/dQuaternion.h&quot;</span></code></pre></figure>
+
+<p>The basic thing in the whole Newton GD library is <code>NewtonWorld</code>. That is what it means - the world, where
+all the physics happen. It is something different from where we place our 3D models. And that should be
+obvious - graphics are managed by Irrlicht and physics - by Newton. Those are totally different libraries.
+So we need to tie those two so that graphics correspond to what happens in <em>physical</em> world.</p>
+
+<p>First of all, we need to have a variable for our <code>NewtonWorld</code>. And since physics are handled by scripts too,
+we need to have that variable close to our other objects - in the <code>ScriptManager</code> class.</p>
+
+<p>There are two functions we need to bind to our <code>NewtonBody</code>:</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">static</span> <span class="kt">void</span> <span class="nf">transformCallback</span><span class="p">(</span><span class="k">const</span> <span class="n">NewtonBody</span><span class="o">*</span> <span class="n">body</span><span class="p">,</span> <span class="k">const</span> <span class="n">dFloat</span><span class="o">*</span> <span class="n">matrix</span><span class="p">,</span> <span class="kt">int</span> <span class="n">threadIndex</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="k">return</span> <span class="n">malloc</span><span class="p">(</span><span class="n">sizeInBytes</span><span class="p">);</span>
-<span class="p">}</span>
+    <span class="n">Entity</span> <span class="o">*</span><span class="n">entity</span> <span class="o">=</span> <span class="p">(</span><span class="n">Entity</span><span class="o">*</span><span class="p">)</span> <span class="n">NewtonBodyGetUserData</span><span class="p">(</span><span class="n">body</span><span class="p">);</span>
+    <span class="n">scene</span><span class="o">::</span><span class="n">ISceneNode</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">entity</span><span class="o">-&gt;</span><span class="n">getSceneNode</span><span class="p">();</span>
 
-<span class="kt">void</span> <span class="nf">FreeMemory</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">sizeInBytes</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
-<span class="p">}</span></code></pre></figure>
-
-<p>Then, we create a Newton world. This is a virtual space where all the magic is done. It shall contain all our mesh' (<em>visual part of The Entity</em>) bodies (<em>invisible physical part of The Entity</em>).</p>
-
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">NewtonWorld</span><span class="o">*</span> <span class="n">g_world</span> <span class="o">=</span> <span class="n">NewtonCreate</span><span class="p">();</span>
-<span class="n">NewtonSetSolverModel</span><span class="p">(</span><span class="n">g_world</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span></code></pre></figure>
-
-<p>Solver is the way Newton performs calculations. That is just a configuration option. Yet, important one.</p>
-<p>Now, let's create our first Entity! Remember the Sphere node, we created with Irrlicht? We shall now add some magic to make it act like a metal ball!</p>
-<p>First of all, let's remember how we created our Sphere mesh:</p>
-
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">scene</span><span class="o">::</span><span class="n">ISceneNode</span> <span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addSphereSceneNode</span><span class="p">();</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">node</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">));</span>
-    <span class="n">node</span><span class="o">-&gt;</span><span class="n">setMaterialTexture</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">driver</span><span class="o">-&gt;</span><span class="n">getTexture</span><span class="p">(</span><span class="s">&quot;../media/wall.bmp&quot;</span><span class="p">));</span>
-    <span class="n">node</span><span class="o">-&gt;</span><span class="n">setMaterialFlag</span><span class="p">(</span><span class="n">video</span><span class="o">::</span><span class="n">EMF_LIGHTING</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
-<span class="p">}</span></code></pre></figure>
-
-<p><strong>Note:</strong> do not forget to copy Irrlicht <code>/media</code> directory to the parent directory for the tutorial sample!</p>
-<p>Now just add these lines right after the Sphere' mesh creation code:</p>
-
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">dMatrix</span> <span class="nf">offset</span><span class="p">(</span><span class="n">GetIdentityMatrix</span><span class="p">());</span>
-<span class="n">NewtonCollision</span><span class="o">*</span> <span class="n">shape</span> <span class="o">=</span> <span class="n">NewtonCreateSphere</span><span class="p">(</span><span class="n">g_world</span><span class="p">,</span> <span class="mf">10.f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">offset</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span>
-
-<span class="n">NewtonBody</span><span class="o">*</span> <span class="n">body</span> <span class="o">=</span> <span class="n">NewtonCreateDynamicBody</span><span class="p">(</span><span class="n">g_world</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">offset</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span>
-
-<span class="n">NewtonBodySetUserData</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">node</span><span class="p">);</span>
-
-<span class="n">dVector</span> <span class="n">origin</span><span class="p">;</span>
-<span class="n">dVector</span> <span class="n">inertia</span><span class="p">;</span>
-<span class="n">NewtonConvexCollisionCalculateInertialMatrix</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">inertia</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">origin</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-
-<span class="kt">float</span> <span class="n">mass</span> <span class="o">=</span> <span class="mf">16.f</span><span class="p">;</span>
-<span class="n">NewtonBodySetMassMatrix</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">mass</span> <span class="o">*</span> <span class="n">inertia</span><span class="p">.</span><span class="n">m_x</span><span class="p">,</span> <span class="n">mass</span> <span class="o">*</span> <span class="n">inertia</span><span class="p">.</span><span class="n">m_y</span><span class="p">,</span> <span class="n">mass</span> <span class="o">*</span> <span class="n">inertia</span><span class="p">.</span><span class="n">m_z</span><span class="p">);</span>
-
-<span class="n">NewtonBodySetCentreOfMass</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">origin</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-
-<span class="kt">float</span> <span class="n">mass</span> <span class="o">=</span> <span class="mf">16.f</span><span class="p">;</span>
-<span class="n">NewtonBodySetMassProperties</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">shape</span><span class="p">);</span>
-
-<span class="n">NewtonBodySetMaterialGroupID</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-
-<span class="n">NewtonBodySetForceAndTorqueCallback</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">ApplyGravity</span><span class="p">);</span>
-
-<span class="n">NewtonBodySetTransformCallback</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">SetTransformCallback</span><span class="p">);</span></code></pre></figure>
-
-<p>And define two functions, <code>SetTransformCallback</code> and <code>ApplyGravity</code>:</p>
-<pre><code>void SetTransformCallback (const NewtonBody* body, const dFloat* matrix, int threadIndex)
-{
-    scene::ISceneNode* node;
-
-    // Get the position from the matrix
-    dVector position(matrix[12], matrix[13], matrix[14], 1.0f);
-    dQuaternion rotation;
-
-    NewtonBodyGetRotation(body, &amp;rotation.m_q0);
-
-    // get the entity associated with this rigid body
-    node = (scene::ISceneNode*) NewtonBodyGetUserData(body);
-
-    core::vector3df node_position = core::vector3df(position[0], position[1], position[2]);
-
-    // transform Newtonian rotation to Irrlicht rotation
-    core::quaternion tmp_quaternion = core::quaternion(rotation.m_q0, rotation.m_q1, rotation.m_q2, rotation.m_q3);
-    core::vector3df tmp_rotation;
-    tmp_quaternion.toEuler(tmp_rotation);
-    core::vector3df node_rotation(core::radToDeg(tmp_rotation.X), core::radToDeg(tmp_rotation.Y), core::radToDeg(tmp_rotation.Z));
-
-    node-&gt;setPosition(node_position);
-    node-&gt;setRotation(node_rotation);
-}
-
-void ApplyGravity(const NewtonBody* body, dFloat timestep, int threadIndex)
-{
-    dFloat Ixx, Iyy, Izz, mass;
-    NewtonBodyGetMassMatrix(body, &amp;mass, &amp;Ixx, &amp;Iyy, &amp;Izz);
-    dVector force(0.f, -9.8 * mass, 0.f);
-    NewtonBodySetForce(body, &amp;force.m_x);
-}
-</code></pre>
-<p>First of them synchronizes Irrlicht meshes with their Newtonian bodies. The second one Applies some default forces and torques to bodies.</p>
-<p>And the last step is Newton stepping. It shall tell Newton: <em>Hey! You! Just update my physics! Now!</em> And all the magic shall be performed.</p>
-<p>You should end up with the code like this:</p>
-
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cm">/** Example 004 Movement</span>
-
-<span class="cm">This Tutorial shows how to move and animate SceneNodes. The</span>
-<span class="cm">basic concept of SceneNodeAnimators is shown as well as manual</span>
-<span class="cm">movement of nodes using the keyboard.  We&#39;ll demonstrate framerate</span>
-<span class="cm">independent movement, which means moving by an amount dependent</span>
-<span class="cm">on the duration of the last run of the Irrlicht loop.</span>
-
-<span class="cm">Example 19.MouseAndJoystick shows how to handle those kinds of input.</span>
-
-<span class="cm">As always, I include the header files, use the irr namespace,</span>
-<span class="cm">and tell the linker to link with the .lib file.</span>
-<span class="cm">*/</span>
-<span class="cp">#ifdef _MSC_VER</span>
-<span class="c1">// We&#39;ll also define this to stop MSVC complaining about sprintf().</span>
-<span class="cp">#define _CRT_SECURE_NO_WARNINGS</span>
-<span class="cp">#pragma comment(lib, &quot;Irrlicht.lib&quot;)</span>
-<span class="cp">#pragma comment(lib, &quot;Newton.lib&quot;)</span>
-<span class="cp">#endif</span>
-
-<span class="cp">#include &lt;irrlicht.h&gt;</span>
-
-<span class="cp">#include &lt;dMathDefines.h&gt;</span>
-<span class="cp">#include &lt;dVector.h&gt;</span>
-<span class="cp">#include &lt;dQuaternion.h&gt;</span>
-<span class="cp">#include &lt;dMatrix.h&gt;</span>
-<span class="cp">#include &lt;Newton.h&gt;</span>
-
-<span class="k">using</span> <span class="k">namespace</span> <span class="n">irr</span><span class="p">;</span>
-
-<span class="cm">/*</span>
-<span class="cm">To receive events like mouse and keyboard input, or GUI events like &quot;the OK</span>
-<span class="cm">button has been clicked&quot;, we need an object which is derived from the</span>
-<span class="cm">irr::IEventReceiver object. There is only one method to override:</span>
-<span class="cm">irr::IEventReceiver::OnEvent(). This method will be called by the engine once</span>
-<span class="cm">when an event happens. What we really want to know is whether a key is being</span>
-<span class="cm">held down, and so we will remember the current state of each key.</span>
-<span class="cm">*/</span>
-<span class="k">class</span> <span class="nc">MyEventReceiver</span> <span class="o">:</span> <span class="k">public</span> <span class="n">IEventReceiver</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="c1">// This is the one method that we have to implement</span>
-    <span class="k">virtual</span> <span class="kt">bool</span> <span class="n">OnEvent</span><span class="p">(</span><span class="k">const</span> <span class="n">SEvent</span><span class="o">&amp;</span> <span class="n">event</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// Remember whether each key is down or up</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="n">EventType</span> <span class="o">==</span> <span class="n">irr</span><span class="o">::</span><span class="n">EET_KEY_INPUT_EVENT</span><span class="p">)</span>
-            <span class="n">KeyIsDown</span><span class="p">[</span><span class="n">event</span><span class="p">.</span><span class="n">KeyInput</span><span class="p">.</span><span class="n">Key</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="p">.</span><span class="n">KeyInput</span><span class="p">.</span><span class="n">PressedDown</span><span class="p">;</span>
-
-        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="c1">// This is used to check whether a key is being held down</span>
-    <span class="k">virtual</span> <span class="kt">bool</span> <span class="n">IsKeyDown</span><span class="p">(</span><span class="n">EKEY_CODE</span> <span class="n">keyCode</span><span class="p">)</span> <span class="k">const</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="n">KeyIsDown</span><span class="p">[</span><span class="n">keyCode</span><span class="p">];</span>
-    <span class="p">}</span>
-
-    <span class="n">MyEventReceiver</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">for</span> <span class="p">(</span><span class="n">u32</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">KEY_KEY_CODES_COUNT</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
-            <span class="n">KeyIsDown</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-    <span class="p">}</span>
-
-<span class="k">private</span><span class="o">:</span>
-    <span class="c1">// We use this array to store the current state of each key</span>
-    <span class="kt">bool</span> <span class="n">KeyIsDown</span><span class="p">[</span><span class="n">KEY_KEY_CODES_COUNT</span><span class="p">];</span>
-<span class="p">};</span>
-
-<span class="c1">// this is the call back for allocation newton memory</span>
-<span class="kt">void</span><span class="o">*</span> <span class="nf">AllocMemory</span> <span class="p">(</span><span class="kt">int</span> <span class="n">sizeInBytes</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="n">malloc</span> <span class="p">(</span><span class="n">sizeInBytes</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="c1">// this is the callback for freeing Newton Memory</span>
-<span class="kt">void</span> <span class="nf">FreeMemory</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">sizeInBytes</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">free</span> <span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="c1">// Transform callback to set the matrix of a the visual entity</span>
-<span class="kt">void</span> <span class="nf">SetTransformCallback</span> <span class="p">(</span><span class="k">const</span> <span class="n">NewtonBody</span><span class="o">*</span> <span class="n">body</span><span class="p">,</span> <span class="k">const</span> <span class="n">dFloat</span><span class="o">*</span> <span class="n">matrix</span><span class="p">,</span> <span class="kt">int</span> <span class="n">threadIndex</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">scene</span><span class="o">::</span><span class="n">ISceneNode</span><span class="o">*</span> <span class="n">node</span><span class="p">;</span>
-
-    <span class="c1">// Get the position from the matrix</span>
-    <span class="n">dVector</span> <span class="n">position</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">13</span><span class="p">],</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="mf">1.0f</span><span class="p">);</span>
-    <span class="n">dQuaternion</span> <span class="n">rotation</span><span class="p">;</span>
-
-    <span class="c1">// we will ignore the Rotation part of matrix and use the quaternion rotation stored in the body</span>
-    <span class="n">NewtonBodyGetRotation</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">rotation</span><span class="p">.</span><span class="n">m_q0</span><span class="p">);</span>
-
-    <span class="c1">// get the entity associated with this rigid body</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="p">(</span><span class="n">scene</span><span class="o">::</span><span class="n">ISceneNode</span><span class="o">*</span><span class="p">)</span> <span class="n">NewtonBodyGetUserData</span><span class="p">(</span><span class="n">body</span><span class="p">);</span>
-
-    <span class="n">core</span><span class="o">::</span><span class="n">vector3df</span> <span class="n">node_position</span> <span class="o">=</span> <span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">position</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-
-    <span class="n">core</span><span class="o">::</span><span class="n">quaternion</span> <span class="n">tmp_quaternion</span> <span class="o">=</span> <span class="n">core</span><span class="o">::</span><span class="n">quaternion</span><span class="p">(</span><span class="n">rotation</span><span class="p">.</span><span class="n">m_q0</span><span class="p">,</span> <span class="n">rotation</span><span class="p">.</span><span class="n">m_q1</span><span class="p">,</span> <span class="n">rotation</span><span class="p">.</span><span class="n">m_q2</span><span class="p">,</span> <span class="n">rotation</span><span class="p">.</span><span class="n">m_q3</span><span class="p">);</span>
-    <span class="n">core</span><span class="o">::</span><span class="n">vector3df</span> <span class="n">tmp_rotation</span><span class="p">;</span>
-    <span class="n">tmp_quaternion</span><span class="p">.</span><span class="n">toEuler</span><span class="p">(</span><span class="n">tmp_rotation</span><span class="p">);</span>
-    <span class="n">core</span><span class="o">::</span><span class="n">vector3df</span> <span class="n">node_rotation</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">radToDeg</span><span class="p">(</span><span class="n">tmp_rotation</span><span class="p">.</span><span class="n">X</span><span class="p">),</span> <span class="n">core</span><span class="o">::</span><span class="n">radToDeg</span><span class="p">(</span><span class="n">tmp_rotation</span><span class="p">.</span><span class="n">Y</span><span class="p">),</span> <span class="n">core</span><span class="o">::</span><span class="n">radToDeg</span><span class="p">(</span><span class="n">tmp_rotation</span><span class="p">.</span><span class="n">Z</span><span class="p">));</span>
-
-    <span class="c1">// since this tutorial run the physics and a different fps than the Graphics</span>
-    <span class="c1">// we need to save the entity current transformation state before updating the new state.</span>
-    <span class="n">node</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">node_position</span><span class="p">);</span>
-    <span class="n">node</span><span class="o">-&gt;</span><span class="n">setRotation</span><span class="p">(</span><span class="n">node_rotation</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="nf">ApplyGravity</span><span class="p">(</span><span class="k">const</span> <span class="n">NewtonBody</span><span class="o">*</span> <span class="n">body</span><span class="p">,</span> <span class="n">dFloat</span> <span class="n">timestep</span><span class="p">,</span> <span class="kt">int</span> <span class="n">threadIndex</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">dFloat</span> <span class="n">Ixx</span><span class="p">,</span> <span class="n">Iyy</span><span class="p">,</span> <span class="n">Izz</span><span class="p">,</span> <span class="n">mass</span><span class="p">;</span>
-    <span class="n">NewtonBodyGetMassMatrix</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mass</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Ixx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Iyy</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Izz</span><span class="p">);</span>
-    <span class="n">dVector</span> <span class="n">force</span><span class="p">(</span><span class="mf">0.f</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.8</span> <span class="o">*</span> <span class="n">mass</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">);</span>
-    <span class="n">NewtonBodySetForce</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">force</span><span class="p">.</span><span class="n">m_x</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="cm">/*</span>
-<span class="cm">The event receiver for keeping the pressed keys is ready, the actual responses</span>
-<span class="cm">will be made inside the render loop, right before drawing the scene. So lets</span>
-<span class="cm">just create an irr::IrrlichtDevice and the scene node we want to move. We also</span>
-<span class="cm">create some other additional scene nodes, to show that there are also some</span>
-<span class="cm">different possibilities to move and animate scene nodes.</span>
-<span class="cm">*/</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="c1">// create device</span>
-    <span class="n">MyEventReceiver</span> <span class="n">receiver</span><span class="p">;</span>
-
-    <span class="n">IrrlichtDevice</span><span class="o">*</span> <span class="n">device</span> <span class="o">=</span> <span class="n">createDevice</span><span class="p">(</span><span class="n">irr</span><span class="o">::</span><span class="n">video</span><span class="o">::</span><span class="n">EDT_OPENGL</span><span class="p">,</span>
-            <span class="n">core</span><span class="o">::</span><span class="n">dimension2d</span><span class="o">&lt;</span><span class="n">u32</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">),</span> <span class="mi">16</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">receiver</span><span class="p">);</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">device</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// could not create selected driver.</span>
-
-    <span class="n">video</span><span class="o">::</span><span class="n">IVideoDriver</span><span class="o">*</span> <span class="n">driver</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getVideoDriver</span><span class="p">();</span>
-    <span class="n">scene</span><span class="o">::</span><span class="n">ISceneManager</span><span class="o">*</span> <span class="n">smgr</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getSceneManager</span><span class="p">();</span>
-
-    <span class="cm">/*</span>
-<span class="cm">    Create the node which will be moved with the WSAD keys. We create a</span>
-<span class="cm">    sphere node, which is a built-in geometry primitive. We place the node</span>
-<span class="cm">    at (0,0,30) and assign a texture to it to let it look a little bit more</span>
-<span class="cm">    interesting. Because we have no dynamic lights in this scene we disable</span>
-<span class="cm">    lighting for each model (otherwise the models would be black).</span>
-<span class="cm">    */</span>
-    <span class="n">scene</span><span class="o">::</span><span class="n">ISceneNode</span> <span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addSphereSceneNode</span><span class="p">();</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="n">node</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">));</span>
-        <span class="n">node</span><span class="o">-&gt;</span><span class="n">setMaterialTexture</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">driver</span><span class="o">-&gt;</span><span class="n">getTexture</span><span class="p">(</span><span class="s">&quot;../media/wall.bmp&quot;</span><span class="p">));</span>
-        <span class="n">node</span><span class="o">-&gt;</span><span class="n">setMaterialFlag</span><span class="p">(</span><span class="n">video</span><span class="o">::</span><span class="n">EMF_LIGHTING</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+        <span class="n">core</span><span class="o">::</span><span class="n">matrix4</span> <span class="n">transform</span><span class="p">;</span>
+        <span class="n">transform</span><span class="p">.</span><span class="n">setM</span><span class="p">(</span><span class="n">matrix</span><span class="p">);</span>
+
+        <span class="n">node</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">getTranslation</span><span class="p">());</span>
+        <span class="n">node</span><span class="o">-&gt;</span><span class="n">setRotation</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">getRotationDegrees</span><span class="p">());</span>
     <span class="p">}</span>
-
-    <span class="n">NewtonSetMemorySystem</span> <span class="p">(</span><span class="n">AllocMemory</span><span class="p">,</span> <span class="n">FreeMemory</span><span class="p">);</span>
-
-    <span class="c1">// create the Newton World</span>
-    <span class="n">NewtonWorld</span><span class="o">*</span> <span class="n">g_world</span> <span class="o">=</span> <span class="n">NewtonCreate</span> <span class="p">();</span>
-
-    <span class="c1">// use the standard x87 floating point model</span>
-    <span class="c1">// NewtonSetPlatformArchitecture (g_world, 0);</span>
-
-    <span class="n">NewtonSetSolverModel</span> <span class="p">(</span><span class="n">g_world</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-
-    <span class="n">dMatrix</span> <span class="n">offset</span><span class="p">(</span><span class="n">GetIdentityMatrix</span><span class="p">());</span>
-    <span class="n">NewtonCollision</span><span class="o">*</span> <span class="n">shape</span> <span class="o">=</span> <span class="n">NewtonCreateSphere</span><span class="p">(</span><span class="n">g_world</span><span class="p">,</span> <span class="mf">10.f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">offset</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span>
-
-    <span class="n">NewtonBody</span><span class="o">*</span> <span class="n">body</span> <span class="o">=</span> <span class="n">NewtonCreateDynamicBody</span><span class="p">(</span><span class="n">g_world</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">offset</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span>
-
-    <span class="n">NewtonBodySetUserData</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">node</span><span class="p">);</span>
-
-    <span class="cm">/*//dMatrix matrix(node-&gt;getRotation(), ent-&gt;m_curPosition);</span>
-<span class="cm">    //NewtonBodySetMatrix (body, &amp;matrix[0][0]);</span>
-
-<span class="cm">    dVector origin;</span>
-<span class="cm">    dVector inertia;</span>
-<span class="cm">    NewtonConvexCollisionCalculateInertialMatrix(shape, &amp;inertia[0], &amp;origin[0]);</span>
-
-<span class="cm">    float mass = 16.f;</span>
-<span class="cm">    NewtonBodySetMassMatrix(body, mass, mass * inertia.m_x, mass * inertia.m_y, mass * inertia.m_z);</span>
-
-<span class="cm">    NewtonBodySetCentreOfMass(body, &amp;origin[0]);*/</span>
-
-    <span class="kt">float</span> <span class="n">mass</span> <span class="o">=</span> <span class="mf">16.f</span><span class="p">;</span>
-    <span class="n">NewtonBodySetMassProperties</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">shape</span><span class="p">);</span>
-
-    <span class="n">NewtonBodySetMaterialGroupID</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-
-    <span class="n">NewtonBodySetForceAndTorqueCallback</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">ApplyGravity</span><span class="p">);</span>
-
-    <span class="n">NewtonBodySetTransformCallback</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">SetTransformCallback</span><span class="p">);</span>
-
-    <span class="cm">/*</span>
-<span class="cm">    To be able to look at and move around in this scene, we create a first</span>
-<span class="cm">    person shooter style camera and make the mouse cursor invisible.</span>
-<span class="cm">    */</span>
-    <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addCameraSceneNodeFPS</span><span class="p">();</span>
-    <span class="n">device</span><span class="o">-&gt;</span><span class="n">getCursorControl</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">setVisible</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
-
-    <span class="cm">/*</span>
-<span class="cm">    Add a colorful irrlicht logo</span>
-<span class="cm">    */</span>
-    <span class="n">device</span><span class="o">-&gt;</span><span class="n">getGUIEnvironment</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">addImage</span><span class="p">(</span>
-        <span class="n">driver</span><span class="o">-&gt;</span><span class="n">getTexture</span><span class="p">(</span><span class="s">&quot;../media/irrlichtlogoalpha2.tga&quot;</span><span class="p">),</span>
-        <span class="n">core</span><span class="o">::</span><span class="n">position2d</span><span class="o">&lt;</span><span class="n">s32</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">));</span>
-
-    <span class="cm">/*</span>
-<span class="cm">    And one for Newton GD</span>
-<span class="cm">    */</span>
-    <span class="n">device</span><span class="o">-&gt;</span><span class="n">getGUIEnvironment</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">addImage</span><span class="p">(</span>
-        <span class="n">driver</span><span class="o">-&gt;</span><span class="n">getTexture</span><span class="p">(</span><span class="s">&quot;../media/newton_logo.png&quot;</span><span class="p">),</span>
-        <span class="n">core</span><span class="o">::</span><span class="n">position2d</span><span class="o">&lt;</span><span class="n">s32</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">130</span><span class="p">));</span>
-
-    <span class="n">gui</span><span class="o">::</span><span class="n">IGUIStaticText</span><span class="o">*</span> <span class="n">diagnostics</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getGUIEnvironment</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">addStaticText</span><span class="p">(</span>
-        <span class="s">L&quot;&quot;</span><span class="p">,</span> <span class="n">core</span><span class="o">::</span><span class="n">rect</span><span class="o">&lt;</span><span class="n">s32</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">20</span><span class="p">));</span>
-    <span class="n">diagnostics</span><span class="o">-&gt;</span><span class="n">setOverrideColor</span><span class="p">(</span><span class="n">video</span><span class="o">::</span><span class="n">SColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
-
-    <span class="cm">/*</span>
-<span class="cm">    We have done everything, so lets draw it. We also write the current</span>
-<span class="cm">    frames per second and the name of the driver to the caption of the</span>
-<span class="cm">    window.</span>
-<span class="cm">    */</span>
-    <span class="kt">int</span> <span class="n">lastFPS</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-
-    <span class="c1">// In order to do framerate independent movement, we have to know</span>
-    <span class="c1">// how long it was since the last frame</span>
-    <span class="n">u32</span> <span class="n">then</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getTimer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getTime</span><span class="p">();</span>
-
-    <span class="c1">// This is the movemen speed in units per second.</span>
-    <span class="k">const</span> <span class="n">f32</span> <span class="n">MOVEMENT_SPEED</span> <span class="o">=</span> <span class="mf">5.f</span><span class="p">;</span>
-
-    <span class="k">while</span><span class="p">(</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">run</span><span class="p">())</span>
-    <span class="p">{</span>
-        <span class="c1">// Work out a frame delta time.</span>
-        <span class="k">const</span> <span class="n">u32</span> <span class="n">now</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getTimer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getTime</span><span class="p">();</span>
-        <span class="k">const</span> <span class="n">f32</span> <span class="n">frameDeltaTime</span> <span class="o">=</span> <span class="p">(</span><span class="n">f32</span><span class="p">)(</span><span class="n">now</span> <span class="o">-</span> <span class="n">then</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000.f</span><span class="p">;</span> <span class="c1">// Time in seconds</span>
-        <span class="n">then</span> <span class="o">=</span> <span class="n">now</span><span class="p">;</span>
-
-        <span class="n">driver</span><span class="o">-&gt;</span><span class="n">beginScene</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="n">video</span><span class="o">::</span><span class="n">SColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">113</span><span class="p">,</span><span class="mi">113</span><span class="p">,</span><span class="mi">133</span><span class="p">));</span>
-
-        <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">drawAll</span><span class="p">();</span> <span class="c1">// draw the 3d scene</span>
-        <span class="n">device</span><span class="o">-&gt;</span><span class="n">getGUIEnvironment</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">drawAll</span><span class="p">();</span> <span class="c1">// draw the gui environment (the logo)</span>
-
-        <span class="n">driver</span><span class="o">-&gt;</span><span class="n">endScene</span><span class="p">();</span>
-
-        <span class="kt">int</span> <span class="n">fps</span> <span class="o">=</span> <span class="n">driver</span><span class="o">-&gt;</span><span class="n">getFPS</span><span class="p">();</span>
-
-        <span class="n">NewtonUpdate</span> <span class="p">(</span><span class="n">g_world</span><span class="p">,</span> <span class="p">(</span><span class="mf">1.0f</span> <span class="o">/</span> <span class="n">fps</span><span class="p">));</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="n">lastFPS</span> <span class="o">!=</span> <span class="n">fps</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">core</span><span class="o">::</span><span class="n">stringw</span> <span class="n">tmp</span><span class="p">(</span><span class="s">L&quot;Newton + Irrlicht Tutorial 01 [&quot;</span><span class="p">);</span>
-            <span class="n">tmp</span> <span class="o">+=</span> <span class="n">driver</span><span class="o">-&gt;</span><span class="n">getName</span><span class="p">();</span>
-            <span class="n">tmp</span> <span class="o">+=</span> <span class="s">L&quot;] fps: &quot;</span><span class="p">;</span>
-            <span class="n">tmp</span> <span class="o">+=</span> <span class="n">fps</span><span class="p">;</span>
-
-            <span class="n">device</span><span class="o">-&gt;</span><span class="n">setWindowCaption</span><span class="p">(</span><span class="n">tmp</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
-            <span class="n">lastFPS</span> <span class="o">=</span> <span class="n">fps</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="cm">/*</span>
-<span class="cm">    In the end, delete the Irrlicht device.</span>
-<span class="cm">    */</span>
-    <span class="n">device</span><span class="o">-&gt;</span><span class="n">drop</span><span class="p">();</span>
-
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="cm">/*</span>
-<span class="cm">That&#39;s it. Compile and play around with the program.</span>
-<span class="cm">**/</span></code></pre></figure>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">applyForceAndTorqueCallback</span><span class="p">(</span><span class="k">const</span> <span class="n">NewtonBody</span><span class="o">*</span> <span class="n">body</span><span class="p">,</span> <span class="n">dFloat</span> <span class="n">timestep</span><span class="p">,</span> <span class="kt">int</span> <span class="n">threadIndex</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">dFloat</span> <span class="n">Ixx</span><span class="p">,</span> <span class="n">Iyy</span><span class="p">,</span> <span class="n">Izz</span><span class="p">;</span>
+    <span class="n">dFloat</span> <span class="n">mass</span><span class="p">;</span>
 
-<p>Let's compile it and run!</p>
-<p><i>Linux build command:</i></p>
+    <span class="n">NewtonBodyGetMassMatrix</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mass</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Ixx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Iyy</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Izz</span><span class="p">);</span>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">g++ main.cpp -I/home/user/newton-3.0.8/packages/posix64/ -L/home/user/newton-3.0.8/packages/posix64/ -I/home/user/newton-3.0.8/packages/dMath/ -I/home/user/irrlicht-1.8/include/ -L /home/user/irrlicht-1.8/lib/Linux/ -lNewton -lIrrlicht -lGL -o tuorial01</code></pre></figure>
+    <span class="n">dVector</span> <span class="n">gravityForce</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span> <span class="n">mass</span> <span class="o">*</span> <span class="o">-</span><span class="mf">9.8f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">);</span>
+    <span class="n">NewtonBodySetForce</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">gravityForce</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="p">}</span></code></pre></figure>
 
 <p><strong>Hint:</strong> to make simulation slower and so watch ball falling in detail, make the <i>NewtonUpdate</i> FPS argument even smaller. A thousand times, say.</p>
 <p><strong>Note:</strong> I used the home directory for user named <em>user</em> to store Newton SDK and Irrlicht SDK. You may want to change this!</p>
@@ -529,7 +223,7 @@ void ApplyGravity(const NewtonBody* body, dFloat timestep, int threadIndex)
 
   <div class="row">
     <div class="col-sm-12">
-      <span class="label label-primary">Aug 28, 2015</span>
+      <span class="label label-primary">Nov 15, 2015</span>
       
       
     </div>

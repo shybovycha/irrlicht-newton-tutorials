@@ -8,7 +8,7 @@
   <meta name="yandex-verification" content="665c9a724ffb44f6" />
   
   <title>First Application</title>
-  <meta name="description" content="First applicationOur first application will show you Irrlicht basic features we will use later. They are: mesh handling - loading, rendering, animating, etc....">
+  <meta name="description" content="First applicationInstall IrrlichtFirst of all, you will definetely need the Irrlicht engine, sogo get it.Now, you need to compile it. Compilation process dep...">
 
   <link rel="stylesheet" href="/irrlicht-newton-tutorials/css/main.css">
   <link rel="canonical" href="http://shybovycha.github.io/irrlicht-newton-tutorials//irrlicht-newton-tutorials/2015/08/28/first-application.html">
@@ -41,23 +41,18 @@
     </li>
   
     
-    <li >
-      <a href="/irrlicht-newton-tutorials/2015/08/28/irrlicht-basics.html">Irrlicht Basics</a>
-    </li>
-  
-    
     <li class="active">
       <a href="/irrlicht-newton-tutorials/2015/08/28/first-application.html">First Application</a>
     </li>
   
     
     <li >
-      <a href="/irrlicht-newton-tutorials/2015/08/28/adding-some-newtonality.html">Adding Some Newtonality</a>
+      <a href="/irrlicht-newton-tutorials/2015/08/28/the-first-script.html">The First Script</a>
     </li>
   
     
     <li >
-      <a href="/irrlicht-newton-tutorials/2015/08/28/advanced-application.html">Advanced Application</a>
+      <a href="/irrlicht-newton-tutorials/2015/08/28/adding-some-newtonality.html">Adding Some Newtonality</a>
     </li>
   
 </ul>
@@ -100,9 +95,67 @@
 
           <div class="column col-sm-9" id="main">
             <div class="row">
-  <h3 id="first-application">First application</h3>
-<p>Our first application will show you Irrlicht basic features we will use later. They are: <strong>mesh handling</strong> - loading, rendering, animating, etc.; <strong>user input handling</strong> - reacting to keyboard and mouse events; <strong>user interface (UI)</strong> - displaying some information within the application window.</p>
-<p>The good start for that is standard example from Irrlicht pack, the <strong>04 - Movement</strong> one. Let's take a look over its code:</p>
+  <h1 id="first-application">First application</h1>
+
+<h2 id="install-irrlicht">Install Irrlicht</h2>
+
+<p>First of all, you will definetely need the Irrlicht engine, so
+<a href="http://irrlicht.sourceforge.net/downloads/"><strong>go get it</strong></a>.</p>
+
+<p>Now, you need to compile it. Compilation process depends on the operating system you use,
+but it’s really similar everywhere.</p>
+
+<h3 id="linux">Linux</h3>
+
+<p>Unzip Irrlicht, go to the directory you unpacked with the terminal and run the following:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd source</span>/Irrlicht
+make</code></pre></figure>
+
+<p>Belive it or not, but that’s all!</p>
+
+<h3 id="windows">Windows</h3>
+
+<p>Unzip Irrlicht, go to the directory you unpacked and open the VisualStudio project <em>(depending on
+VisualStudio version, you might want to open a bit different file)</em> in <code>source/Irrlicht</code>:</p>
+
+<pre><code>Irrlicht10.0.sln
+Irrlicht11.0.sln
+Irrlicht8.0.sln
+Irrlicht9.0.sln
+</code></pre>
+
+<p>Build it with VisualStudio - and you are done!</p>
+
+<h3 id="macos-x">MacOS X</h3>
+
+<p>The steps are exactly the same as for Linux - unzip, go to the <code>source/Irrlicht</code> and run <code>make</code>.</p>
+
+<h3 id="common">Common</h3>
+
+<p>By performing those steps, described above, you will end up with the compiled Irrlicht library file
+within the <code>lib/</code> directory, depending on your platform:</p>
+
+<pre><code>Linux/libIrrlicht.a
+MacOSX/???
+Win32-visualstudio/Irrlicht.lib
+Win64-visualStudio/Irrlicht.lib
+</code></pre>
+
+<p>Now, create a blank project in your favorite IDE and proceed…</p>
+
+<h2 id="application-itself">Application itself</h2>
+
+<p>Our first application will show you Irrlicht basic features we will use later. They are:</p>
+
+<ul>
+  <li><strong>mesh handling</strong> - loading, rendering, animating, etc.</li>
+  <li><strong>user input handling</strong> - reacting to keyboard and mouse events</li>
+  <li><em>*user interface (UI)</em> - displaying some information within the application window</li>
+</ul>
+
+<p>The good start for that is standard example from Irrlicht pack, the <strong>04 - Movement</strong> one.
+Let’s take a look over its code:</p>
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cm">/** Example 004 Movement</span>
 
@@ -355,112 +408,221 @@
 <span class="cm">That&#39;s it. Compile and play around with the program.</span>
 <span class="cm">**/</span></code></pre></figure>
 
-<p>Here are some basics we could extract from this code:</p>
-<ol>
-<li>Each 3D model is a <em>scene node</em>.</li>
-<li>
-<p>Primitive scene nodes (such as <em>cube</em> or <em>sphere</em>) could be easily created with built-in functions:</p>
+<h2 id="building">Building</h2>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">scene</span><span class="o">::</span><span class="n">ISceneNode</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addSphereSceneNode</span><span class="p">();</span>
-<span class="n">scene</span><span class="o">::</span><span class="n">ISceneNode</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addCubeSceneNode</span><span class="p">();</span></code></pre></figure>
+<p>Paste the code from above to your blank project in your IDE, in the <code>source/main.cpp</code> file.
+This may differ, but is not critical. Now, add the <code>CMakeLists.txt</code> file to your project
+and fill it with these commands:</p>
 
-</li>
-<li>
-<p>Animated 3D models (such as <em>character models</em>) could be loaded from file:</p>
+<figure class="highlight"><pre><code class="language-cmake" data-lang="cmake"><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.1</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">irrlicht_newton_game1</span><span class="p">)</span>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">scene</span><span class="o">::</span><span class="n">IAnimatedMeshSceneNode</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addAnimatedMeshSceneNode</span><span class="p">(</span><span class="n">smgr</span><span class="o">-&gt;</span><span class="n">getMesh</span><span class="p">(</span><span class="s">&quot;../../media/ninja.b3d&quot;</span><span class="p">));</span></code></pre></figure>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_FLAGS</span> <span class="s2">&quot;${CMAKE_CXX_FLAGS} -std=c++11&quot;</span><span class="p">)</span>
 
-<p><em>Hint:</em> if mesh is animated, animation could be started with:</p>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">X11</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">OpenGL</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">ZLIB</span><span class="p">)</span>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">node</span><span class="o">-&gt;</span><span class="n">setFrameLoop</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">13</span><span class="p">);</span>
-<span class="n">node</span><span class="o">-&gt;</span><span class="n">setAnimationSpeed</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span></code></pre></figure>
+<span class="nb">if</span> <span class="p">(</span><span class="s">NOT</span> <span class="s">IRRLICHT_LIBRARY_PATH</span><span class="p">)</span>
+    <span class="nb">find_library</span><span class="p">(</span><span class="s">IRRLICHT_LIBRARY_PATH</span>
+            <span class="s">NAMES</span> <span class="s">Irrlicht</span>
+            <span class="s">PATHS</span> <span class="o">${</span><span class="nv">IRRLICHT_PATH</span><span class="o">}</span><span class="s">/lib/</span>
+            <span class="s">PATH_SUFFIXES</span> <span class="s">Linux</span> <span class="s">MacOSX</span> <span class="s">Win32-gcc</span> <span class="s">Win32-visualstudio</span> <span class="s">Win64-visualstudio</span><span class="p">)</span>
 
-<p><em>Hint:</em> animation could be stopped with setting its speed to zero:</p>
+    <span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Found Irrlicht: ${IRRLICHT_LIBRARY_PATH}&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">node</span><span class="o">-&gt;</span><span class="n">setAnimationSpeed</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span></code></pre></figure>
+<span class="nb">include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">IRRLICHT_PATH</span><span class="o">}</span><span class="s">/include</span><span class="p">)</span>
 
-</li>
-<li>
-<p>Node could be described not only by its vertices and indices (<em>forming a set of triangles which are drawn in 3D forming a 3D model called <strong>mesh</strong></em>) but by its <strong>position</strong>, <strong>rotation</strong> and <strong>scale</strong>.</p>
-<p>Those could be set with:</p>
+<span class="nb">set</span><span class="p">(</span><span class="s">SOURCE_FILES</span> <span class="s">source/main.cpp</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">EXECUTABLE_NAME</span> <span class="s">irrlicht_newton_game1</span><span class="p">)</span>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">node</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">));</span>
-<span class="n">node</span><span class="o">-&gt;</span><span class="n">setRotation</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="n">x_angle</span><span class="p">,</span> <span class="n">y_angle</span><span class="p">,</span> <span class="n">z_angle</span><span class="p">));</span>
-<span class="n">node</span><span class="o">-&gt;</span><span class="n">setScale</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="n">width_factor</span><span class="p">,</span> <span class="n">height_factor</span><span class="p">,</span> <span class="n">depth_factor</span><span class="p">));</span></code></pre></figure>
+<span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">EXECUTABLE_NAME</span><span class="o">}</span> <span class="o">${</span><span class="nv">SOURCE_FILES</span><span class="o">}</span><span class="p">)</span>
 
-<p><em>Hint:</em> rotation is a set of angles relatively to the corresponding axes, the node will be rotated around. E. g., <code>vector3df(45, 90, 0)</code> sets the rotation by <code>45 deg</code> around <em>X axis</em>, <code>90 deg</code> around <em>Y axis</em> and no rotation aroung <em>Z axis</em>.</p>
-<p><em>Add image describing rotations here</em></p>
-</li>
-<li>
-<p>Graphics User Interface' (GUI) widgets for information output are labels; they are created with <strong>GUI Manager</strong>:</p>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">EXECUTABLE_NAME</span><span class="o">}</span>
+        <span class="o">${</span><span class="nv">IRRLICHT_LIBRARY_PATH</span><span class="o">}</span>
+        <span class="o">${</span><span class="nv">X11_LIBRARIES</span><span class="o">}</span>
+        <span class="o">${</span><span class="nv">OPENGL_LIBRARIES</span><span class="o">}</span>
+        <span class="o">${</span><span class="nv">ZLIB_LIBRARIES</span><span class="o">}</span>
+        <span class="o">${</span><span class="nv">X11_Xxf86vm_LIB</span><span class="o">}</span><span class="p">)</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">gui</span><span class="o">::</span><span class="n">IGUIStaticText</span><span class="o">*</span> <span class="n">label</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getGUIEnvironment</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">addStaticText</span><span class="p">(</span><span class="s">L&quot;&quot;</span><span class="p">,</span> <span class="n">core</span><span class="o">::</span><span class="n">rect</span><span class="o">&lt;</span><span class="n">s32</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">20</span><span class="p">));</span></code></pre></figure>
+<p>Now that you are ready, run the following commands from your project directory
+<strong>(you will need <code>cmake</code> to be installed)</strong>:</p>
 
-<p><em>Hint:</em> its text could be set with:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">mkdir build
+<span class="nb">cd </span>build
+cmake -DIRRLICHT_PATH<span class="o">=</span>path_to_directory_where_you_unpacked_irrlicht ..
+make</code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">label</span><span class="o">-&gt;</span><span class="n">setText</span><span class="p">((</span><span class="k">const</span> <span class="kt">wchar_t</span><span class="o">*</span><span class="p">)</span> <span class="s">&quot;some text&quot;</span><span class="p">);</span></code></pre></figure>
+<p><strong>Warning:</strong> do not forget to replace <code>path_to_directory_where_you_unpacked_irrlicht</code> with
+the actual path to the directory, where your Irrlicht files lay!</p>
 
-</li>
-<li>
-<p>User input is handled by an external <code>IEventReceiver</code> class object.</p>
-<p>Its method,
-  
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">  <span class="k">virtual</span> <span class="kt">bool</span> <span class="n">OnEvent</span><span class="p">(</span><span class="k">const</span> <span class="n">SEvent</span><span class="o">&amp;</span> <span class="n">event</span><span class="p">)</span>
-  </code></pre></figure>
+<p>This will build our first Irrlicht application. Not obvious how handy it is right now,
+but you will see the power of CMake in our later sessions.</p>
 
-  defines the logic of handling events like <em>mouse events</em>, <em>keyboard events</em>, <em>joystick events</em>, <em>GUI events</em>, etc.</p>
-<p>The type of event is passed with the <code>event.EventType</code> field. The corresponding field is filled with the event parameters.</p>
+<p>Before you run the application, copy the whole <code>media</code> directory from the Irrlicht
+dir to the parent dir of your project. You should end up with directory structure like this:</p>
+
+<pre><code>.
+└── irrlicht_newton_tutorials
+    ├── irrlicht_newton_game1
+    │   ├── build
+    │   ├── CMakeLists.txt
+    │   └── source
+    │       └── main.cpp
+    └── media
+</code></pre>
+
+<p>Now just run the executable file in your <code>build</code> directory. You should see something like this:</p>
+
+<p><img src="/irrlicht-newton-tutorials/images/04_movement_untouched.png" alt="_screenshot #1_" /></p>
+
+<h2 id="decrypting-the-code">Decrypting the code</h2>
+
+<p>Here are some basics we could extract from application’ code:</p>
+
+<ul>
+  <li>Each 3D model is a <em>scene node</em></li>
+  <li>Primitive scene nodes (such as <em>cube</em> or <em>sphere</em>) could be easily created with built-in functions:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">    <span class="n">scene</span><span class="o">::</span><span class="n">ISceneNode</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addSphereSceneNode</span><span class="p">();</span>
+    <span class="n">scene</span><span class="o">::</span><span class="n">ISceneNode</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addCubeSceneNode</span><span class="p">();</span>
+    </code></pre></figure>
+
+<ul>
+  <li>Animated 3D models (such as <em>character models</em>) could be loaded from file:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">    <span class="n">scene</span><span class="o">::</span><span class="n">IAnimatedMeshSceneNode</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addAnimatedMeshSceneNode</span><span class="p">(</span><span class="n">smgr</span><span class="o">-&gt;</span><span class="n">getMesh</span><span class="p">(</span><span class="s">&quot;../../media/ninja.b3d&quot;</span><span class="p">));</span>
+    </code></pre></figure>
+
+<p><strong>Hint:</strong> if mesh is animated, animation could be started with:</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">    <span class="n">node</span><span class="o">-&gt;</span><span class="n">setFrameLoop</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">13</span><span class="p">);</span>
+    <span class="n">node</span><span class="o">-&gt;</span><span class="n">setAnimationSpeed</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+    </code></pre></figure>
+
+<p><strong>Hint:</strong> animation could be stopped with setting its speed to zero:</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">    <span class="n">node</span><span class="o">-&gt;</span><span class="n">setAnimationSpeed</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    </code></pre></figure>
+
+<ul>
+  <li>
+    <p>Node could be described not only by its vertices and indices <em>(forming a set of triangles which are drawn
+in 3D forming a model, called <strong>mesh</strong>)</em> but by its <strong>position</strong>, <strong>rotation</strong> and <strong>scale</strong></p>
+
+    <p>Those could be set with:</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">    <span class="n">node</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">));</span>
+    <span class="n">node</span><span class="o">-&gt;</span><span class="n">setRotation</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="n">x_angle</span><span class="p">,</span> <span class="n">y_angle</span><span class="p">,</span> <span class="n">z_angle</span><span class="p">));</span>
+    <span class="n">node</span><span class="o">-&gt;</span><span class="n">setScale</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="n">width_factor</span><span class="p">,</span> <span class="n">height_factor</span><span class="p">,</span> <span class="n">depth_factor</span><span class="p">));</span>
+    </code></pre></figure>
+
+<p><strong>Hint:</strong> rotation is a set of angles relatively to the corresponding axes, the node will be rotated
+    around. E. g., <code>vector3df(45, 90, 0)</code> sets the rotation by <code>45 deg</code> around <code>X axis</code>, <code>90 deg</code> around <code>Y axis</code>
+    and no rotation aroung <code>Z axis</code>. All those axes are relative to the node itself.</p>
+
+<pre><code>**Add image describing rotations here**
+</code></pre>
+
+<ul>
+  <li>Graphics User Interface’ <em>(GUI)</em> widgets for information output are labels; they are created with
+<strong>GUI Manager</strong>:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">    <span class="n">gui</span><span class="o">::</span><span class="n">IGUIStaticText</span><span class="o">*</span> <span class="n">label</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getGUIEnvironment</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">addStaticText</span><span class="p">(</span><span class="s">L&quot;&quot;</span><span class="p">,</span> <span class="n">core</span><span class="o">::</span><span class="n">rect</span><span class="o">&lt;</span><span class="n">s32</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">20</span><span class="p">));</span>
+    </code></pre></figure>
+
+<p><strong>Hint:</strong> its text could be set with:</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">    <span class="n">label</span><span class="o">-&gt;</span><span class="n">setText</span><span class="p">((</span><span class="k">const</span> <span class="kt">wchar_t</span><span class="o">*</span><span class="p">)</span> <span class="s">&quot;some text&quot;</span><span class="p">);</span>
+    </code></pre></figure>
+
+<ul>
+  <li>
+    <p>User input is handled by an external <code>IEventReceiver</code> class object.</p>
+
+    <p>Its method,</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">    <span class="k">virtual</span> <span class="kt">bool</span> <span class="n">OnEvent</span><span class="p">(</span><span class="k">const</span> <span class="n">SEvent</span><span class="o">&amp;</span> <span class="n">event</span><span class="p">)</span>
+    </code></pre></figure>
+
+<p>defines the logic of handling events like <em>mouse events</em>, <em>keyboard events</em>, <em>joystick events</em>,
+    <em>GUI events</em>, etc.</p>
+
+<p>The type of event is passed with the <code>event.EventType</code> field. The corresponding field is filled
+    with the event parameters.</p>
+
 <p>For example:</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">EET_MOUSE_INPUT_EVENT</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="n">MouseInput</span><span class="p">.</span><span class="n">isLeftPressed</span><span class="p">())</span>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">    <span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">EET_MOUSE_INPUT_EVENT</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d, %d is cursor position</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">event</span><span class="p">.</span><span class="n">MouseInput</span><span class="p">.</span><span class="n">X</span><span class="p">,</span> <span class="n">event</span><span class="p">.</span><span class="n">mouseInput</span><span class="p">.</span><span class="n">Y</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="n">MouseInput</span><span class="p">.</span><span class="n">isLeftPressed</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d, %d is cursor position</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">event</span><span class="p">.</span><span class="n">MouseInput</span><span class="p">.</span><span class="n">X</span><span class="p">,</span> <span class="n">event</span><span class="p">.</span><span class="n">mouseInput</span><span class="p">.</span><span class="n">Y</span><span class="p">);</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">}</span></code></pre></figure>
+    </code></pre></figure>
 
-<p><em>Hint:</em> <code>EventReceiver</code> object has nothing in common with our main game loop. So we should create some interface, some architecture trick to link those two. Because they are strongly related!</p>
-</li>
-<li>
-<p>Main game loop should contain <strong>rendering call</strong>, <strong>GUI rendering call</strong> and other game logic processing calls.</p>
-<p>The simplest main loop could look like this:</p>
+<p><strong>Hint:</strong> <code>EventReceiver</code> object has nothing in common with our main game loop. So we should create
+    some interface, some architecture trick to link those two. Because they are strongly related!</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">while</span><span class="p">(</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">run</span><span class="p">())</span>
-<span class="p">{</span>
-    <span class="n">driver</span><span class="o">-&gt;</span><span class="n">beginScene</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="n">video</span><span class="o">::</span><span class="n">SColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">113</span><span class="p">,</span><span class="mi">113</span><span class="p">,</span><span class="mi">133</span><span class="p">));</span>
+<ul>
+  <li>
+    <p>Main game loop should contain <strong>rendering call</strong>, <strong>GUI rendering call</strong> and other game logic processing
+calls.</p>
 
-    <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">drawAll</span><span class="p">();</span> <span class="c1">// draw the 3d scene</span>
-    <span class="n">device</span><span class="o">-&gt;</span><span class="n">getGUIEnvironment</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">drawAll</span><span class="p">();</span> <span class="c1">// draw the gui</span>
+    <p>The simplest main loop could look like this:</p>
+  </li>
+</ul>
 
-    <span class="n">driver</span><span class="o">-&gt;</span><span class="n">endScene</span><span class="p">();</span>
-<span class="p">}</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">    <span class="k">while</span><span class="p">(</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">run</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="n">driver</span><span class="o">-&gt;</span><span class="n">beginScene</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="n">video</span><span class="o">::</span><span class="n">SColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">113</span><span class="p">,</span><span class="mi">113</span><span class="p">,</span><span class="mi">133</span><span class="p">));</span>
 
-</li>
-<li>
-<p>There is no simple (built-in) way to get the delta time between two rendered frames. <strong>This is an important variable!</strong> We'll need that later, when we inject physics engine. And Newton GD is not the only engine requiring this variable!</p>
-<p>But that could be easily done with this workaround:</p>
+        <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">drawAll</span><span class="p">();</span> <span class="c1">// draw the 3d scene</span>
+        <span class="n">device</span><span class="o">-&gt;</span><span class="n">getGUIEnvironment</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">drawAll</span><span class="p">();</span> <span class="c1">// draw the gui</span>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">// before main loop</span>
-<span class="n">u32</span> <span class="n">then</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getTimer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getTime</span><span class="p">();</span>
+        <span class="n">driver</span><span class="o">-&gt;</span><span class="n">endScene</span><span class="p">();</span>
+    <span class="p">}</span>
+    </code></pre></figure>
 
-<span class="c1">// ...</span>
+<ul>
+  <li>
+    <p>There is no simple <em>(or at least, built-in)</em> way to get the delta time between two rendered frames.
+<strong>This is an important variable!</strong> We’ll need that later, when we inject physics engine. And Newton GD
+is not the only engine requiring this variable!</p>
 
-<span class="c1">// within the main game loop</span>
-<span class="k">const</span> <span class="n">u32</span> <span class="n">now</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getTimer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getTime</span><span class="p">();</span>
-<span class="k">const</span> <span class="n">f32</span> <span class="n">frameDeltaTime</span> <span class="o">=</span> <span class="p">(</span><span class="n">f32</span><span class="p">)(</span><span class="n">now</span> <span class="o">-</span> <span class="n">then</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000.f</span><span class="p">;</span> <span class="c1">// delta time in seconds</span>
-<span class="n">then</span> <span class="o">=</span> <span class="n">now</span><span class="p">;</span></code></pre></figure>
+    <p>But that could be easily done with this workaround:</p>
+  </li>
+</ul>
 
-</li>
-</ol>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">    <span class="c1">// before main loop</span>
+    <span class="n">u32</span> <span class="n">then</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getTimer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getTime</span><span class="p">();</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="c1">// within the main game loop</span>
+    <span class="k">const</span> <span class="n">u32</span> <span class="n">now</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getTimer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getTime</span><span class="p">();</span>
+    <span class="k">const</span> <span class="n">f32</span> <span class="n">frameDeltaTime</span> <span class="o">=</span> <span class="p">(</span><span class="n">f32</span><span class="p">)(</span><span class="n">now</span> <span class="o">-</span> <span class="n">then</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000.f</span><span class="p">;</span> <span class="c1">// delta time in seconds</span>
+    <span class="n">then</span> <span class="o">=</span> <span class="n">now</span><span class="p">;</span>
+    </code></pre></figure>
+
 <hr />
 
-<p>That's all you need to know about rendering engine for now.</p>
+<p>That was some short introduction to the Irrlicht engine. And that’s basically everything we will use
+for the next few sections.</p>
 
 
   <div class="row">
     <div class="col-sm-12">
-      <span class="label label-primary">Aug 28, 2015</span>
+      <span class="label label-primary">Nov 15, 2015</span>
       
       
     </div>
