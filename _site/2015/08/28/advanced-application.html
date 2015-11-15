@@ -113,7 +113,7 @@
 <p>Let's write one small application which will call some Lua script function and react to the Lua script function call. It will be the most simple scripted application you could imagine!</p>
 <p>Here's the <strong>C++</strong> part:</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;lua.hpp&gt;</span>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;lua.hpp&gt;</span>
 <span class="cp">#include &lt;iostream&gt;</span>
 
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
@@ -160,11 +160,11 @@
     <span class="n">lua_close</span><span class="p">(</span><span class="n">l</span><span class="p">);</span>
 
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span></code></pre></figure>
 
 <p>And here is our little script:</p>
 
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="k">function</span> <span class="nf">someScriptHandler</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="k">function</span> <span class="nf">someScriptHandler</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">someScriptHandler(&quot;</span><span class="o">..</span><span class="n">x</span><span class="o">..</span><span class="s2">&quot;</span><span class="s">)&quot;</span><span class="p">);</span>
 <span class="k">end</span>
 
@@ -174,7 +174,7 @@
 
 <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="k">in</span> <span class="n">res</span> <span class="k">do</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="o">..</span><span class="s2">&quot;</span><span class="s"> = &quot;</span><span class="o">..</span><span class="n">v</span><span class="p">);</span>
-<span class="k">end</span></code></pre></div>
+<span class="k">end</span></code></pre></figure>
 
 <p>That's it! Here what we've done: we created a C++ application which runs <code>script.lua</code> file and calls its function <code>someScriptHandler()</code>. And whenever script calls the <code>someScriptEvent()</code> function, our C++ application reacts calling its <code>someServerHandler()</code> function.</p>
 <p>Hey! We have just written our first scripted server! Although, it does nothing useful, it's a real scripted application! Now we are cool guys and could proceed creating an AAA-games' compete!</p>

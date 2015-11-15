@@ -104,7 +104,7 @@
 <p>Our first application will show you Irrlicht basic features we will use later. They are: <strong>mesh handling</strong> - loading, rendering, animating, etc.; <strong>user input handling</strong> - reacting to keyboard and mouse events; <strong>user interface (UI)</strong> - displaying some information within the application window.</p>
 <p>The good start for that is standard example from Irrlicht pack, the <strong>04 - Movement</strong> one. Let's take a look over its code:</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cm">/** Example 004 Movement</span>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cm">/** Example 004 Movement</span>
 
 <span class="cm">This Tutorial shows how to move and animate SceneNodes. The</span>
 <span class="cm">basic concept of SceneNodeAnimators is shown as well as manual</span>
@@ -353,7 +353,7 @@
 
 <span class="cm">/*</span>
 <span class="cm">That&#39;s it. Compile and play around with the program.</span>
-<span class="cm">**/</span></code></pre></div>
+<span class="cm">**/</span></code></pre></figure>
 
 <p>Here are some basics we could extract from this code:</p>
 <ol>
@@ -361,32 +361,32 @@
 <li>
 <p>Primitive scene nodes (such as <em>cube</em> or <em>sphere</em>) could be easily created with built-in functions:</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">scene</span><span class="o">::</span><span class="n">ISceneNode</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addSphereSceneNode</span><span class="p">();</span>
-<span class="n">scene</span><span class="o">::</span><span class="n">ISceneNode</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addCubeSceneNode</span><span class="p">();</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">scene</span><span class="o">::</span><span class="n">ISceneNode</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addSphereSceneNode</span><span class="p">();</span>
+<span class="n">scene</span><span class="o">::</span><span class="n">ISceneNode</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addCubeSceneNode</span><span class="p">();</span></code></pre></figure>
 
 </li>
 <li>
 <p>Animated 3D models (such as <em>character models</em>) could be loaded from file:</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">scene</span><span class="o">::</span><span class="n">IAnimatedMeshSceneNode</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addAnimatedMeshSceneNode</span><span class="p">(</span><span class="n">smgr</span><span class="o">-&gt;</span><span class="n">getMesh</span><span class="p">(</span><span class="s">&quot;../../media/ninja.b3d&quot;</span><span class="p">));</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">scene</span><span class="o">::</span><span class="n">IAnimatedMeshSceneNode</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addAnimatedMeshSceneNode</span><span class="p">(</span><span class="n">smgr</span><span class="o">-&gt;</span><span class="n">getMesh</span><span class="p">(</span><span class="s">&quot;../../media/ninja.b3d&quot;</span><span class="p">));</span></code></pre></figure>
 
 <p><em>Hint:</em> if mesh is animated, animation could be started with:</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">node</span><span class="o">-&gt;</span><span class="n">setFrameLoop</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">13</span><span class="p">);</span>
-<span class="n">node</span><span class="o">-&gt;</span><span class="n">setAnimationSpeed</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">node</span><span class="o">-&gt;</span><span class="n">setFrameLoop</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">13</span><span class="p">);</span>
+<span class="n">node</span><span class="o">-&gt;</span><span class="n">setAnimationSpeed</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span></code></pre></figure>
 
 <p><em>Hint:</em> animation could be stopped with setting its speed to zero:</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">node</span><span class="o">-&gt;</span><span class="n">setAnimationSpeed</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">node</span><span class="o">-&gt;</span><span class="n">setAnimationSpeed</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span></code></pre></figure>
 
 </li>
 <li>
 <p>Node could be described not only by its vertices and indices (<em>forming a set of triangles which are drawn in 3D forming a 3D model called <strong>mesh</strong></em>) but by its <strong>position</strong>, <strong>rotation</strong> and <strong>scale</strong>.</p>
 <p>Those could be set with:</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">node</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">));</span>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">node</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">));</span>
 <span class="n">node</span><span class="o">-&gt;</span><span class="n">setRotation</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="n">x_angle</span><span class="p">,</span> <span class="n">y_angle</span><span class="p">,</span> <span class="n">z_angle</span><span class="p">));</span>
-<span class="n">node</span><span class="o">-&gt;</span><span class="n">setScale</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="n">width_factor</span><span class="p">,</span> <span class="n">height_factor</span><span class="p">,</span> <span class="n">depth_factor</span><span class="p">));</span></code></pre></div>
+<span class="n">node</span><span class="o">-&gt;</span><span class="n">setScale</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="n">width_factor</span><span class="p">,</span> <span class="n">height_factor</span><span class="p">,</span> <span class="n">depth_factor</span><span class="p">));</span></code></pre></figure>
 
 <p><em>Hint:</em> rotation is a set of angles relatively to the corresponding axes, the node will be rotated around. E. g., <code>vector3df(45, 90, 0)</code> sets the rotation by <code>45 deg</code> around <em>X axis</em>, <code>90 deg</code> around <em>Y axis</em> and no rotation aroung <em>Z axis</em>.</p>
 <p><em>Add image describing rotations here</em></p>
@@ -394,30 +394,31 @@
 <li>
 <p>Graphics User Interface' (GUI) widgets for information output are labels; they are created with <strong>GUI Manager</strong>:</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">gui</span><span class="o">::</span><span class="n">IGUIStaticText</span><span class="o">*</span> <span class="n">label</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getGUIEnvironment</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">addStaticText</span><span class="p">(</span><span class="s">L&quot;&quot;</span><span class="p">,</span> <span class="n">core</span><span class="o">::</span><span class="n">rect</span><span class="o">&lt;</span><span class="n">s32</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">20</span><span class="p">));</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">gui</span><span class="o">::</span><span class="n">IGUIStaticText</span><span class="o">*</span> <span class="n">label</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getGUIEnvironment</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">addStaticText</span><span class="p">(</span><span class="s">L&quot;&quot;</span><span class="p">,</span> <span class="n">core</span><span class="o">::</span><span class="n">rect</span><span class="o">&lt;</span><span class="n">s32</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">20</span><span class="p">));</span></code></pre></figure>
 
 <p><em>Hint:</em> its text could be set with:</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">label</span><span class="o">-&gt;</span><span class="n">setText</span><span class="p">((</span><span class="k">const</span> <span class="kt">wchar_t</span><span class="o">*</span><span class="p">)</span> <span class="s">&quot;some text&quot;</span><span class="p">);</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">label</span><span class="o">-&gt;</span><span class="n">setText</span><span class="p">((</span><span class="k">const</span> <span class="kt">wchar_t</span><span class="o">*</span><span class="p">)</span> <span class="s">&quot;some text&quot;</span><span class="p">);</span></code></pre></figure>
 
 </li>
 <li>
 <p>User input is handled by an external <code>IEventReceiver</code> class object.</p>
 <p>Its method,
   
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">virtual</span> <span class="kt">bool</span> <span class="n">OnEvent</span><span class="p">(</span><span class="k">const</span> <span class="n">SEvent</span><span class="o">&amp;</span> <span class="n">event</span><span class="p">)</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">  <span class="k">virtual</span> <span class="kt">bool</span> <span class="n">OnEvent</span><span class="p">(</span><span class="k">const</span> <span class="n">SEvent</span><span class="o">&amp;</span> <span class="n">event</span><span class="p">)</span>
+  </code></pre></figure>
 
   defines the logic of handling events like <em>mouse events</em>, <em>keyboard events</em>, <em>joystick events</em>, <em>GUI events</em>, etc.</p>
 <p>The type of event is passed with the <code>event.EventType</code> field. The corresponding field is filled with the event parameters.</p>
 <p>For example:</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">EET_MOUSE_INPUT_EVENT</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">EET_MOUSE_INPUT_EVENT</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="n">MouseInput</span><span class="p">.</span><span class="n">isLeftPressed</span><span class="p">())</span>
     <span class="p">{</span>
         <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d, %d is cursor position</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">event</span><span class="p">.</span><span class="n">MouseInput</span><span class="p">.</span><span class="n">X</span><span class="p">,</span> <span class="n">event</span><span class="p">.</span><span class="n">mouseInput</span><span class="p">.</span><span class="n">Y</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span></code></pre></figure>
 
 <p><em>Hint:</em> <code>EventReceiver</code> object has nothing in common with our main game loop. So we should create some interface, some architecture trick to link those two. Because they are strongly related!</p>
 </li>
@@ -425,7 +426,7 @@
 <p>Main game loop should contain <strong>rendering call</strong>, <strong>GUI rendering call</strong> and other game logic processing calls.</p>
 <p>The simplest main loop could look like this:</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">while</span><span class="p">(</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">run</span><span class="p">())</span>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">while</span><span class="p">(</span><span class="n">device</span><span class="o">-&gt;</span><span class="n">run</span><span class="p">())</span>
 <span class="p">{</span>
     <span class="n">driver</span><span class="o">-&gt;</span><span class="n">beginScene</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="n">video</span><span class="o">::</span><span class="n">SColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">113</span><span class="p">,</span><span class="mi">113</span><span class="p">,</span><span class="mi">133</span><span class="p">));</span>
 
@@ -433,14 +434,14 @@
     <span class="n">device</span><span class="o">-&gt;</span><span class="n">getGUIEnvironment</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">drawAll</span><span class="p">();</span> <span class="c1">// draw the gui</span>
 
     <span class="n">driver</span><span class="o">-&gt;</span><span class="n">endScene</span><span class="p">();</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span></code></pre></figure>
 
 </li>
 <li>
 <p>There is no simple (built-in) way to get the delta time between two rendered frames. <strong>This is an important variable!</strong> We'll need that later, when we inject physics engine. And Newton GD is not the only engine requiring this variable!</p>
 <p>But that could be easily done with this workaround:</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">// before main loop</span>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">// before main loop</span>
 <span class="n">u32</span> <span class="n">then</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getTimer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getTime</span><span class="p">();</span>
 
 <span class="c1">// ...</span>
@@ -448,7 +449,7 @@
 <span class="c1">// within the main game loop</span>
 <span class="k">const</span> <span class="n">u32</span> <span class="n">now</span> <span class="o">=</span> <span class="n">device</span><span class="o">-&gt;</span><span class="n">getTimer</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getTime</span><span class="p">();</span>
 <span class="k">const</span> <span class="n">f32</span> <span class="n">frameDeltaTime</span> <span class="o">=</span> <span class="p">(</span><span class="n">f32</span><span class="p">)(</span><span class="n">now</span> <span class="o">-</span> <span class="n">then</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000.f</span><span class="p">;</span> <span class="c1">// delta time in seconds</span>
-<span class="n">then</span> <span class="o">=</span> <span class="n">now</span><span class="p">;</span></code></pre></div>
+<span class="n">then</span> <span class="o">=</span> <span class="n">now</span><span class="p">;</span></code></pre></figure>
 
 </li>
 </ol>

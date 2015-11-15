@@ -122,11 +122,11 @@
 
 <p>Now, and that’s important, here’s how you should compile your Irrlicht applications:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">g++ &lt;<span class="nb">source </span>file&gt; -o &lt;output executable file&gt; -L&lt;absolute path to Irrlicht lib/Linux dir&gt; -I&lt;absolute path to Irrlicht include dir&gt; -lIrrlicht -lGL</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">    g++ &lt;<span class="nb">source </span>file&gt; -o &lt;output executable file&gt; -L&lt;absolute path to Irrlicht lib/Linux dir&gt; -I&lt;absolute path to Irrlicht include dir&gt; -lIrrlicht -lGL</code></pre></figure>
 
 <p>For example, if your program is stored at <code>main.cpp</code> file and you’ve compiled Irrlicht at <code>/home/moo_user/irrlicht-1.8/</code> directory, your compiler command-line will look like this:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">g++ main.cpp -o application -L/home/moo_user/irrlicht-1.8/lib/Linux -I/home/moo_user/irrlicht-1.8/include/ -lIrrlicht -lGL</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">    g++ main.cpp -o application -L/home/moo_user/irrlicht-1.8/lib/Linux -I/home/moo_user/irrlicht-1.8/include/ -lIrrlicht -lGL</code></pre></figure>
 
 <p><strong>Note:</strong> there is no space between <code>-L</code> or <code>-I</code> and the path! As well, as between <code>-l</code> and the library name! That is <strong>GNU C++</strong> compiler command-line options format.</p>
 
@@ -148,11 +148,11 @@
 
 <p>Install Irrlicht with Homebrew - that is the simplest way. The install process is just a single commang:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">brew install irrlicht</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">  brew install irrlicht</code></pre></figure>
 
 <p>Irrlicht programs for OSX are a bit different. First, the compile command is:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">g++ main.cpp -o application -lIrrlicht -L/usr/local/Cellar/irrlicht/1.8.1/lib -I/usr/local/Cellar/irrlicht/1.8.1/include/irrlicht -framework OpenGL -framework Cocoa -framework Carbon -framework IOKit</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">  g++ main.cpp -o application -lIrrlicht -L/usr/local/Cellar/irrlicht/1.8.1/lib -I/usr/local/Cellar/irrlicht/1.8.1/include/irrlicht -framework OpenGL -framework Cocoa -framework Carbon -framework IOKit</code></pre></figure>
 
 <p>Now, the code needs to be changed: all the paths to the files you are trying to load (like <code>media/wall.bmp</code>) need to be changed to absolute paths. Do not treat this as a bad practice - it is true if you leave this code for the final version of application, but we will handle all of those with scripts.</p>
 

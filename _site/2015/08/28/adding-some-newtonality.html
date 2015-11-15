@@ -139,11 +139,11 @@ with sources and projects. And you could be scared when first taking a look over
 <h3 id="the-first-attempt">The first attempt</h3>
 <p>Let's start modifying our Irrlicht sample application. First of all, we shall add some Newton headers:</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include&lt;dMathDefines.h&gt;</span>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include&lt;dMathDefines.h&gt;</span>
 <span class="cp">#include&lt;dVector.h&gt;</span>
 <span class="cp">#include&lt;dQuaternion.h&gt;</span>
 <span class="cp">#include&lt;dMatrix.h&gt;</span>
-<span class="cp">#include&lt;Newton.h&gt;</span></code></pre></div>
+<span class="cp">#include&lt;Newton.h&gt;</span></code></pre></figure>
 
 <p>These will include all the data structures and functions we shall use.</p>
 <p>And here goes the first Newton call function:</p>
@@ -152,7 +152,7 @@ with sources and projects. And you could be scared when first taking a look over
 <p>Add this right after Irrlicht initialization. And all the code below (except the <em>Newton world stepping</em> and <em>function definitions</em>) shall be added after this line.</p>
 <p>One sets the way Newton shall manage objects in memory. If you want to define your cool way to serve memory allocation and freement - just define that logic within those two methods. But for now we shall use the <code>stdlib</code> methods:</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="nf">AllocMemory</span><span class="p">(</span><span class="kt">int</span> <span class="n">sizeInBytes</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="nf">AllocMemory</span><span class="p">(</span><span class="kt">int</span> <span class="n">sizeInBytes</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">return</span> <span class="n">malloc</span><span class="p">(</span><span class="n">sizeInBytes</span><span class="p">);</span>
 <span class="p">}</span>
@@ -160,30 +160,30 @@ with sources and projects. And you could be scared when first taking a look over
 <span class="kt">void</span> <span class="nf">FreeMemory</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">sizeInBytes</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span></code></pre></figure>
 
 <p>Then, we create a Newton world. This is a virtual space where all the magic is done. It shall contain all our mesh' (<em>visual part of The Entity</em>) bodies (<em>invisible physical part of The Entity</em>).</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">NewtonWorld</span><span class="o">*</span> <span class="n">g_world</span> <span class="o">=</span> <span class="n">NewtonCreate</span><span class="p">();</span>
-<span class="n">NewtonSetSolverModel</span><span class="p">(</span><span class="n">g_world</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">NewtonWorld</span><span class="o">*</span> <span class="n">g_world</span> <span class="o">=</span> <span class="n">NewtonCreate</span><span class="p">();</span>
+<span class="n">NewtonSetSolverModel</span><span class="p">(</span><span class="n">g_world</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span></code></pre></figure>
 
 <p>Solver is the way Newton performs calculations. That is just a configuration option. Yet, important one.</p>
 <p>Now, let's create our first Entity! Remember the Sphere node, we created with Irrlicht? We shall now add some magic to make it act like a metal ball!</p>
 <p>First of all, let's remember how we created our Sphere mesh:</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">scene</span><span class="o">::</span><span class="n">ISceneNode</span> <span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addSphereSceneNode</span><span class="p">();</span>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">scene</span><span class="o">::</span><span class="n">ISceneNode</span> <span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="n">smgr</span><span class="o">-&gt;</span><span class="n">addSphereSceneNode</span><span class="p">();</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">node</span><span class="o">-&gt;</span><span class="n">setPosition</span><span class="p">(</span><span class="n">core</span><span class="o">::</span><span class="n">vector3df</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">));</span>
     <span class="n">node</span><span class="o">-&gt;</span><span class="n">setMaterialTexture</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">driver</span><span class="o">-&gt;</span><span class="n">getTexture</span><span class="p">(</span><span class="s">&quot;../media/wall.bmp&quot;</span><span class="p">));</span>
     <span class="n">node</span><span class="o">-&gt;</span><span class="n">setMaterialFlag</span><span class="p">(</span><span class="n">video</span><span class="o">::</span><span class="n">EMF_LIGHTING</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span></code></pre></figure>
 
 <p><strong>Note:</strong> do not forget to copy Irrlicht <code>/media</code> directory to the parent directory for the tutorial sample!</p>
 <p>Now just add these lines right after the Sphere' mesh creation code:</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">dMatrix</span> <span class="nf">offset</span><span class="p">(</span><span class="n">GetIdentityMatrix</span><span class="p">());</span>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">dMatrix</span> <span class="nf">offset</span><span class="p">(</span><span class="n">GetIdentityMatrix</span><span class="p">());</span>
 <span class="n">NewtonCollision</span><span class="o">*</span> <span class="n">shape</span> <span class="o">=</span> <span class="n">NewtonCreateSphere</span><span class="p">(</span><span class="n">g_world</span><span class="p">,</span> <span class="mf">10.f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">offset</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span>
 
 <span class="n">NewtonBody</span><span class="o">*</span> <span class="n">body</span> <span class="o">=</span> <span class="n">NewtonCreateDynamicBody</span><span class="p">(</span><span class="n">g_world</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">offset</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span>
@@ -206,7 +206,7 @@ with sources and projects. And you could be scared when first taking a look over
 
 <span class="n">NewtonBodySetForceAndTorqueCallback</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">ApplyGravity</span><span class="p">);</span>
 
-<span class="n">NewtonBodySetTransformCallback</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">SetTransformCallback</span><span class="p">);</span></code></pre></div>
+<span class="n">NewtonBodySetTransformCallback</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">SetTransformCallback</span><span class="p">);</span></code></pre></figure>
 
 <p>And define two functions, <code>SetTransformCallback</code> and <code>ApplyGravity</code>:</p>
 <pre><code>void SetTransformCallback (const NewtonBody* body, const dFloat* matrix, int threadIndex)
@@ -246,7 +246,7 @@ void ApplyGravity(const NewtonBody* body, dFloat timestep, int threadIndex)
 <p>And the last step is Newton stepping. It shall tell Newton: <em>Hey! You! Just update my physics! Now!</em> And all the magic shall be performed.</p>
 <p>You should end up with the code like this:</p>
 
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cm">/** Example 004 Movement</span>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cm">/** Example 004 Movement</span>
 
 <span class="cm">This Tutorial shows how to move and animate SceneNodes. The</span>
 <span class="cm">basic concept of SceneNodeAnimators is shown as well as manual</span>
@@ -515,12 +515,12 @@ void ApplyGravity(const NewtonBody* body, dFloat timestep, int threadIndex)
 
 <span class="cm">/*</span>
 <span class="cm">That&#39;s it. Compile and play around with the program.</span>
-<span class="cm">**/</span></code></pre></div>
+<span class="cm">**/</span></code></pre></figure>
 
 <p>Let's compile it and run!</p>
 <p><i>Linux build command:</i></p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">g++ main.cpp -I/home/user/newton-3.0.8/packages/posix64/ -L/home/user/newton-3.0.8/packages/posix64/ -I/home/user/newton-3.0.8/packages/dMath/ -I/home/user/irrlicht-1.8/include/ -L /home/user/irrlicht-1.8/lib/Linux/ -lNewton -lIrrlicht -lGL -o tuorial01</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">g++ main.cpp -I/home/user/newton-3.0.8/packages/posix64/ -L/home/user/newton-3.0.8/packages/posix64/ -I/home/user/newton-3.0.8/packages/dMath/ -I/home/user/irrlicht-1.8/include/ -L /home/user/irrlicht-1.8/lib/Linux/ -lNewton -lIrrlicht -lGL -o tuorial01</code></pre></figure>
 
 <p><strong>Hint:</strong> to make simulation slower and so watch ball falling in detail, make the <i>NewtonUpdate</i> FPS argument even smaller. A thousand times, say.</p>
 <p><strong>Note:</strong> I used the home directory for user named <em>user</em> to store Newton SDK and Irrlicht SDK. You may want to change this!</p>
