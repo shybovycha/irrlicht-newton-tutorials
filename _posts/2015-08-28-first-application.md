@@ -47,16 +47,16 @@ The steps are a bit complicated. And they require you to install **XCode** and
 **Command-Line Tools** - those could be found either in  AppStore or on the Apple
 website.
 
-1. First of all, you need to install a bunch of dependencies _(I use `brew` for this purpose)_:
+* First of all, you need to install a bunch of dependencies _(I use `brew` for this purpose)_:
 
   {% highlight bash %}
   brew install tinyxml enet lua cmake
   {% endhighlight %}
 
-2. Get a list of all compilers available for your OSX version:
+* Get a list of all compilers available for your OSX version:
 
   {% highlight bash %}
-  xcodebuild -showBuildSettings | grep compiler
+  xcodebuild -showBuildSettings | grep DEFAULT_COMPILER
   {% endhighlight %}
 
   I got something like this:
@@ -66,14 +66,14 @@ website.
     DEFAULT_COMPILER = com.apple.compilers.llvm.clang.1_0
   {% endhighlight %}
 
-3. Now the build process:
+* Now the build process:
 
   {% highlight bash %}
   cd source/Irrlicht/MacOSX
   xcodebuild -project MacOSX.xcodeproj GCC_VERSION=com.apple.compilers.llvm.clang.1_0
   {% endhighlight %}
 
-4. And the final step - copy the library to the `lib/MacOSX` directory:
+* And the final step - copy the library to the `lib/MacOSX` directory:
 
   {% highlight bash %}
   cp build/Release/libIrrlicht.a ../../../lib/MacOSX
@@ -404,10 +404,6 @@ target_link_libraries(${EXECUTABLE_NAME}
 cmake_minimum_required(VERSION 3.1)
 project(irrlicht_newton_game1)
 
-if (APPLE)
-    set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-framework Cocoa -framework IOKit")
-endif()
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 option("NEWTON_DEMOS_SANDBOX" "Build demos sandbox" OFF)
@@ -483,6 +479,10 @@ set(EXECUTABLE_NAME irrlicht_newton_game1)
 
 add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
 
+if (APPLE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -framework Foundation -framework OpenGL -framework Cocoa -framework Carbon -framework AppKit -framework IOKit")
+endif()
+
 target_link_libraries(${EXECUTABLE_NAME}
         ${LIBRARIES})
 {% endhighlight %}
@@ -515,9 +515,42 @@ dir to the parent dir of your project. You should end up with directory structur
         │       └── main.cpp
         └── media
 
-Now just run the executable file in your `build` directory. You should see something like this:
+**Note:** If you now just run the `irrlicht_newton_game1` binary on OSX, you will see
+your application does not react to keyboard events. This is tricky, but you need
+to pack your application as OSX application. This is easy, though: just create
+a directory tree `mkdir -p irrlicht_newton_game1.app/Contents/MacOS/` and move
+your binary file there:
+
+    ├── irrlicht_newton_game1.app
+    │   └── Contents
+    │       └── MacOS
+    │           └── irrlicht_newton_game1
+
+Open **Finder** and run the application from there. On other operating systems run
+the executable file in your `build` directory.
+
+Buuuuut, since we have CMake, we may simplify this task because this is a part of
+application build process. So we need to create a usual binary file, when we are
+running Linux or Windows or create a directory structure with binary on its deepest
+level, when running OSX. CMake allows to do it in a really easy way:
+
+{% highlight cmake %}
+if (APPLE)
+    add_executable(${EXECUTABLE_NAME} MACOSX_BUNDLE ${SOURCE_FILES})
+else()
+    add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
+endif()
+{% endhighlight %}
+
+You should see something like this:
 
 ![_screenshot #1_]({{ site.baseurl }}/images/04_movement_untouched.png)
+
+To end the process you may consider switching to a terminal and running
+
+{% highlight bash %}
+pkill irrlicht_newton_game1
+{% endhighlight %}
 
 ## Decrypting the code
 
