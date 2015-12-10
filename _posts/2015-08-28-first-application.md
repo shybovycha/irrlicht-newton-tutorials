@@ -487,6 +487,145 @@ target_link_libraries(${EXECUTABLE_NAME}
         ${LIBRARIES})
 {% endhighlight %}
 
+## CMake file details
+
+But what happens in all that code? First two lines of our `CMakeLists.txt` file define the project:
+
+{% highlight cmake %}
+cmake_minimum_required(VERSION 3.1)
+project(irrlicht_newton_game1)
+{% endhighlight %}
+
+Then we modify the variable `CMAKE_CXX_FLAGS`, which will be used to set compiler flags.
+This is how we add items to lists or modify string variables with CMake: we set it the new
+value, consisting of the old one and the new elements / parts:
+
+{% highlight cmake %}
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+{% endhighlight %}
+
+Then we tell CMake not to build *Newton demo sandbox* subproject and set a few path variables -
+we will use them to point compiler to the header and library files of our third-party libraries
+(like Newton itself, Irrlicht and others).
+
+**Remember:** these are only plain variables, they have no effect on compiler themselves.
+
+{% highlight cmake %}
+set(LUACPPINTERFACE_PATH source/luacppinterface-master)
+set(CPPFORMAT_PATH source/cppformat-master)
+set(NEWTONGD_PATH source/newton-dynamics-master)
+set(NEWTONGD_INCLUDE_DIRS
+        ${NEWTONGD_PATH}/packages/dCustomJoints
+        ${NEWTONGD_PATH}/packages/dContainers
+        ${NEWTONGD_PATH}/packages/dMath
+        )
+
+set(NEWTON_LIBRARIES Newton dMath)
+{% endhighlight %}
+
+Next, we point CMake to our sub-projects, which are by the fact our third-party libraries:
+
+{% highlight cmake %}
+add_subdirectory(${LUACPPINTERFACE_PATH})
+add_subdirectory(${CPPFORMAT_PATH})
+add_subdirectory(${NEWTONGD_PATH})
+{% endhighlight %}
+
+These tell CMake to build sub-projects before building our application. Because our sub-projects
+are nothing but libraries, we can then look for the built libraries, required by our project
+in the sub-projects' output directories like this:
+
+{% highlight cmake %}
+find_package(Lua)
+{% endhighlight %}
+
+Same way we look for system libraries:
+
+{% highlight cmake %}
+find_package(X11)
+find_package(OpenGL)
+find_package(ZLIB)
+{% endhighlight %}
+
+These commands set compile-ready variables like `X11_LIBRARIES`.
+
+Some sub-projects may set CMake variables too, providing us with paths to include files or
+library files. If Irrlicht did not do this, we try to find its paths with CMake:
+
+{% highlight cmake %}
+if (NOT IRRLICHT_LIBRARY_PATH)
+    if (UNIX)
+        set(IRRLICHT_PATH_SUFFIX Linux)
+    endif()
+
+    if (APPLE)
+        set(IRRLICHT_PATH_SUFFIX MacOSX)
+    endif()
+
+    if (WIN32)
+        if (MSVC)
+            set(IRRLICHT_PATH_SUFFIX Win32-visualstudio Win64-visualstudio)
+        endif()
+
+        if (MINGW)
+            set(IRRLICHT_PATH_SUFFIX Win32-gcc)
+        endif()
+    endif()
+
+    find_library(IRRLICHT_LIBRARY_PATH
+            NAMES Irrlicht
+            PATHS ${IRRLICHT_PATH}/lib/
+            PATH_SUFFIXES ${IRRLICHT_PATH_SUFFIX})
+
+    message(STATUS "Found Irrlicht: ${IRRLICHT_LIBRARY_PATH}")
+endif()
+{% endhighlight %}
+
+Note the environment variables CMake provides us with: `UNIX`, `APPLE`, `WIN32`, `MSVC`
+and many others. They describe which operating system CMake was ran under and which
+compiler it was told to use.
+
+And the most important part of our `CMakeLists.txt` file:
+
+{% highlight cmake %}
+include_directories(${IRRLICHT_PATH}/include
+        ${LUA_INCLUDE_DIR}
+        ${LUACPPINTERFACE_PATH}/include
+        ${CPPFORMAT_PATH}
+        ${NEWTONGD_INCLUDE_DIRS})
+
+set(SOURCE_FILES source/main.cpp)
+set(EXECUTABLE_NAME irrlicht_newton_game1)
+
+add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
+{% endhighlight %}
+
+This actually runs the **compiler** with the include directories, source files and
+output file specified.
+
+After that, we may run **linker** to link the intermediate object files, provided by
+compiler, and end up with the application executable:
+
+{% highlight cmake %}
+target_link_libraries(${EXECUTABLE_NAME}
+        ${LIBRARIES})
+{% endhighlight %}
+
+For OSX users there is a small hack, needed to build the application:
+
+{% highlight cmake %}
+if (APPLE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -framework Foundation -framework OpenGL -framework Cocoa -framework Carbon -framework AppKit -framework IOKit")
+endif()
+{% endhighlight %}
+
+**Note the order the commands are specified in:** having include path variables definitions
+placed before sub-projects commands may be no harmful, but more *"effective"* commands,
+like compiling sub-projects (`add_subdirectory`) depend on other CMake commands, so
+be sure to keep the order sane and clean.
+
+## Running the build
+
 Now that you are ready, run the following commands from your project directory
 **(you will need `cmake` to be installed in your system)**:
 
