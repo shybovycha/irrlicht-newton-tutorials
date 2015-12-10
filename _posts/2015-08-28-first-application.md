@@ -737,7 +737,7 @@ in 3D forming a model, called **mesh**)_ but by its **position**, **rotation** a
     around. E. g., `vector3df(45, 90, 0)` sets the rotation by `45 deg` around `X axis`, `90 deg` around `Y axis`
     and no rotation aroung `Z axis`. All those axes are relative to the node itself.
 
-    **Add image describing rotations here**
+  ![_euler angles_]({{ site.baseurl }}/images/euler_angles.jpg)
 
 * Graphics User Interface' _(GUI)_ widgets for information output are labels; they are created with
 **GUI Manager**:
