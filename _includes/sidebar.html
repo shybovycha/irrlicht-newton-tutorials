@@ -1,6 +1,6 @@
 <a class="logo" href="{{ site.baseurl }}/">G</a>
 
-{% assign pages = site.posts | sort:"date" %}
+{% assign pages = site.posts | sort:"order" %}
 
 <ul class="nav">
   {% for p in pages %}

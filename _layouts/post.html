@@ -7,7 +7,7 @@ layout: default
 
   <div class="row">
     <div class="col-sm-12">
-      <span class="label label-primary">{{ page.date | date: "%b %-d, %Y" }}</span>
+      <span class="label label-primary">{{ page.timestamp | date: "%b %-d, %Y" }}</span>
       {% if page.author %}<span class="label label-primary">{{ page.author }}</span>{% endif %}
       {% if page.meta %}<span class="label label-primary">{{ page.meta }}</span>{% endif %}
     </div>

@@ -6,7 +6,7 @@ baseurl: "/irrlicht-newton-tutorials" # the subpath of your site, e.g. /blog/
 url: "http://shybovycha.github.io/irrlicht-newton-tutorials/" # the base hostname & protocol for your site
 twitter_username: shybovycha
 github_username:  shybovycha
-excerpt_separator: <!--more-->
+excerpt_separator: ""
 
 # Build settings
 markdown: kramdown
