@@ -102,23 +102,12 @@ we need to have that variable close to our other objects - in the `ScriptManager
 There are two functions we need to bind to our `NewtonBody`:
 
 {% highlight cpp %}
-static void transformCallback(const NewtonBody* body, const dFloat* matrix, int threadIndex)
-{
-    Entity *entity = (Entity*) NewtonBodyGetUserData(body);
-    scene::ISceneNode* node = entity->getSceneNode();
-
-    if (node)
-    {
-        core::matrix4 transform;
-        transform.setM(matrix);
-
-        node->setPosition(transform.getTranslation());
-        node->setRotation(transform.getRotationDegrees());
-    }
+static void transformCallback(const NewtonBody* body, const dFloat* matrix, int threadIndex) {
+    // update ISceneNode so that it is in the same position and rotation as the NewtonBody
 }
 
-static void applyForceAndTorqueCallback(const NewtonBody* body, dFloat timestep, int threadIndex)
-{
+static void applyForceAndTorqueCallback(const NewtonBody* body, dFloat timestep, int threadIndex) {
+    // just add gravity to our body
     dFloat Ixx, Iyy, Izz;
     dFloat mass;
 
