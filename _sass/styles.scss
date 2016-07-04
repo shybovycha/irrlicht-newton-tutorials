@@ -159,3 +159,8 @@ h1, h2, h3 {
 small.text-muted {
   font-family: courier, courier-new, monospace;
 }
+
+.vspace {
+   min-height: 2.5em;
+   display: block;
+}
