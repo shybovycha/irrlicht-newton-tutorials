@@ -1,11 +1,10 @@
 ---
 layout: post
-order: 30
+title: First script
 date: '2015-08-28T18:10:00+01:00'
-timestamp: '2015-11-15T23:17:00+01:00'
 ---
 
-# The first script
+# First script
 
 As we discussed, we will describe the whole game in scripts, and the core functionality
 we will define in the core. In this chapter we will be adding **Lua** to our application.
@@ -436,3 +435,5 @@ If you run our application *now*, you should be able to control sphere with <kbd
 <kbd>s</kbd> keys:
 
 ![_screenshot #2_]({{ site.baseurl }}/images/lua_script_with_kbd_handling.png)
+
+<a href="{{ site.baseurl }}{% post_url 2015-08-29-prepare-to-add-some-newtonianity %}" class="btn btn-success">Next chapter</a>

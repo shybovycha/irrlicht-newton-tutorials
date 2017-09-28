@@ -1,8 +1,7 @@
 ---
 layout: post
-order: 40
-date: '2015-08-28T18:06:00+01:00'
-timestamp: '2015-11-15T22:45:00+01:00'
+title: Prepare to add some Newtonianity
+date: '2015-08-29T18:06:00+01:00'
 ---
 
 # Prepare to add some Newtonianity
@@ -441,3 +440,5 @@ Since we do not have the good mesh in standard Irrlicht distribution for the flo
 _(there is a Quake-like level, but that is too much for our case)_, we will learn how
 to make that simple thing in Blender. The next part is a short break between coding
 sessions.
+
+<a href="{{ site.baseurl }}{% post_url 2015-12-15-making-simple-level-with-blender %}" class="btn btn-success">Next chapter</a>

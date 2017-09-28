@@ -1,10 +1,7 @@
 ---
 layout: post
 title: Finishing the first scene
-categories: []
-tags: []
-published: True
-order: 60
+date: '2015-12-16T18:00:00+01:00'
 ---
 
 # Finishing the first scene

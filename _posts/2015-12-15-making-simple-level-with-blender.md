@@ -1,10 +1,7 @@
 ---
 layout: post
 title: Making simple level with Blender
-categories: []
-tags: []
-published: True
-order: 50
+date: '2015-12-15T18:06:00+01:00'
 ---
 
 # Making simple level with Blender
@@ -410,3 +407,5 @@ save the modified image with the **Image -> Save** menu at the bottom of **UV/Im
 <img src="{{ site.baseurl }}/images/blender/89.png" alt="Saving image from UV/Image Editor" class="img-responsive">
 
 Now we have everything we need for our Newtonian sample!
+
+<a href="{{ site.baseurl }}{% post_url 2015-12-16-finishing-the-first-scene %}" class="btn btn-success">Next chapter</a>

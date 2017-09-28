@@ -1,8 +1,7 @@
 ---
 layout: post
-order: 20
-date: '2015-08-28T18:05:00+01:00'
-timestamp: '2015-11-15T22:10:00+01:00'
+title: First application
+date: '2015-08-27T18:05:00+01:00'
 ---
 
 # First application
@@ -820,3 +819,5 @@ calls.
 
 That was some short introduction to the Irrlicht engine. And that's basically everything we will use
 for the next few sections.
+
+<a href="{{ site.baseurl }}{% post_url 2015-08-28-first-script %}" class="btn btn-success">Next chapter</a>

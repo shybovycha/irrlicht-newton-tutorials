@@ -10,4 +10,4 @@ excerpt_separator: ""
 
 # Build settings
 markdown: kramdown
-highlighter: pygments
+highlighter: rouge 

@@ -1,8 +1,7 @@
 ---
 layout: post
-order: 10
-date: '2015-08-28T18:03:00+01:00'
-timestamp: '2015-11-15T21:50:00+01:00'
+title: Perfect application architecture
+date: '2015-08-26T21:50:00+01:00'
 ---
 
 # Perfect application architecture
@@ -60,3 +59,5 @@ Just try it!
 ## Conclusion
 
 Remember all the three rules for our architecture. And keeping them in mind, let's get to some coding already!
+
+<a href="{{ site.baseurl }}{% post_url 2015-08-27-first-application %}" class="btn btn-success">Next chapter</a>
