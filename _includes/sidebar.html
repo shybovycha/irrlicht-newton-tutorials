@@ -1,16 +1,12 @@
-<a class="logo" href="{{ site.baseurl }}/">G</a>
-
 {% assign pages = site.posts | sort:"date" %}
 
-<ul class="nav">
-  {% for p in pages %}
-    {% assign p_url = p.url | prepend:site.baseurl %}
-    <li {% if p.url == page.url %}class="active"{% endif %}>
-      <a href="{{ p.url | prepend:site.baseurl }}">{{ p.title }}</a>
-    </li>
-  {% endfor %}
-</ul>
+<a href="{{ site.baseurl }}/" {% if page.url == '/' %}class="active"{% endif %}>Home</a>
 
-<div class="hidden-xs" id="sidebar-footer">
-  {% include footer.html %}
-</div>
+{% for p in pages %}
+    {% assign p_url = p.url | prepend:site.baseurl %}
+    <a href="{{ p.url | prepend:site.baseurl }}" {% if p.url == page.url %}class="active"{% endif %}>{{ p.title }}</a>
+{% endfor %}
+
+<a href="https://github.com/shybovycha/irrlicht-newton-game1">GitHub</a>
+
+<a href="http://shybovycha.github.io/">Author</a>

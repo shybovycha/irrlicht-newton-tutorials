@@ -4,8 +4,6 @@ title: Making simple level with Blender
 date: '2015-12-15T18:06:00+01:00'
 ---
 
-# Making simple level with Blender
-
 In this section we will have short but powerful introduction to Blender. We will cover
 just enough of model creation basics, you will need to create most of simple projects.
 

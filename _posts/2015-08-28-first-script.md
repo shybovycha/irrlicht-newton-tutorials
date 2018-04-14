@@ -4,8 +4,6 @@ title: First script
 date: '2015-08-28T18:10:00+01:00'
 ---
 
-# First script
-
 As we discussed, we will describe the whole game in scripts, and the core functionality
 we will define in the core. In this chapter we will be adding **Lua** to our application.
 You do not need to download Lua itself - you'd better install it with your system's
@@ -31,7 +29,7 @@ you are free to do anything with our project!
 To build our project we will need to change our `CMakeLists.txt` file to fetch
 our new dependency:
 
-{% highlight cmake %}
+```cmake
 cmake_minimum_required(VERSION 3.1)
 project(irrlicht_newton_game1)
 
@@ -70,7 +68,7 @@ target_link_libraries(${EXECUTABLE_NAME}
         ${ZLIB_LIBRARIES}
         ${X11_Xxf86vm_LIB}
         ${LUA_LIBRARIES})
-{% endhighlight %}
+```
 
 And here's the thing: if you try to compile our project on another machine, you will
 not need to install any other libraries than Lua on that machine! That supposed to sound
@@ -80,7 +78,7 @@ Back to our busines... `luacppinterface` needs to be tweaked a bit to fit our pr
 we will hack its `CMakeLists.txt` file to make it depend on system Lua libraries.
 Just make it look like this:
 
-{% highlight cmake %}
+```cmake
 cmake_minimum_required (VERSION 2.6)
 
 project(luacppinterface)
@@ -100,7 +98,7 @@ add_library(luacppinterface STATIC
 )
 
 target_link_libraries(luacppinterface ${LUA_LIBRARIES})
-{% endhighlight %}
+```
 
 It barely differs from the original file, but it makes a compilation pleasant - you
 do not need to specify paths to Lua libs anymore!
@@ -112,9 +110,9 @@ say, sphere creation, to the script.
 
 First of all, add `luacppinterface` headers to our `main.cpp` file:
 
-{% highlight cpp %}
+```cpp
 #include "luacppinterface-master/include/luacppinterface.h"
-{% endhighlight %}
+```
 
 Now let's look at some of Irrlicht' conventions:
 
@@ -129,7 +127,7 @@ for this class (for now) are:
 
 Let's get coding!
 
-{% highlight cpp %}
+```cpp
 class ScriptManager {
 private:
     Lua luaState;
@@ -160,7 +158,7 @@ public:
         luaState.RunScript(code);
     }
 };
-{% endhighlight %}
+```
 
 This is just a skeleton - we will fill it out in a minute. Just catching up:
 
@@ -179,73 +177,73 @@ But let's get back to our `ScriptManager`. It shows how things will look like, b
 defines how they will actually **work**. So here are the key points to Lua API:
 
 1. `LuaTable` is an array-like structure in Lua, representing both indexed as well as key-value
-  arrays in Lua. This type is a way to pass variables between Lua script and C++ program. You
-  may use both `table.Get<value_type>(index)` and `table.Get<value_type>("key")` methods
-  to access its values.
+    arrays in Lua. This type is a way to pass variables between Lua script and C++ program. You
+    may use both `table.Get<value_type>(index)` and `table.Get<value_type>("key")` methods
+    to access its values.
 
 2. To bind our `ScriptManager` methods to Lua functions, we need to use pointers to those
-  functions. And as it is not that simple in usual C++, we will use C++11x lambdas:
+    functions. And as it is not that simple in usual C++, we will use C++11x lambdas:
 
-  {% highlight cpp %}
-  auto createSphere = luaState.CreateFunction<void(std::string, std::string)>([&](std::string name, std::string tex) -> void { createSphereNode(name, tex); });
-  {% endhighlight %}
+    ```cpp
+    auto createSphere = luaState.CreateFunction<void(std::string, std::string)>([&](std::string name, std::string tex) -> void { createSphereNode(name, tex); });
+    ```
 
 3. All the functions and variables you want to pass to Lua scripts should be global. And since
-  we have our pretty `luaState` member, we may set global members through its methods:
+    we have our pretty `luaState` member, we may set global members through its methods:
 
-  {% highlight cpp %}
-  LuaTable global = luaState.GetGlobalEnvironment();
+    ```cpp
+    LuaTable global = luaState.GetGlobalEnvironment();
 
-  // ...
+    // ...
 
-  global.Set("createSphere", createSphere);
-  {% endhighlight %}
+    global.Set("createSphere", createSphere);
+    ```
 
 4. We will be using just a map of a Irrlicht' nodes and its name to bypass those nodes between
-  scripts and core:
-
-  {% highlight cpp %}
-  void createSphereNode(const std::string name, const std::string textureFile) {
-	  scene::ISceneNode *node = smgr->addSphereSceneNode();
-
-	  if (node) {
-  	      node->setPosition(core::vector3df(0, 0, 30));
-	      node->setMaterialTexture(0, driver->getTexture(textureFile.c_str()));
-	      node->setMaterialFlag(video::EMF_LIGHTING, false);
-	  }
-
-	  nodes[name] = node;
-  }
-
-  void setNodePosition(const std::string name, LuaTable pos) {
-        float x, y, z;
-
-        x = pos.Get<float>("x");
-        y = pos.Get<float>("y");
-        z = pos.Get<float>("z");
-
-        nodes[name]->setPosition(core::vector3df(x, y, z));
+    scripts and core:
+  
+    ```cpp
+    void createSphereNode(const std::string name, const std::string textureFile) {
+      scene::ISceneNode *node = smgr->addSphereSceneNode();
+  
+      if (node) {
+            node->setPosition(core::vector3df(0, 0, 30));
+          node->setMaterialTexture(0, driver->getTexture(textureFile.c_str()));
+          node->setMaterialFlag(video::EMF_LIGHTING, false);
+      }
+  
+      nodes[name] = node;
     }
-
-    LuaTable getNodePosition(const std::string name) {
-        LuaTable pos = luaState.CreateTable();
-
-        core::vector3df v = nodes[name]->getPosition();
-
-        pos.Set("x", v.X);
-        pos.Set("y", v.Y);
-        pos.Set("z", v.Z);
-
-        return pos;
-    }
-  {% endhighlight %}
+  
+    void setNodePosition(const std::string name, LuaTable pos) {
+          float x, y, z;
+  
+          x = pos.Get<float>("x");
+          y = pos.Get<float>("y");
+          z = pos.Get<float>("z");
+  
+          nodes[name]->setPosition(core::vector3df(x, y, z));
+      }
+  
+      LuaTable getNodePosition(const std::string name) {
+          LuaTable pos = luaState.CreateTable();
+  
+          core::vector3df v = nodes[name]->getPosition();
+  
+          pos.Set("x", v.X);
+          pos.Set("y", v.Y);
+          pos.Set("z", v.Z);
+  
+          return pos;
+      }
+    ```
 
 Given those, we have our API and are able to create and run our first Lua script.
 Add one in the `media/scripts/` directory:
 
-{% highlight lua %}
+```lua
 createSphere("sphere1", "media/textures/wall.bmp")
-{% endhighlight %}
+```
 
 **Note:** paths in the script will be used by C++ core, relatively to the binary file, which
 is... generated by our C++ code! So all the paths in the scripts are just the same as they
@@ -253,11 +251,11 @@ are in C++ core.
 
 And add the `ScriptManager` initialization code:
 
-{% highlight cpp %}
+```cpp
 ScriptManager *scriptMgr = new ScriptManager(smgr, driver);
 
 scriptMgr->loadScript("media/scripts/test1.lua");
-{% endhighlight %}
+```
 
 Now you may remove the code, creating sphere in the `main()` function. And run the code.
 You should see exactly the same picture as before:
@@ -286,20 +284,20 @@ That is, we will define `handleFrame()` function in our script, which will be ca
 on each `onFrame` event in our C++ core and the `main()` function, which will be called right
 after script has been loaded.
 
-{% highlight cpp %}
+```cpp
 auto handler = luaState.GetGlobalEnvironment().Get<LuaFunction<void(void)>>("handleFrame");
 
 // ...
 
 handler.Invoke();
-{% endhighlight %}
+```
 
 Moreover, we will define a global keyboard state table for each of scripts we load and will
 be updating it as user presses keys on his keyboard. And this variable will be shared with
 script, but as read-only one. So changes in that table will have no effect on the application
 itself.
 
-{% highlight cpp %}
+```cpp
 class ScriptManager {
 private:
     std::map<int, bool> keyStates;
@@ -366,25 +364,25 @@ public:
 private:
     ScriptManager *scriptMgr;
 };
-{% endhighlight %}
+```
 
 Variables are added to a `GlobalEnvironment` just as function do:
 
-{% highlight cpp %}
+```cpp
 luaState.GetGlobalEnvironment().Set("KEY_STATE", keysTable);
-{% endhighlight %}
+```
 
 Lua-defined functions are found by their names and called with `Invoke(args)` method:
 
-{% highlight cpp %}
+```cpp
 auto handler = luaState.GetGlobalEnvironment().Get<LuaFunction<void(void)>>("handleFrame");
 
 handler.Invoke();
-{% endhighlight %}
+```
 
 Let's add some simple interaction to our script now. I'll help you a bit:
 
-{% highlight cpp %}
+```cpp
 void moveNode(const std::string name, LuaTable pos) {
     scene::ISceneNode *node = findNode(name);
     core::vector3df vec = tableToVector3df(pos);
@@ -398,13 +396,13 @@ void moveNode(const std::string name, LuaTable pos) {
     node->setPosition(node->getPosition() + vec);
     node->updateAbsolutePosition();
 }
-{% endhighlight %}
+```
 
 This is how nodes could be moved relatively to their current position in Irrlicht.
 
 And here's how our Lua script may look like now:
 
-{% highlight lua %}
+```lua
 function handleFrame()
     -- w
     if KEY_STATE[0x57] == true then
@@ -429,7 +427,7 @@ function main()
     setScale("ninja", { x = 2, y = 2, z = 2 })
     addForwardAnimator("ninja", { x = 100, y = 0, z = 60 }, { x = -100, y = 0, z = 60 }, 3500, true)
 end
-{% endhighlight %}
+```
 
 If you run our application *now*, you should be able to control sphere with <kbd>w</kbd> and
 <kbd>s</kbd> keys:

@@ -1,10 +1,9 @@
 ---
 layout: default
+title: Newton physics for Irrlicht game developers
 ---
 
-<div class="home">
-
-  <h1 class="page-heading">Newton physics for Irrlicht game developers</h1>
+<article>
 
   <p>
     This tutorial covers creating a game with <a href="http://newtondynamics.com/">Newton Game Dynamics</a>,
@@ -17,31 +16,54 @@ layout: default
     this will give you brief understanding what this tutorial covers.
   </p>
 
-  <h2>News</h2>
+  <section>
+    <h2>News</h2>
 
-  <p>
-    Great news! I've just updated the whole tutorial to the newest version!
-    The updated one contains many improvements:
+    <p>
+      <div><em>14 Apr 2018</em></div>
 
-    <ol>
-      <li>moved all the build instructions to <strong>CMake</strong></li>
-      <li>added scripting with <strong>Lua</strong></li>
-      <li>upgraded the whole tutorial to match <strong>latest Irrlicht and Newton versions</strong></li>
-      <li>added chapter on <strong>creating a level model with Blender</strong></li>
-    </ol>
+      <ol>
+        <li>redesigned the website (you've probably noticed it if you've been here before)</li>
+        <li>
+          <div>started reworking the tutorial itself - language, information and the code:</div>
 
-    And the chapter on <strong>architecture improvements</strong> is coming soon!
-  </p>
+          <ul>
+            <li>new build system</li>
+            <li>updated libaries</li>
+            <li>reworking Blender modelling tutorial</li>
+            <li>sane examples</li>
+          </ul>
+        </li>
+      </ol>
 
-  <h2>About the author</h2>
+      <div>Stay tuned!</div>
+    </p>
 
-  <p>
-    {% assign today = site.time | date: '%Y' %}
-    {% assign start_date = '2004-09-01' | date: '%Y' %}
-    {% assign years_since = today | minus: start_date %}
+    <p>
+      <div><em>16 Dec 2015</em></div>
 
-    My name is Artem and I am a software developer. I have been writing code for nearly {{ years_since }} years.
-    Game development was my hobby for all of them.
-  </p>
+      <ol>
+        <li>moved all the build instructions to <strong>CMake</strong></li>
+        <li>added scripting with <strong>Lua</strong></li>
+        <li>upgraded the whole tutorial to match <strong>latest Irrlicht and Newton versions</strong></li>
+        <li>added chapter on <strong>creating a level model with Blender</strong></li>
+      </ol>
 
-</div>
+      And the chapter on <strong>architecture improvements</strong> is coming soon!
+    </p>
+  </section>
+
+  <section>
+    <h2>About the author</h2>
+
+    <p>
+      {% assign today = site.time | date: '%Y' %}
+      {% assign start_date = '2004-09-01' | date: '%Y' %}
+      {% assign years_since = today | minus: start_date %}
+
+      My name is Artem and I am a software developer. I have been writing code for nearly {{ years_since }} years now.
+      Game development was my hobby for all of them.
+    </p>
+  </section>
+
+</article>

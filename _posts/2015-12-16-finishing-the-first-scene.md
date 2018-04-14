@@ -4,8 +4,6 @@ title: Finishing the first scene
 date: '2015-12-16T18:00:00+01:00'
 ---
 
-# Finishing the first scene
-
 If you remember, we ended our coding excercises at place, where we almost created our first
 Newtonian body, but we did not actually have enough models.
 

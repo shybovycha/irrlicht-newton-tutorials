@@ -4,8 +4,6 @@ title: Prepare to add some Newtonianity
 date: '2015-08-29T18:06:00+01:00'
 ---
 
-# Prepare to add some Newtonianity
-
 At this point we have an application with
 
 * **1x Ninja**, walking around
@@ -16,7 +14,7 @@ That's our "game"? Doubtely... So let's make things move like in real world! Or 
 
 ## Requirements
 
-First of all, [**go and get**](https://github.com/MADEAPPS/newton-dynamics/archive/master.zip) the
+First of all, [**go and get**](https://github.com/MADEAPPS/newton-dynamics/archive/newton-3.13.zip) the
 Newton GD files. And unpack it... right to the `source` directory of our project! That's right!
 I'm not insane and I'm aware you are going to put **a lot** of files in your project. But have no
 fear - you may always add them to `.gitignore` and skip them from being tracked in your Git repo:

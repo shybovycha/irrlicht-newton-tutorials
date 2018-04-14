@@ -1,39 +1,56 @@
 ---
 layout: post
-title: Perfect application architecture
+title: Application architecture
 date: '2015-08-26T21:50:00+01:00'
 ---
 
-# Perfect application architecture
+## Basic terms
 
-Positive thinking is a good-to-have when starting something =)
+Let's talk a bit about our application before we create it. In order to make the development process sequential
+and least painful, we need to design the application well. The design of an application or the **application architecture**
+is the hardest thing to change on later stages of development. Thus it must be well-thought at the very beginning to
+prevent suffering in the future.
 
-## Basic rules
+Well, there are number of application architecture' levels:
 
-Let's talk a bit about our application before we create it - let's make some *planning*! We will think of our
-application at least as of well-designed one. So what is the **application architecture**? Not just a game, but
-any application? It's the way developer split its parts, divided classes, modules, variables, entities and other
-pieces of application, packing them into separate units and defining how they will interact. So that any new
-improvement or change to the application does not make one feel sick at the task definition stage.
+<div class="row">
+    <div class="col">
+        <img src="{{ site.baseurl }}/images/japan_feudal_system.jpg" />
+    </div>
+    <div class="col">
+        <p>
+            The highest level defines which modules will the whole
+            application consist of and what functionality will each of those modules have.
+        </p>
 
-But how about a game? What the good architecture of a game looks like? Do we need to separate one 3D models from
-others? Or does that means writing each quest in a separate `*.cpp` file? No-no-no. That means we should create
-such an application, so that any new quest, model or even a text change will not require us to re-compile the
-damn bunch of code for hours or look for a places, where that particular model or text is used and changing
-it everywhere in the source code.
+        <p>
+            The next level is how the modules communicate to each other, how they work together.
+        </p>
 
-I assume our game to have a stable, rarely changed **core**, a set of **assets** _(models, textures, sounds - any
-content, made by artists and used to be presented to the player)_ and a bunch of **scripts**, defining all the
-logic of a game - how character looks like, how the menus are shown and how they react to player's actions, how
-objects in the game world behave and how that world looks like and all the stuff. The main criteria here are:
+        <p>
+            The lower level is the structure of each module - what classes, entities, data structures and similar things will
+            the module consist of.
+        </p>
+
+        <p>
+            One of the lowest, yet still very important architecture levels is how files are organized.
+        </p>
+    </div>
+</div>
+
+From the highest architecture layer point of view, I can advice a very simple architecture:
+assume our game will have a stable, rarely changed **core**,
+a set of **assets** _(models, textures, sounds - any content, made by artists and used to be presented to the player)_
+and a bunch of **scripts**, defining all the logic of a game - how character looks like, how the menus are shown and how
+they react to player's actions, how objects in the game world behave and how that world looks like and all the stuff.
+
+The main benefits of such an approach are:
 
 1. scripts and assets may be changed at any time
-2. scripts and assets define the whole game
-3. none of the changes to scripts or assets force us to re-compile game core
+2. scripts and assets define what we show to the user and how the application behaves so that none of the changes to scripts or assets make us to re-compile the core
+3. we can modify the core and thus change how game works internally (mainly for optimization purposes) without changing the overall application functionality and behaviour
 
-Basically, we can make the core so flexible, we may use it in any game. Or we may want to create a GUI editor
-to create scripts in more handy way. But that requires much more work. And there is never a limit to make
-something better. So currently we will not advance that much.
+We can make the core so flexible that we may re-use it in the future projects.
 
 ## The tools
 
@@ -41,7 +58,7 @@ We will use **Irrlicht** engine because of its simplicity. And it satisfies all 
 does not need much content preparation; it provides GUI; extending it with **IrrKlang** will give
 us very simple interface to sound and music playback.
 
-**Newton Game Dynamics** engine we will use to physics simulate. It is easy to use and sooo powerful -
+**Newton Game Dynamics** engine we will use to simulate physics. It is easy to use and is really powerful -
 you would be impressed!
 
 The last, not the least, we will use **Lua** scripting language to write scripts. Lua is a lightweight
@@ -52,7 +69,7 @@ One of the most beautiful parts of this tutorial, will be the part on making of 
 
 I also found **CMake** kind of user-friendly. It is not that handy as any of dependency managers for all
 those languages, supporting them _(`npm` for JavaScript, `go get` for Go, `RubyGems` for Ruby, `leiningen`
-for Clojure and many others)_. Yet it makes your project to be a little more portable, helps to handle your
+for Clojure and many others)_. Yet it makes your project a little more portable, helps to handle your
 dependencies, totally eliminates the need of all those *How to configure VisualStudio for OGRE* tutorials.
 Just try it!
 

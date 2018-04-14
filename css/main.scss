@@ -3,10 +3,11 @@
 ---
 @charset "utf-8";
 
+// required by syntax-highlight
 $spacing-unit:     30px;
 
 %vertical-rhythm {
   margin-bottom: $spacing-unit / 2;
 }
 
-@import "bootstrap.min", "styles", "_syntax-highlighting";
+@import "styles", "_syntax-highlighting";
