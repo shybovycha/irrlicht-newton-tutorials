@@ -3,67 +3,100 @@ layout: default
 title: Newton physics for Irrlicht game developers
 ---
 
-<article>
+<section>
+  <h2>What will you learn?</h2>
 
   <p>
-    This tutorial covers creating a game with <a href="http://newtondynamics.com/">Newton Game Dynamics</a>,
-    powered by awesome <a href="http://irrlicht.sourceforge.net/">Irrlicht</a> graphics engine and
-    <a href="http://www.lua.org/">Lua</a> language to make some scripts.
+    This tutorial covers the development of a game from a very beginning. This includes:
+
+    <ul>
+      <li>designing the <b>architecture</b> for a game</li>
+      <li>developing the <b>game engine</b></li>
+      <li>defining game logic with <b>scripts</b></li>
+      <li>creating <b>3d models</b></li>
+      <li><b>distributing</b> the application</li>
+    </ul>
+
+    And of course, the whole tutorial is built around two libraries - <b>Irrlicht</b> and <b>Newton Game Dynamics</b>.
+
+    As for <em>{{ site.time | date: '%d %b %Y' }}</em>, the tutorial covers:
+
+    <ul>
+      <li>building application and its dependencies with Bazel</li>
+      <li>an introduction to Irrlicht and Newton Game Dynamics</li>
+      <li>creating simple Irrlicht application</li>
+      <li>defining the application behaviour with Lua scripts</li>
+      <li>adding physics simulation with Newton Game Dynamics</li>
+    </ul>
+  </p>
+
+</section>
+
+<section>
+  <h2>What should I know to proceed?</h2>
+
+  <p>
+    The tutorial assumes you have a solid basics knowledge of C++ and OOP.
+  </p>
+</section>
+
+<section>
+  <h2>Why not Unity / Unreal Engine / <em>you name it</em>?</h2>
+
+  <p>
+    The main reason why you might be interested in this tutorial, especially due to the fact that there are some well-known and
+    actively discussed/developed/used game engines like <b>Unreal Engine 4</b>, <b>Unity 3D</b> and others, is:
+    you want to know how things work and thus get most flexibility of your tools (or even start working towards building your own).
+  </p>
+</section>
+
+<section>
+  <h2>Changelog</h2>
+
+  <p>
+    <div><em>14 Apr 2018</em></div>
+
+    <ol>
+      <li>redesigned the website (you've probably noticed it if you've been here before)</li>
+      <li>
+        <div>started reworking the tutorial itself - language, information and the code:</div>
+
+        <ul>
+          <li>no more "homework" sections</li>
+          <li>new build system</li>
+          <li>updated libaries</li>
+          <li>reworking Blender modelling tutorial</li>
+          <li>sane examples</li>
+        </ul>
+      </li>
+    </ol>
+
+    <div>Stay tuned!</div>
   </p>
 
   <p>
-    Consider starting reading <a href="{{ site.baseurl }}{% post_url 2015-08-25-introduction %}">Introduction</a>,
-    this will give you brief understanding what this tutorial covers.
+    <div><em>16 Dec 2015</em></div>
+
+    <ol>
+      <li>moved all the build instructions to <strong>CMake</strong></li>
+      <li>added scripting with <strong>Lua</strong></li>
+      <li>upgraded the whole tutorial to match <strong>latest Irrlicht and Newton versions</strong></li>
+      <li>added chapter on <strong>creating a level model with Blender</strong></li>
+    </ol>
+
+    And the chapter on <strong>architecture improvements</strong> is coming soon!
   </p>
+</section>
 
-  <section>
-    <h2>News</h2>
+<section>
+  <h2>About the author</h2>
 
-    <p>
-      <div><em>14 Apr 2018</em></div>
+  <p>
+    {% assign today = site.time | date: '%Y' %}
+    {% assign start_date = '2004-09-01' | date: '%Y' %}
+    {% assign years_since = today | minus: start_date %}
 
-      <ol>
-        <li>redesigned the website (you've probably noticed it if you've been here before)</li>
-        <li>
-          <div>started reworking the tutorial itself - language, information and the code:</div>
-
-          <ul>
-            <li>new build system</li>
-            <li>updated libaries</li>
-            <li>reworking Blender modelling tutorial</li>
-            <li>sane examples</li>
-          </ul>
-        </li>
-      </ol>
-
-      <div>Stay tuned!</div>
-    </p>
-
-    <p>
-      <div><em>16 Dec 2015</em></div>
-
-      <ol>
-        <li>moved all the build instructions to <strong>CMake</strong></li>
-        <li>added scripting with <strong>Lua</strong></li>
-        <li>upgraded the whole tutorial to match <strong>latest Irrlicht and Newton versions</strong></li>
-        <li>added chapter on <strong>creating a level model with Blender</strong></li>
-      </ol>
-
-      And the chapter on <strong>architecture improvements</strong> is coming soon!
-    </p>
-  </section>
-
-  <section>
-    <h2>About the author</h2>
-
-    <p>
-      {% assign today = site.time | date: '%Y' %}
-      {% assign start_date = '2004-09-01' | date: '%Y' %}
-      {% assign years_since = today | minus: start_date %}
-
-      My name is Artem and I am a software developer. I have been writing code for nearly {{ years_since }} years now.
-      Game development was my hobby for all of them.
-    </p>
-  </section>
-
-</article>
+    My name is Artem and I am a software developer. I have been writing code for nearly {{ years_since }} years now.
+    Game development was my hobby for all of them.
+  </p>
+</section>

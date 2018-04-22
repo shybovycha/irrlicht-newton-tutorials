@@ -36,7 +36,14 @@ a {
   padding: 0.5rem;
 }
 
-kbd {}
+kbd {
+  border-radius: 3px;
+  background: #dedede;
+  padding: 1px 3px;
+  border: 1px solid #adb3b9;
+  white-space: nowrap;
+  box-shadow: 0 1px 0 rgba(12,13,14,0.2), 0 0 0px 1px #FFF inset;
+}
 
 $header-height: 4em;
 
@@ -77,6 +84,11 @@ $header-height: 4em;
   flex-basis: 58%;
   padding: 1em 4em;
   overflow: auto;
+
+  img {
+    display: flex;
+    max-width: 100%;
+  }
 }
 
 p {

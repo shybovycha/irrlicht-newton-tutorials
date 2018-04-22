@@ -20,6 +20,8 @@
       </div>
     </div>
 
-    {% include analytics.html %}
+    {% if jekyll.environment != 'development' %}
+      {% include analytics.html %}
+    {% endif %}
   </body>
 </html>

@@ -1,4 +1,4 @@
-{% assign pages = site.posts | sort:"date" %}
+{% assign pages = site.posts | sort:"order" %}
 
 <a href="{{ site.baseurl }}/" {% if page.url == '/' %}class="active"{% endif %}>Home</a>
 
