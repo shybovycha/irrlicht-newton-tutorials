@@ -28,6 +28,7 @@ a {
 .row {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .col {
@@ -74,7 +75,7 @@ $header-height: 4em;
 .content-wrapper {
   display: flex;
   margin-top: $header-height;
-  height: 100%;
+  height: calc(100% - 4em);;
 }
 
 .content {
@@ -139,11 +140,20 @@ pre.highlight {
 }
 
 @media only screen and (max-width: 850px) {
+  .content {
+    padding: 0.2em 0.8em;
+  }
+
   .header {
     justify-content: flex-start;
 
     .nav-toggle {
       display: flex;
+      margin: 0 0.5em;
+    }
+
+    .title {
+      font-size: 1.2em;
     }
   }
 
@@ -154,10 +164,16 @@ pre.highlight {
     height: 100%;
     width: 100%;
     max-width: 100%;
-    padding: 1rem 4rem;
+    padding: 0.5em 1em;
 
     &.open {
       left: 0;
+    }
+
+    a {
+      &:hover, &.active {
+        border-radius: 0;
+      }
     }
   }
 }
