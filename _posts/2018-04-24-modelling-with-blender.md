@@ -1,7 +1,8 @@
 ---
 layout: post
-title: Making simple level with Blender
-date: '2015-12-15T18:06:00+01:00'
+title: Modelling with Blender
+date: '2018-04-24T18:06:00+01:00'
+order: 50
 ---
 
 In this section we will have short but powerful introduction to Blender. We will cover

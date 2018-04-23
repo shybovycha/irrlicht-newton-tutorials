@@ -1,106 +1,41 @@
 ---
 layout: post
-title: First application
-date: '2015-08-27T18:05:00+01:00'
+title: Getting started with Irrlicht
+date: '2018-04-19T20:15:00+10:00'
+order: 20
 ---
 
-## Install Irrlicht
+## Core concepts
 
-First of all, you will definetely need the Irrlicht engine, so
-[**go get it**](http://irrlicht.sourceforge.net/downloads/).
+### Device
 
-Then you will need to compile it. Compilation process depends on the operating system you use,
-but it's really similar on every one.
+### Driver
 
-### Linux
+### Resources
 
-Install these dependencies with your system' package manager:
-`libenet-dev libxxf86vm-dev zlib-dev cmake`.
+#### Mesh
 
-Unzip Irrlicht, go to the directory you unpacked with the terminal and run the following:
+#### Texture
 
-```bash
-cd source/Irrlicht
-make
-```
+### Entity
 
-Belive it or not, but that's all!
+### Scene manager
 
-### Windows
+### Game loop
 
-Unzip Irrlicht, go to the directory you unpacked and open the VisualStudio project _(depending on
-VisualStudio version, you might want to open a bit different file)_ in `source/Irrlicht`:
+### FPS
 
-```
-Irrlicht10.0.sln
-Irrlicht11.0.sln
-Irrlicht8.0.sln
-Irrlicht9.0.sln
-```
+### Events
 
-Build it with VisualStudio - and you are done!
-
-### MacOS X
-
-The steps are a bit complicated. And they require you to install **XCode** and
-**Command-Line Tools** - those could be found either in  AppStore or on the Apple
-website.
-
-* First of all, you need to install a bunch of dependencies _(I use `brew` for this purpose)_:
-
-    ```bash
-    brew install tinyxml enet lua cmake
-    ```
-
-* Get a list of all compilers available for your OSX version:
-
-  ```bash
-  xcodebuild -showBuildSettings | grep DEFAULT_COMPILER
-  ```
-
-  I got something like this:
-
-  ```bash
-  $ xcodebuild -showBuildSettings | grep DEFAULT_COMPILER
-    DEFAULT_COMPILER = com.apple.compilers.llvm.clang.1_0
-  ```
-
-* Now the build process:
-
-  ```bash
-  cd source/Irrlicht/MacOSX
-  xcodebuild -project MacOSX.xcodeproj GCC_VERSION=com.apple.compilers.llvm.clang.1_0
-  ```
-
-* And the final step - copy the library to the `lib/MacOSX` directory:
-
-  ```bash
-  cp build/Release/libIrrlicht.a ../../../lib/MacOSX
-  ```
-
-Phew! That's a damn bunch of commands, don't you think?
-
-### Common
-
-By performing those steps, described above, you will end up with the compiled Irrlicht library file
-within the `lib/` directory, depending on your platform:
-
-    Linux/libIrrlicht.a
-    MacOSX/libIrrlicht.a
-    Win32-visualstudio/Irrlicht.lib
-    Win64-visualStudio/Irrlicht.lib
-
-Now, create a blank project in your favorite IDE and proceed...
-
-## Application itself
+## The first application
 
 Our first application will show you Irrlicht basic features we will use later. They are:
 
 * **mesh handling** - loading, rendering, animating, etc.
 * **user input handling** - reacting to keyboard and mouse events
-* **user interface (UI)* - displaying some information within the application window
+* **user interface (UI)** - displaying some information within the application window
 
-The good start for that is standard example from Irrlicht pack, the **04 - Movement** one.
+The good starting point for that is one of the examples coming with the Irrlicht pack, **04 - Movement**.
 Let's take a look over its code:
 
 ```cpp
