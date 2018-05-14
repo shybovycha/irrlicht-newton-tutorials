@@ -13,4 +13,21 @@ window.addEventListener('DOMContentLoaded', function () {
             navToggle.innerHTML = '&times;';
         }
     });
+
+    var images = [].slice.apply(document.querySelectorAll('img'));
+
+    function elementInViewport(element) {
+        return element.offsetTop >= window.scrollY ||
+            (element.offsetTop + element.clientHeight) <= (window.scrollY + window.innerHeight);
+    }
+
+    window.addEventListener('scroll', function () {
+        images.forEach(function (img) {
+            if (!elementInViewport(img)) {
+                img.style.visibility = 'hidden';
+            } else {
+                img.style.visibility = 'visible';
+            }
+        });
+    });
 });
