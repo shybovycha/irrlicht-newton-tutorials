@@ -17,8 +17,8 @@ window.addEventListener('DOMContentLoaded', function () {
     var images = [].slice.apply(document.querySelectorAll('img'));
 
     function elementInViewport(element) {
-        return element.offsetTop >= window.scrollY ||
-            (element.offsetTop + element.clientHeight) <= (window.scrollY + window.innerHeight);
+        return (element.offsetTop <= (window.scrollY + window.innerHeight + (element.clientHeight * 0.5))) &&
+            ((element.offsetTop + element.clientHeight) >= (window.scrollY - (element.clientHeight * 0.5)));
     }
 
     window.addEventListener('scroll', function () {
