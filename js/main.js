@@ -16,12 +16,26 @@ window.addEventListener('DOMContentLoaded', function () {
 
     var images = [].slice.apply(document.querySelectorAll('img'));
 
+    setTimeout(function () {
+        images = images.map(function (elt) {
+            var img = new Image();
+
+            img.onload = function () {
+                elt.parentNode.replaceChild(img, elt);
+            };
+
+            img.src = elt.getAttribute('data-src');
+        });
+    }, 0);
+
     function elementInViewport(element) {
         return (element.offsetTop <= (window.scrollY + window.innerHeight + (element.clientHeight * 0.5))) &&
             ((element.offsetTop + element.clientHeight) >= (window.scrollY - (element.clientHeight * 0.5)));
     }
 
     window.addEventListener('scroll', function () {
+        // var images = [].slice.apply(document.querySelectorAll('img'));
+
         images.forEach(function (img) {
             if (!elementInViewport(img)) {
                 img.style.visibility = 'hidden';
