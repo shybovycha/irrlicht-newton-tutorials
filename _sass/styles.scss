@@ -2,8 +2,8 @@
 
 html, body {
   font-family: 'Open Sans', arial, sans-serif;
-  height: 100%;
-  overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 a {
@@ -60,6 +60,7 @@ $header-height: 4em;
   background: #4F86EC;
   color: white;
   box-shadow: #555 0px 1px 5px;
+  z-index: 100;
 
   .nav-toggle {
     display: none;
@@ -74,21 +75,24 @@ $header-height: 4em;
 
 .content-wrapper {
   display: flex;
-  margin-top: $header-height;
-  height: calc(100% - 4em);;
-}
+  top: $header-height;
+  left: 30%;
+  width: 70%;
+  position: relative;
+  z-index: 10;
 
-.content {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  flex-basis: 58%;
-  padding: 1em 4em;
-  overflow: auto;
-
-  img {
+  .content {
     display: flex;
-    max-width: 100%;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 58%;
+    padding: 1em 4em;
+    overflow: auto;
+
+    img {
+      display: flex;
+      max-width: 100%;
+    }
   }
 }
 
@@ -120,11 +124,15 @@ pre.highlight {
   display: flex;
   flex-direction: column;
   background: white;
-  padding: 1rem;
   box-shadow: #555 0px 0px 6px;
+  padding: 1rem;
   margin-top: -0.5em;
   margin-left: -1em;
   max-width: 30%;
+  position: fixed;
+  height: 100%;
+  top: $header-height;
+  z-index: 20;
 
   a {
     display: flex;
@@ -140,8 +148,13 @@ pre.highlight {
 }
 
 @media only screen and (max-width: 850px) {
-  .content {
-    padding: 0.2em 0.8em;
+  .content-wrapper {
+    left: 0;
+    width: 100%;
+
+    .content {
+      padding: 0.2em 0.8em;
+    }
   }
 
   .header {
