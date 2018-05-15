@@ -4,19 +4,23 @@
   {% include head.html %}
 
   <body>
-    <div class="header">
-      <a href="#" class="nav-toggle">&equiv;</a>
+    <div class="row1">
+      <div class="header">
+        <a href="#" class="nav-toggle">&equiv;</a>
 
-      <div class="title">{{ page.title }}</div>
+        <div class="title">{{ page.title }}</div>
+      </div>
     </div>
 
-    <nav class="nav">
-      {% include sidebar.html %}
-    </nav>
+    <div class="row2">
+      <nav class="nav">
+        {% include sidebar.html %}
+      </nav>
 
-    <div class="content-wrapper">
-      <div class="content">
-        {{ content }}
+      <div class="content-wrapper">
+        <div class="content">
+          {{ content }}
+        </div>
       </div>
     </div>
 

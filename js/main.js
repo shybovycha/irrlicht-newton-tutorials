@@ -1,8 +1,37 @@
-window.addEventListener('DOMContentLoaded', function () {
-    var navToggle = document.querySelector('.nav-toggle');
-    var nav = document.querySelector('.nav');
+function lazyLoadImage(src, elt) {
+    return new Promise(function (resolve, reject) {
+        const img = new Image();
 
-    navToggle.addEventListener('click', function (e) {
+        img.onload = () => {
+            if (elt) {
+                elt.parentNode.replaceChild(img, elt);
+            }
+
+            resolve(img);
+        };
+
+        img.src = src;
+    });
+}
+
+function elementInViewport(element) {
+    return (element.offsetTop <= (window.scrollY + window.innerHeight + (element.clientHeight * 0.5))) &&
+        ((element.offsetTop + element.clientHeight) >= (window.scrollY - (element.clientHeight * 0.5)));
+}
+
+function handleImageViewportVisibility(img) {
+    if (!elementInViewport(img)) {
+        img.style.visibility = 'hidden';
+    } else {
+        img.style.visibility = 'visible';
+    }
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+    const navToggle = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('.nav');
+
+    navToggle.addEventListener('click', (e) => {
         e.preventDefault();
 
         if (nav.classList.contains('open')) {
@@ -14,42 +43,17 @@ window.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    function lazyLoadImage(src, elt) {
-        return new Promise(function (resolve, reject) {
-            var img = new Image();
-
-            img.onload = function () {
-                if (elt) {
-                    elt.parentNode.replaceChild(img, elt);
-                }
-
-                resolve(img);
-            };
-
-            img.src = src;
-        });
-    }
-
-    function elementInViewport(element) {
-        return (element.offsetTop <= (window.scrollY + window.innerHeight + (element.clientHeight * 0.5))) &&
-            ((element.offsetTop + element.clientHeight) >= (window.scrollY - (element.clientHeight * 0.5)));
-    }
-
+    // defer lazy image loading to after the page is loaded
     setTimeout(function () {
-        var images = [].slice.apply(document.querySelectorAll('img'));
+        const images = Array.from(document.querySelectorAll('img'));
 
-        Promise.all(images.map(function (img) {
-            return lazyLoadImage(img.getAttribute('data-src'), img);
-        })).then(function (images) {
-            window.addEventListener('scroll', function () {
-                images.forEach(function (img) {
-                    if (!elementInViewport(img)) {
-                        img.style.visibility = 'hidden';
-                    } else {
-                        img.style.visibility = 'visible';
-                    }
+        // we will use the lazy loaded images to process the scroll event
+        // thus we can't rely on <img> but rather on Image objects we replace <img>'s with
+        Promise.all(images.map(img => lazyLoadImage(img.getAttribute('data-src'), img)))
+            .then(function (images) {
+                window.addEventListener('scroll', function () {
+                    images.forEach(handleImageViewportVisibility);
                 });
             });
-        });
     }, 0);
 });
